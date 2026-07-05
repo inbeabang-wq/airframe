@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko"><head>
+<!DOCTYPE html><html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0F172A">
-<title>계통별 작동원리 &amp; 고장탐구 — Airframe</title>
+<meta name="theme-color" content="#0F172A"><title>계통별 작동원리 &amp; 고장탐구 — Airframe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -234,128 +232,60 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .figpdf{color:#FBBF24}
 
 
-.sp-wrap{max-width:1100px;margin:0 auto;padding:26px 20px 80px}
-.sp-top{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 20px}
-.sp-top a{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan)}
-.sp-hero{padding:34px 0 22px}
-.sp-hero .kick{font-family:'JetBrains Mono',monospace;letter-spacing:3px;font-size:12px;color:var(--gold)}
-.sp-hero h1{font-family:'Space Grotesk',sans-serif;font-size:32px;margin:10px 0 6px}
-.sp-hero .sub{color:var(--t2);font-size:15px;max-width:720px}
+
 .home-fab{position:fixed;top:14px;right:14px;z-index:200;background:var(--gold,#FBBF24);color:#0F172A;
   border:none;border-radius:22px;padding:9px 16px;font-weight:700;font-size:13px;font-family:'Noto Sans KR',sans-serif;
   cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
 .home-fab:hover{background:#e8c766;}
+.menu-btn{z-index:201 !important;}
 
-    .sys-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:18px}
-    .sys-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .sys-icon{font-size:26px}
-    .sys-title{font-size:19px;font-weight:800}
-    .sys-title .en{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);font-weight:400;display:block;margin-top:2px}
-    .sys-ch{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan)}
-    .sys-principle{background:var(--bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 14px;font-size:14px;color:var(--t2);margin-bottom:14px}
-    .sys-principle b{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px}
-    .tstable{width:100%;border-collapse:collapse;font-size:13px}
-    .tstable th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1px;color:var(--t3);padding:7px 10px;border-bottom:1px solid var(--line)}
-    .tstable td{padding:9px 10px;border-bottom:1px solid var(--line);color:var(--t2);vertical-align:top}
+
+    .layout{display:flex;min-height:100vh}
+    .sys-head2{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+    .sys-ic{font-size:28px}
+    .sys-t{font-size:20px;font-weight:800}
+    .sys-e{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3)}
+    .sys-ch2{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan)}
+    .sys-pr{background:var(--bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:16px}
+    .pr-lab{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);display:block;margin-bottom:6px}
+    .sys-pr p{font-size:14.5px;color:var(--t2);line-height:1.7}
+    .tt-lab{font-family:'JetBrains Mono',monospace;font-size:11px;color:#E0635A;display:block;margin-bottom:10px}
+    .tstable{width:100%;border-collapse:collapse;font-size:13.5px}
+    .tstable th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1px;color:var(--t3);padding:8px 10px;border-bottom:1px solid var(--line)}
+    .tstable td{padding:10px;border-bottom:1px solid var(--line);color:var(--t2);vertical-align:top}
     .tstable td:first-child{color:#E0635A;font-weight:600}
-    .sys-links{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+    .sys-links{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
     .sys-links a{font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);color:var(--t2)}
     .sys-links a:hover{border-color:var(--cyan);color:var(--t1)}
     
-</style></head><body>
+</style></head>
+<body>
 <a class="home-fab" href="index.html">🏠 전체목차</a>
-<div class="sp-top"><a href="index.html">← 전체 목차 (Master Index)</a></div>
-<div class="sp-wrap">
-  <div class="sp-hero"><div class="kick">SYSTEMS</div><h1>🔧 계통별 작동원리 &amp; 고장탐구</h1><div class="sub">8개 핵심 기체 계통의 작동원리와 고장탐구(증상→점검→조치)를 한눈에. 각 계통 본문·기출·FAA PDF로 바로 연결됩니다.</div></div>
-  <div class="quizbadge" style="color:#E0635A;background:rgba(224,99,90,.10);border-color:rgba(224,99,90,.28);margin-bottom:20px">⚙️ 8개 계통 · 작동원리 + 고장탐구표(증상→점검→조치) + 기출연계</div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">⚡</span>
-            <div class="sys-title">전기 계통<span class="en">Electrical System</span></div>
-            <span class="sys-ch">CH 09</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>배터리·발전기·교류발전기가 전원을 공급하고, 버스(Bus)를 통해 각 부하에 분배됩니다. 옴의 법칙(E=I×R)이 기본 원리입니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>계통 전체 무전원</td><td>마스터 스위치·배터리 접점·주 퓨즈 확인</td><td>배터리 솔레노이드/컨택터 점검</td></tr><tr><td>충전 안 됨</td><td>발전기 벨트·전압조정기·과전압센서 확인</td><td>알터네이터 출력 점검</td></tr><tr><td>특정 계통만 작동 안 함</td><td>해당 회로 차단기(CB)·배선 확인</td><td>단선/단락 점검</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch09_electrical.html">📘 항공기 전기 계통 본문</a>
-            <a href="ch09_electrical.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=417" target="_blank" rel="noopener">📄 FAA PDF p.417</a>
-          </div></div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">💧</span>
-            <div class="sys-title">유압 계통<span class="en">Hydraulic System</span></div>
-            <span class="sys-ch">CH 12</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>펌프가 유압유를 가압하고, 밸브가 방향·압력·유량을 제어해 액추에이터를 구동합니다. 어큐뮬레이터가 맥동을 흡수합니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>압력 상승 안 함</td><td>유량·펌프·릴리프밸브 확인</td><td>유압유 레벨·오염 점검</td></tr><tr><td>작동 느림</td><td>필터 막힘·내부 누설 확인</td><td>실(Seal) 마모 점검</td></tr><tr><td>유압유 누설</td><td>피팅·실·호스 확인</td><td>유압유 종류 혼합 여부 확인</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch12_hydraulic_pneumatic.html">📘 유압·공압 계통 본문</a>
-            <a href="ch12_hydraulic_pneumatic.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=680" target="_blank" rel="noopener">📄 FAA PDF p.680</a>
-          </div></div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">🛬</span>
-            <div class="sys-title">착륙장치<span class="en">Landing Gear</span></div>
-            <span class="sys-ch">CH 13</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>공기유압식(Oleo) 스트럿이 착륙 충격을 흡수하고, 유압/전기로 접이·전개됩니다. 안티스키드가 제동을 최적화합니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>스트럿 주저앉음</td><td>오일량·질소 압력 확인</td><td>실 누설 점검</td></tr><tr><td>기어 안 내려옴</td><td>유압압력·비상전개 확인</td><td>다운락 스위치 점검</td></tr><tr><td>제동 불량</td><td>브레이크 마모·유압 누설 확인</td><td>안티스키드 계통 점검</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch13_landing_gear.html">📘 착륙장치 계통 본문</a>
-            <a href="ch13_landing_gear.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=732" target="_blank" rel="noopener">📄 FAA PDF p.732</a>
-          </div></div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">⛽</span>
-            <div class="sys-title">연료 계통<span class="en">Fuel System</span></div>
-            <span class="sys-ch">CH 14</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>탱크→부스터펌프→선택밸브→필터→엔진 순으로 연료를 공급합니다. 정전용량식/부유식 지시계로 잔량을 표시합니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>연료 공급 끊김</td><td>부스터펌프·선택밸브·필터 확인</td><td>연료 오염(물·이물질) 점검</td></tr><tr><td>연료량 오지시</td><td>지시계·센더·배선 확인</td><td>정전용량 프로브 점검</td></tr><tr><td>연료 누설</td><td>탱크 실런트·피팅·배관 확인</td><td>인티그럴 탱크 실 점검</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch14_fuel_systems.html">📘 항공기 연료 계통 본문</a>
-            <a href="ch14_fuel_systems.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=824" target="_blank" rel="noopener">📄 FAA PDF p.824</a>
-          </div></div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">❄</span>
-            <div class="sys-title">방빙·제우 계통<span class="en">Ice &amp; Rain Protection</span></div>
-            <span class="sys-ch">CH 15</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>방빙(Anti-Ice)은 결빙을 예방하고, 제빙(De-Ice)은 공압 부츠로 이미 생긴 얼음을 깨뜨립니다. 열·전기·화학 방식이 있습니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>부츠 팽창 안 함</td><td>공압 압력·분배밸브 확인</td><td>부츠 손상/누설 점검</td></tr><tr><td>전열 방빙 불량</td><td>전원·히터엘리먼트·써모스탯 확인</td><td>전류 소모 점검</td></tr><tr><td>피토 히터 불량</td><td>히터 전원·회로 확인</td><td>피토관 결선 점검</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch15_ice_rain.html">📘 방빙·제우 계통 본문</a>
-            <a href="ch15_ice_rain.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=881" target="_blank" rel="noopener">📄 FAA PDF p.881</a>
-          </div></div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">🌡</span>
-            <div class="sys-title">객실 환경 제어<span class="en">Cabin Environment</span></div>
-            <span class="sys-ch">CH 16</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>블리드 에어/압축기로 여압하고, 아웃플로 밸브가 객실 고도를 조절합니다. 산소·공조 계통이 승객 환경을 유지합니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>여압 안 됨</td><td>아웃플로밸브·블리드에어·실 확인</td><td>안전밸브 점검</td></tr><tr><td>산소 공급 불량</td><td>실린더 압력·조절기·마스크 확인</td><td>유분 오염 절대 금지</td></tr><tr><td>객실 온도 이상</td><td>공조밸브·열교환기·센서 확인</td><td>에어사이클머신 점검</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch16_cabin_environment.html">📘 객실 환경 제어 본문</a>
-            <a href="ch16_cabin_environment.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=912" target="_blank" rel="noopener">📄 FAA PDF p.912</a>
-          </div></div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">🧯</span>
-            <div class="sys-title">화재 방지 계통<span class="en">Fire Protection</span></div>
-            <span class="sys-ch">CH 17</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>열스위치·열전대·연속루프로 화재를 감지하고, 소화병에서 소화제를 방출합니다. 방출지시기로 상태를 확인합니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>감지 경고 오작동</td><td>루프·커넥터·컨트롤유닛 확인</td><td>단선/단락 점검</td></tr><tr><td>소화제 방출 안 됨</td><td>소화병 압력·스퀴브·배선 확인</td><td>방출밸브 점검</td></tr><tr><td>열방출 지시기 사라짐</td><td>과열로 자동 방출됨→원인조사</td><td>소화병 교체</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch17_fire_protection.html">📘 화재 방지 계통 본문</a>
-            <a href="ch17_fire_protection.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=973" target="_blank" rel="noopener">📄 FAA PDF p.973</a>
-          </div></div><div class="sys-card">
-          <div class="sys-head"><span class="sys-icon">🧭</span>
-            <div class="sys-title">계기 계통<span class="en">Instrument System</span></div>
-            <span class="sys-ch">CH 10</span></div>
-          <div class="sys-principle"><b>작동원리 PRINCIPLE</b><br>피토정압 계통이 고도계·속도계·승강계를, 자이로가 자세계·방향계를 구동합니다. 전자계기(EFIS)로 통합 표시합니다.</div>
-          <table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead>
-          <tbody><tr><td>고도/속도 오지시</td><td>정압구·피토관 막힘 확인</td><td>계통 누설 점검</td></tr><tr><td>자이로 계기 불량</td><td>진공펌프·필터·전원 확인</td><td>자이로 세차 점검</td></tr><tr><td>계기 전체 이상</td><td>전원·계기 조명·퓨즈 확인</td><td>EFIS 계통 점검</td></tr></tbody></table>
-          <div class="sys-links">
-            <a href="ch10_instruments.html">📘 항공기 계기 계통 본문</a>
-            <a href="ch10_instruments.html#s-quiz">📝 연계 기출</a>
-            <a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=520" target="_blank" rel="noopener">📄 FAA PDF p.520</a>
-          </div></div>
+<button class="menu-btn" onclick="document.querySelector('.side').classList.toggle('open')">☰ 목차</button>
+<div class="layout">
+  <aside class="side">
+    <div class="side-head">
+      <a href="index.html" style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);margin-bottom:10px;">← 전체 목차 (Master Index)</a>
+      <div class="kicker">FAA-H-8083-31B · SYSTEMS</div><h1>계통 (SYSTEMS)</h1>
+      <div class="sub">작동원리 & 고장탐구</div>
+    </div>
+    <ul class="toc" id="toc"><li><a href="#sys9" data-target="sys9">⚡ 전기 계통 <span class="en">Electrical System</span></a></li>
+<li><a href="#sys12" data-target="sys12">💧 유압 계통 <span class="en">Hydraulic System</span></a></li>
+<li><a href="#sys13" data-target="sys13">🛬 착륙장치 <span class="en">Landing Gear</span></a></li>
+<li><a href="#sys14" data-target="sys14">⛽ 연료 계통 <span class="en">Fuel System</span></a></li>
+<li><a href="#sys15" data-target="sys15">❄ 방빙·제우 계통 <span class="en">Ice &amp; Rain Protection</span></a></li>
+<li><a href="#sys16" data-target="sys16">🌡 객실 환경 제어 <span class="en">Cabin Environment</span></a></li>
+<li><a href="#sys17" data-target="sys17">🧯 화재 방지 계통 <span class="en">Fire Protection</span></a></li>
+<li><a href="#sys10" data-target="sys10">🧭 계기 계통 <span class="en">Instrument System</span></a></li>
+</ul>
+  </aside>
+  <main>
+    <div class="hero"><div class="ch">SYSTEMS GUIDE</div>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:28px;margin:8px 0 4px">🔧 계통별 작동원리 &amp; 고장탐구</h2>
+      <p style="color:var(--t2);margin-top:12px">각 계통이 어떻게 작동하는지(작동원리)와, 문제가 생겼을 때 증상→점검→조치를 한눈에 정리했습니다. FAA-H-8083-31B 핸드북 기반이며, 각 계통의 연계 기출문제로 바로 이동할 수 있습니다.</p>
+    </div>
+    <section id="sys9" class="comp"><div class="sys-head2"><span class="sys-ic">⚡</span><div><div class="sys-t">전기 계통</div><div class="sys-e">Electrical System</div></div><span class="sys-ch2">CH 09</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>배터리·발전기·교류발전기가 전원을 공급하고, 버스(Bus)를 통해 각 부하에 분배됩니다. 옴의 법칙(E=I×R)이 기본 원리입니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>계통 전체 무전원</td><td>마스터 스위치·배터리 접점·주 퓨즈 확인</td><td>배터리 솔레노이드/컨택터 점검</td></tr><tr><td>충전 안 됨</td><td>발전기 벨트·전압조정기·과전압센서 확인</td><td>알터네이터 출력 점검</td></tr><tr><td>특정 계통만 작동 안 함</td><td>해당 회로 차단기(CB)·배선 확인</td><td>단선/단락 점검</td></tr></tbody></table></div><div class="sys-links"><a href="ch09_electrical.html">📘 본문</a><a href="ch09_electrical.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=417" target="_blank" rel="noopener">📄 FAA PDF p.417</a></div></section><section id="sys12" class="comp"><div class="sys-head2"><span class="sys-ic">💧</span><div><div class="sys-t">유압 계통</div><div class="sys-e">Hydraulic System</div></div><span class="sys-ch2">CH 12</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>펌프가 유압유를 가압하고, 밸브가 방향·압력·유량을 제어해 액추에이터를 구동합니다. 어큐뮬레이터가 맥동을 흡수합니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>압력 상승 안 함</td><td>유량·펌프·릴리프밸브 확인</td><td>유압유 레벨·오염 점검</td></tr><tr><td>작동 느림</td><td>필터 막힘·내부 누설 확인</td><td>실(Seal) 마모 점검</td></tr><tr><td>유압유 누설</td><td>피팅·실·호스 확인</td><td>유압유 종류 혼합 여부 확인</td></tr></tbody></table></div><div class="sys-links"><a href="ch12_hydraulic_pneumatic.html">📘 본문</a><a href="ch12_hydraulic_pneumatic.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=680" target="_blank" rel="noopener">📄 FAA PDF p.680</a></div></section><section id="sys13" class="comp"><div class="sys-head2"><span class="sys-ic">🛬</span><div><div class="sys-t">착륙장치</div><div class="sys-e">Landing Gear</div></div><span class="sys-ch2">CH 13</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>공기유압식(Oleo) 스트럿이 착륙 충격을 흡수하고, 유압/전기로 접이·전개됩니다. 안티스키드가 제동을 최적화합니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>스트럿 주저앉음</td><td>오일량·질소 압력 확인</td><td>실 누설 점검</td></tr><tr><td>기어 안 내려옴</td><td>유압압력·비상전개 확인</td><td>다운락 스위치 점검</td></tr><tr><td>제동 불량</td><td>브레이크 마모·유압 누설 확인</td><td>안티스키드 계통 점검</td></tr></tbody></table></div><div class="sys-links"><a href="ch13_landing_gear.html">📘 본문</a><a href="ch13_landing_gear.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=732" target="_blank" rel="noopener">📄 FAA PDF p.732</a></div></section><section id="sys14" class="comp"><div class="sys-head2"><span class="sys-ic">⛽</span><div><div class="sys-t">연료 계통</div><div class="sys-e">Fuel System</div></div><span class="sys-ch2">CH 14</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>탱크→부스터펌프→선택밸브→필터→엔진 순으로 연료를 공급합니다. 정전용량식/부유식 지시계로 잔량을 표시합니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>연료 공급 끊김</td><td>부스터펌프·선택밸브·필터 확인</td><td>연료 오염(물·이물질) 점검</td></tr><tr><td>연료량 오지시</td><td>지시계·센더·배선 확인</td><td>정전용량 프로브 점검</td></tr><tr><td>연료 누설</td><td>탱크 실런트·피팅·배관 확인</td><td>인티그럴 탱크 실 점검</td></tr></tbody></table></div><div class="sys-links"><a href="ch14_fuel_systems.html">📘 본문</a><a href="ch14_fuel_systems.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=824" target="_blank" rel="noopener">📄 FAA PDF p.824</a></div></section><section id="sys15" class="comp"><div class="sys-head2"><span class="sys-ic">❄</span><div><div class="sys-t">방빙·제우 계통</div><div class="sys-e">Ice &amp; Rain Protection</div></div><span class="sys-ch2">CH 15</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>방빙(Anti-Ice)은 결빙을 예방하고, 제빙(De-Ice)은 공압 부츠로 이미 생긴 얼음을 깨뜨립니다. 열·전기·화학 방식이 있습니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>부츠 팽창 안 함</td><td>공압 압력·분배밸브 확인</td><td>부츠 손상/누설 점검</td></tr><tr><td>전열 방빙 불량</td><td>전원·히터엘리먼트·써모스탯 확인</td><td>전류 소모 점검</td></tr><tr><td>피토 히터 불량</td><td>히터 전원·회로 확인</td><td>피토관 결선 점검</td></tr></tbody></table></div><div class="sys-links"><a href="ch15_ice_rain.html">📘 본문</a><a href="ch15_ice_rain.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=881" target="_blank" rel="noopener">📄 FAA PDF p.881</a></div></section><section id="sys16" class="comp"><div class="sys-head2"><span class="sys-ic">🌡</span><div><div class="sys-t">객실 환경 제어</div><div class="sys-e">Cabin Environment</div></div><span class="sys-ch2">CH 16</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>블리드 에어/압축기로 여압하고, 아웃플로 밸브가 객실 고도를 조절합니다. 산소·공조 계통이 승객 환경을 유지합니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>여압 안 됨</td><td>아웃플로밸브·블리드에어·실 확인</td><td>안전밸브 점검</td></tr><tr><td>산소 공급 불량</td><td>실린더 압력·조절기·마스크 확인</td><td>유분 오염 절대 금지</td></tr><tr><td>객실 온도 이상</td><td>공조밸브·열교환기·센서 확인</td><td>에어사이클머신 점검</td></tr></tbody></table></div><div class="sys-links"><a href="ch16_cabin_environment.html">📘 본문</a><a href="ch16_cabin_environment.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=912" target="_blank" rel="noopener">📄 FAA PDF p.912</a></div></section><section id="sys17" class="comp"><div class="sys-head2"><span class="sys-ic">🧯</span><div><div class="sys-t">화재 방지 계통</div><div class="sys-e">Fire Protection</div></div><span class="sys-ch2">CH 17</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>열스위치·열전대·연속루프로 화재를 감지하고, 소화병에서 소화제를 방출합니다. 방출지시기로 상태를 확인합니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>감지 경고 오작동</td><td>루프·커넥터·컨트롤유닛 확인</td><td>단선/단락 점검</td></tr><tr><td>소화제 방출 안 됨</td><td>소화병 압력·스퀴브·배선 확인</td><td>방출밸브 점검</td></tr><tr><td>열방출 지시기 사라짐</td><td>과열로 자동 방출됨→원인조사</td><td>소화병 교체</td></tr></tbody></table></div><div class="sys-links"><a href="ch17_fire_protection.html">📘 본문</a><a href="ch17_fire_protection.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=973" target="_blank" rel="noopener">📄 FAA PDF p.973</a></div></section><section id="sys10" class="comp"><div class="sys-head2"><span class="sys-ic">🧭</span><div><div class="sys-t">계기 계통</div><div class="sys-e">Instrument System</div></div><span class="sys-ch2">CH 10</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>피토정압 계통이 고도계·속도계·승강계를, 자이로가 자세계·방향계를 구동합니다. 전자계기(EFIS)로 통합 표시합니다.</p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>고도/속도 오지시</td><td>정압구·피토관 막힘 확인</td><td>계통 누설 점검</td></tr><tr><td>자이로 계기 불량</td><td>진공펌프·필터·전원 확인</td><td>자이로 세차 점검</td></tr><tr><td>계기 전체 이상</td><td>전원·계기 조명·퓨즈 확인</td><td>EFIS 계통 점검</td></tr></tbody></table></div><div class="sys-links"><a href="ch10_instruments.html">📘 본문</a><a href="ch10_instruments.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/media/faa-h-8083-31-amt-airframe-vol-1.pdf#page=520" target="_blank" rel="noopener">📄 FAA PDF p.520</a></div></section>
+  </main>
 </div>
 <button class="backtop" id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>

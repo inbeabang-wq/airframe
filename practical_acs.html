@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko"><head>
+<!DOCTYPE html><html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0F172A">
-<title>ACS 실기·구술 모의시험 — Airframe</title>
+<meta name="theme-color" content="#0F172A"><title>ACS 실기·구술 모의시험 — Airframe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -234,124 +232,69 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .figpdf{color:#FBBF24}
 
 
-.sp-wrap{max-width:1100px;margin:0 auto;padding:26px 20px 80px}
-.sp-top{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 20px}
-.sp-top a{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan)}
-.sp-hero{padding:34px 0 22px}
-.sp-hero .kick{font-family:'JetBrains Mono',monospace;letter-spacing:3px;font-size:12px;color:var(--gold)}
-.sp-hero h1{font-family:'Space Grotesk',sans-serif;font-size:32px;margin:10px 0 6px}
-.sp-hero .sub{color:var(--t2);font-size:15px;max-width:720px}
+
 .home-fab{position:fixed;top:14px;right:14px;z-index:200;background:var(--gold,#FBBF24);color:#0F172A;
   border:none;border-radius:22px;padding:9px 16px;font-weight:700;font-size:13px;font-family:'Noto Sans KR',sans-serif;
   cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
 .home-fab:hover{background:#e8c766;}
+.menu-btn{z-index:201 !important;}
 
-    .acs-sec{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:2px;color:var(--gold);margin:26px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-    .proj{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px}
-    .proj-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-    .proj-no{font-family:'JetBrains Mono',monospace;font-size:12px;color:#34D399;background:rgba(52,211,153,.12);padding:3px 9px;border-radius:6px}
-    .proj-title{font-size:16px;font-weight:800}
-    .proj-title .en{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);font-weight:400;margin-left:6px}
-    .proj-link{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);border:1px solid var(--line);padding:5px 10px;border-radius:7px}
-    .proj-desc{font-size:13.5px;color:var(--t2)}
-    .oral-item{background:var(--panel);border-left:3px solid var(--cyan);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:11px}
-    .oral-ch{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--cyan);margin-bottom:6px}
-    .oral-q{font-size:14.5px;font-weight:700;margin-bottom:7px;color:var(--t1)}
-    .oral-a{font-size:13.5px;color:var(--t2)}
-    .oral-a b{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px}
+
+    .layout{display:flex;min-height:100vh}
+    .acs-info{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:22px}
+    .acs-info .lab{color:var(--gold);font-weight:700}
+    .acs-info p{color:var(--t2);font-size:14px;line-height:1.7;margin-top:6px}
+    .acs-info .en{color:var(--t3);font-style:italic;font-size:13px}
+    .acs-sec2{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:2px;color:var(--gold);margin:26px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--gold)}
+    .proj2{background:var(--panel);border:1px solid var(--line);border-radius:13px;margin-bottom:16px;overflow:hidden}
+    .proj2-head{display:flex;align-items:center;gap:11px;padding:15px 18px;background:var(--panel2);flex-wrap:wrap}
+    .proj2-badge{width:34px;height:34px;border-radius:50%;background:var(--cyan2);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+    .proj2-acs{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);padding:4px 10px;border-radius:6px}
+    .proj2-title{font-size:16px;font-weight:800}
+    .proj2-title .en{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);font-weight:400;font-style:italic}
+    .proj2-link{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);border:1px solid var(--line);padding:5px 11px;border-radius:7px}
+    .proj2-body{padding:16px 18px}
+    .pf{margin-bottom:13px}
+    .pf-lab{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);display:block;margin-bottom:5px;letter-spacing:.5px}
+    .pf p{font-size:13.5px;color:var(--t2);line-height:1.6}
+    .pf-oral{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-top:6px}
+    .pf-oral .pf-lab{color:var(--gold)}
+    .acsq{font-size:13px;color:var(--t2);padding:5px 0}
+    .oral2{background:var(--panel);border-left:3px solid var(--cyan);border-radius:0 10px 10px 0;padding:13px 16px;margin-bottom:10px}
+    .oral2-ch{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--cyan);margin-bottom:5px}
+    .oral2-q{font-size:14px;font-weight:700;margin-bottom:6px}
+    .oral2-a{font-size:13px;color:var(--t2)}
+    .oral2-a b{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px}
     
-</style></head><body>
+</style></head>
+<body>
 <a class="home-fab" href="index.html">🏠 전체목차</a>
-<div class="sp-top"><a href="index.html">← 전체 목차 (Master Index)</a></div>
-<div class="sp-wrap">
-  <div class="sp-hero"><div class="kick">ACS EXAM</div><h1>🎯 ACS 실기·구술 모의시험</h1><div class="sub">FAA Mechanic ACS(Airframe) 기반 실기 프로젝트 12개 + 구술 샘플 24문항. 각 항목이 관련 챕터로 연결됩니다.</div></div>
-  <div class="quizbadge" style="color:#34D399;background:rgba(52,211,153,.10);border-color:rgba(52,211,153,.28);margin-bottom:8px">🔧 실기 프로젝트 12개 + 🗣 ACS 구술 24문항</div>
-    <div class="acs-sec">🔧 실기 프로젝트 / PRACTICAL PROJECTS</div><div class="proj"><div class="proj-head"><span class="proj-no">P01</span>
-          <span class="proj-title">리벳 작업<span class="en">Riveting</span></span>
-          <a class="proj-link" href="ch04_metal_repair.html">CH04 →</a></div>
-          <div class="proj-desc">솔리드 리벳(MS20470/MS20426) 식별·설치, 리벳 지름·길이 산정, 벅테일 검사</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P02</span>
-          <span class="proj-title">판금 굽힘<span class="en">Sheet Metal Bending</span></span>
-          <a class="proj-link" href="ch04_metal_repair.html">CH04 →</a></div>
-          <div class="proj-desc">굽힘 여유(Bend Allowance)·셋백 계산, 최소 굽힘 반경 적용, 판재 성형</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P03</span>
-          <span class="proj-title">복합재 수리<span class="en">Composite Repair</span></span>
-          <a class="proj-link" href="ch07_composites.html">CH07 →</a></div>
-          <div class="proj-desc">손상 검사(코인탭), 플라이 레이업, 진공백 경화, 수리부 검사</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P04</span>
-          <span class="proj-title">조종 케이블<span class="en">Control Cables</span></span>
-          <a class="proj-link" href="ch01_aircraft_structures.html">CH01 →</a></div>
-          <div class="proj-desc">케이블 종단(스웨이지/니코프레스), 장력 측정(텐시오미터), 턴버클 안전결선</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P05</span>
-          <span class="proj-title">착륙장치 서비스<span class="en">Landing Gear Servicing</span></span>
-          <a class="proj-link" href="ch13_landing_gear.html">CH13 →</a></div>
-          <div class="proj-desc">오레오 스트럿 서비스(오일·질소), 스트럿 노출량 점검, 타이어 압력</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P06</span>
-          <span class="proj-title">전기 배선<span class="en">Electrical Wiring</span></span>
-          <a class="proj-link" href="ch09_electrical.html">CH09 →</a></div>
-          <div class="proj-desc">전선 규격 선정, 압착 단자, 배선 지지·라우팅, 회로 점검</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P07</span>
-          <span class="proj-title">연료계통 점검<span class="en">Fuel System</span></span>
-          <a class="proj-link" href="ch14_fuel_systems.html">CH14 →</a></div>
-          <div class="proj-desc">연료 오염 검사(물·이물질), 연료량 지시 점검, 누설 점검</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P08</span>
-          <span class="proj-title">유압계통 서비스<span class="en">Hydraulic Servicing</span></span>
-          <a class="proj-link" href="ch12_hydraulic_pneumatic.html">CH12 →</a></div>
-          <div class="proj-desc">유압유 종류 확인·보충, 필터 교환, 계통 블리딩</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P09</span>
-          <span class="proj-title">우포 외피<span class="en">Fabric Covering</span></span>
-          <a class="proj-link" href="ch03_fabric_covering.html">CH03 →</a></div>
-          <div class="proj-desc">우포 강도 시험(70% 기준), 리브 레이싱, 도포 검사</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P10</span>
-          <span class="proj-title">용접<span class="en">Welding</span></span>
-          <a class="proj-link" href="ch05_welding.html">CH05 →</a></div>
-          <div class="proj-desc">4130 강관 용접, 클러스터 수리, 용접부 검사</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P11</span>
-          <span class="proj-title">방빙계통<span class="en">Ice Protection</span></span>
-          <a class="proj-link" href="ch15_ice_rain.html">CH15 →</a></div>
-          <div class="proj-desc">제빙부츠 점검, 피토 히터 작동 확인, 방빙액 계통 점검</div></div><div class="proj"><div class="proj-head"><span class="proj-no">P12</span>
-          <span class="proj-title">화재감지<span class="en">Fire Detection</span></span>
-          <a class="proj-link" href="ch17_fire_protection.html">CH17 →</a></div>
-          <div class="proj-desc">연속루프 도통 시험, 감지회로 점검, 소화병 압력 확인</div></div>
-    <div class="acs-sec">🗣 ACS 구술 샘플 / ORAL EXAM SAMPLES</div><div class="oral-item"><div class="oral-ch">CH01 · 항공기 구조</div>
-          <div class="oral-q">Q. 세미모노코크가 모노코크보다 나은 점은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 외피와 내부 골격이 하중을 분담해 찌그러짐·손상에 강하고 수리가 쉽습니다.</div></div><div class="oral-item"><div class="oral-ch">CH01 · 항공기 구조</div>
-          <div class="oral-q">Q. 스파의 역할은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 날개 길이 방향으로 뻗어 공기력을 동체로 전달하는 주 하중 부재입니다.</div></div><div class="oral-item"><div class="oral-ch">CH01 · 항공기 구조</div>
-          <div class="oral-q">Q. 조종면 도장 후 반드시 해야 하는 것은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 무게가 바뀌었으므로 정적 평형(Static Balance)을 재확인해 플러터를 방지해야 합니다.</div></div><div class="oral-item"><div class="oral-ch">CH01 · 항공기 구조</div>
-          <div class="oral-q">Q. 항공기의 세 축과 조종면을 짝지으면?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 세로축-에일러론(롤), 가로축-승강타(피치), 수직축-방향타(요)입니다.</div></div><div class="oral-item"><div class="oral-ch">CH01 · 항공기 구조</div>
-          <div class="oral-q">Q. 페어리드(Fairlead)로 케이블 방향을 바꿔도 되는가?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 안 됩니다. 페어리드는 구조 접촉 방지용이며, 방향 전환은 반드시 풀리로 해야 합니다.</div></div><div class="oral-item"><div class="oral-ch">CH02 · 공기역학·조립·리깅</div>
-          <div class="oral-q">Q. 임계 받음각을 넘으면 무슨 일이 생기는가?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 윗면 기류가 박리되어 양력을 잃는 실속(Stall)이 발생합니다.</div></div><div class="oral-item"><div class="oral-ch">CH02 · 공기역학·조립·리깅</div>
-          <div class="oral-q">Q. 방향 안정성을 위해 필요한 면적 조건은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 무게중심(CG) 뒤쪽 면적이 앞쪽보다 커야 풍향계처럼 정렬됩니다.</div></div><div class="oral-item"><div class="oral-ch">CH02 · 공기역학·조립·리깅</div>
-          <div class="oral-q">Q. 탠덤 로터 헬리콥터가 반토크 로터가 필요 없는 이유는?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 앞뒤 두 로터가 서로 반대로 돌아 토크가 상쇄되기 때문입니다.</div></div><div class="oral-item"><div class="oral-ch">CH02 · 공기역학·조립·리깅</div>
-          <div class="oral-q">Q. 자동회전 진입 시 조종사가 하는 첫 조작은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 콜렉티브를 내려 블레이드 피치를 줄이고, 아래에서 위로 공기가 흐르게 합니다.</div></div><div class="oral-item"><div class="oral-ch">CH03 · 항공기 우포 외피</div>
-          <div class="oral-q">Q. 그레이드 A 면의 신품 최소 인장강도는?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 폭 1인치당 80파운드(80 lb/in)이며, 56 lb/in까지 감항입니다.</div></div><div class="oral-item"><div class="oral-ch">CH03 · 항공기 우포 외피</div>
-          <div class="oral-q">Q. 바이어스(Bias) 방향은 왜 곡면 성형에 쓰이는가?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 워프에 45° 대각선 방향이라 늘어나서 곡면·모서리 성형에 유리합니다.</div></div><div class="oral-item"><div class="oral-ch">CH03 · 항공기 우포 외피</div>
-          <div class="oral-q">Q. 검사링(Inspection Ring)의 역할은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 내부 구조 접근구를 만들면서 우포에 강도를 더하고 풀림을 방지합니다.</div></div><div class="oral-item"><div class="oral-ch">CH04 · 금속 구조 수리</div>
-          <div class="oral-q">Q. 리벳 구멍은 왜 생크보다 약간 크게 뚫는가?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 약 0.003인치 크게 뚫어야 리벳이 들어가고, 구동 시 팽창해 구멍을 꽉 채웁니다.</div></div><div class="oral-item"><div class="oral-ch">CH04 · 금속 구조 수리</div>
-          <div class="oral-q">Q. 아이스박스 리벳을 재열처리하면 강도가 손상되는가?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 아니요. 재열처리를 반복해도 강도가 손상되지 않습니다.</div></div><div class="oral-item"><div class="oral-ch">CH04 · 금속 구조 수리</div>
-          <div class="oral-q">Q. 접시머리 리벳 설치 전 판재에 하는 두 가지 가공은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 얇은 판은 딤플링(눌러 성형), 두꺼운 판은 카운터싱킹(절삭)입니다.</div></div><div class="oral-item"><div class="oral-ch">CH04 · 금속 구조 수리</div>
-          <div class="oral-q">Q. Dzus 파스너가 제대로 잠겼는지 어떻게 확인하는가?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 잠길 때 딸깍 소리가 나고, 모든 파스너 머리가 일렬로 정렬됩니다.</div></div><div class="oral-item"><div class="oral-ch">CH07 · 첨단 복합재료</div>
-          <div class="oral-q">Q. 탄소섬유 복합재 취급 시 전기적 주의사항은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 탄소섬유는 전기 전도성이 있어 전자장비 근처 분진에 주의해야 합니다.</div></div><div class="oral-item"><div class="oral-ch">CH09 · 항공기 전기 계통</div>
-          <div class="oral-q">Q. 납산 배터리의 충전 상태는 무엇으로 확인합니까?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 전해액의 비중(Specific Gravity)을 비중계(Hydrometer)로 측정합니다.</div></div><div class="oral-item"><div class="oral-ch">CH09 · 항공기 전기 계통</div>
-          <div class="oral-q">Q. 부하계(Loadmeter)는 무엇을 %로 표시합니까?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 발전기 정격 대비 현재 전기 부하를 %로 표시하며, 100%를 넘기면 안 됩니다.</div></div><div class="oral-item"><div class="oral-ch">CH09 · 항공기 전기 계통</div>
-          <div class="oral-q">Q. 발전기를 버스에 병렬 연결하기 전 일치시켜야 하는 세 가지는?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 전압(Voltage), 위상(Phase), 주파수(Frequency)입니다.</div></div><div class="oral-item"><div class="oral-ch">CH12 · 유압·공압 계통</div>
-          <div class="oral-q">Q. 서로 다른 유압유를 혼합하면 어떤 문제가 생깁니까?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 실(Seal)과 계통 부품이 손상되므로 절대 혼합하면 안 됩니다.</div></div><div class="oral-item"><div class="oral-ch">CH13 · 착륙장치 계통</div>
-          <div class="oral-q">Q. 안티스키드(Anti-Skid) 계통의 목적은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 휠 잠김을 방지해 제동 효율을 높이고 타이어를 보호합니다.</div></div><div class="oral-item"><div class="oral-ch">CH16 · 객실 환경 제어</div>
-          <div class="oral-q">Q. 비상용 산소 공급에 쓰이는 발생기 형식은?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 화학 산소 발생기(Chemical Oxygen Generator)입니다.</div></div><div class="oral-item"><div class="oral-ch">CH17 · 화재 방지 계통</div>
-          <div class="oral-q">Q. 소화 계통의 열방출 지시기(빨강 디스크)가 사라졌다면?</div>
-          <div class="oral-a"><b>모범답안 A.</b> 과열로 소화제가 열방출되었음을 의미하며, 원인 조사와 용기 교체가 필요합니다.</div></div>
+<button class="menu-btn" onclick="document.querySelector('.side').classList.toggle('open')">☰ 목차</button>
+<div class="layout">
+  <aside class="side">
+    <div class="side-head">
+      <a href="index.html" style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);margin-bottom:10px;">← 전체 목차 (Master Index)</a>
+      <div class="kicker">FAA MECHANIC ACS</div><h1>ACS 실기·구술 모의시험</h1>
+      <div class="sub">Sample Practical &amp; Oral Exam</div>
+    </div>
+    <ul class="toc" id="toc"><li><a href="#acs-overview" data-target="acs-overview">시험 안내 <span class="en">Test Overview</span></a></li>
+    <li><a href="#acs-projects" data-target="acs-projects">실기 프로젝트 <span class="en">Practical Project</span></a></li>
+    <li><a href="#acs-orals" data-target="acs-orals">샘플 구술시험 <span class="en">Sample Oral Exam</span></a></li></ul>
+  </aside>
+  <main>
+    <div class="hero"><div class="ch">ACS EXAM</div>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:28px;margin:8px 0 4px">🎯 ACS 실기·구술 모의시험</h2>
+      <p style="color:var(--t2);margin-top:12px">FAA Mechanic ACS(Airframe) 기반 실기 프로젝트 12개 + 구술 샘플 24문항. 각 항목이 관련 챕터로 연결됩니다.</p>
+    </div>
+    <section id="acs-overview" class="comp">
+      <div class="acs-info"><span class="lab">안내</span> FAA Mechanic ACS(FAA-S-ACS-1) Airframe 영역 구조에 기반해 자체 제작한 실기 프로젝트 학습자료입니다. 실제 시험 프로젝트는 DME가 지정하며, 본 자료는 형식·내용 연습용입니다. 모든 절차·수치는 반드시 해당 항공기 정비교범(AMM)을 따르십시오.
+      <p class="en">Self-prepared practice projects based on the FAA Mechanic ACS (FAA-S-ACS-1) Airframe subjects. Actual exam projects are assigned by the DME; this material is for format and content practice only. Always follow the applicable maintenance manual (AMM).</p></div>
+    </section>
+    <div class="acs-sec2" id="acs-projects">🔧 실기 프로젝트 / PRACTICAL PROJECTS</div>
+    <div class="proj2"><div class="proj2-head"><span class="proj2-badge">A</span><span class="proj2-acs">AM.I.A</span><div class="proj2-title">프로젝트 — 리벳 작업<span class="en">Project — Riveting</span></div><a class="proj2-link" href="ch04_metal_repair.html">CH04 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>지정 항공기 구조부에 솔리드 리벳(MS20470/MS20426)을 식별·설치하고 검사한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>지정 항공기, 리벳건·벅킹바, 해당 정비교범</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>리벳 지름·길이를 정확히 산정하고, 벅테일(1.5D×0.5D)을 규격대로 성형한다.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 리벳 알로이 AD와 DD의 차이는?</div><div class="acsq">Q2. 접시머리 리벳 설치 전 판재 가공 방법은?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">B</span><span class="proj2-acs">AM.I.B</span><div class="proj2-title">프로젝트 — 판금 굽힘<span class="en">Project — Sheet Metal Bending</span></div><a class="proj2-link" href="ch04_metal_repair.html">CH04 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>지정 판재를 굽힘 여유·셋백을 계산해 정확한 치수로 성형한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>판재, 코니스브레이크, 굽힘 계산 자료</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>굽힘 여유(Bend Allowance)·셋백을 계산하고, 최소 굽힘 반경을 적용한다.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 셋백(Setback)이란 무엇인가?</div><div class="acsq">Q2. 최소 굽힘 반경을 지키지 않으면?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">C</span><span class="proj2-acs">AM.II.C</span><div class="proj2-title">프로젝트 — 복합재 수리<span class="en">Project — Composite Repair</span></div><a class="proj2-link" href="ch07_composites.html">CH07 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>복합재 손상부를 검사하고 플라이 레이업으로 수리한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>복합재 패널, 수지·경화제, 진공백 장비</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>코인탭으로 손상 검사, 플라이 방향을 맞춰 레이업, 진공백 경화한다.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 복합재 손상 검사법 코인탭이란?</div><div class="acsq">Q2. 진공백 경화가 필요한 이유는?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">D</span><span class="proj2-acs">AM.III.D</span><div class="proj2-title">프로젝트 — 조종 케이블<span class="en">Project — Control Cables</span></div><a class="proj2-link" href="ch01_aircraft_structures.html">CH01 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>조종 케이블을 종단·장력 조정하고 안전결선한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>케이블, 스웨이지 공구, 텐시오미터</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>스웨이지/니코프레스로 종단, 텐시오미터로 장력 측정, 턴버클 안전결선.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 스웨이지 단자의 강도는 원래의 몇 %?</div><div class="acsq">Q2. 턴버클 나사산 노출 한계는?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">E</span><span class="proj2-acs">AM.IV.E</span><div class="proj2-title">프로젝트 — 착륙장치 서비스<span class="en">Project — Landing Gear Servicing</span></div><a class="proj2-link" href="ch13_landing_gear.html">CH13 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>오레오 스트럿을 서비스하고 상태를 점검한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>지정 항공기, 질소·유압유, 정비교범</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>오일·질소를 규정대로 보충, 스트럿 노출량과 타이어 압력을 점검한다.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 오레오 스트럿 주저앉음의 원인은?</div><div class="acsq">Q2. 스트럿 서비스 시 무엇을 보충하는가?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">F</span><span class="proj2-acs">AM.V.F</span><div class="proj2-title">프로젝트 — 전기 배선<span class="en">Project — Electrical Wiring</span></div><a class="proj2-link" href="ch09_electrical.html">CH09 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>전선을 규격에 맞게 선정·압착하고 배선한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>전선, 압착공구, 단자</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>전선 규격 선정, 압착 단자 시공, 배선 지지·라우팅, 회로 점검.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 전선 규격(AWG) 선정 기준은?</div><div class="acsq">Q2. 본딩·접지의 목적은?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">G</span><span class="proj2-acs">AM.VI.G</span><div class="proj2-title">프로젝트 — 연료계통 점검<span class="en">Project — Fuel System</span></div><a class="proj2-link" href="ch14_fuel_systems.html">CH14 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>연료계통을 점검하고 오염을 검사한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>지정 항공기, 연료 샘플 용기</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>연료 오염(물·이물질) 검사, 연료량 지시 점검, 누설 점검.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 연료 오염 검사에서 무엇을 확인하는가?</div><div class="acsq">Q2. 정전용량식 연료량계의 원리는?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">H</span><span class="proj2-acs">AM.VII.H</span><div class="proj2-title">프로젝트 — 유압계통 서비스<span class="en">Project — Hydraulic Servicing</span></div><a class="proj2-link" href="ch12_hydraulic_pneumatic.html">CH12 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>유압계통을 서비스하고 블리딩한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>유압유, 필터, 정비교범</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>유압유 종류 확인·보충, 필터 교환, 계통 블리딩.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 유압유 종류를 혼합하면 안 되는 이유는?</div><div class="acsq">Q2. 어큐뮬레이터의 역할은?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">I</span><span class="proj2-acs">AM.VIII.I</span><div class="proj2-title">프로젝트 — 우포 외피<span class="en">Project — Fabric Covering</span></div><a class="proj2-link" href="ch03_fabric_covering.html">CH03 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>우포 강도를 시험하고 리브 레이싱을 검사한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>우포 시편, 강도 시험기</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>우포 강도 시험(70% 기준), 리브 레이싱, 도포 검사.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 우포 교체 기준 강도는 신품의 몇 %?</div><div class="acsq">Q2. 도프의 역할은?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">J</span><span class="proj2-acs">AM.IX.J</span><div class="proj2-title">프로젝트 — 용접<span class="en">Project — Welding</span></div><a class="proj2-link" href="ch05_welding.html">CH05 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>4130 강관을 용접하고 검사한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>4130 강관 시편, 용접 장비</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>클러스터 용접, 용접부 침투·강도 검사.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 4130 강관 용접에 쓰는 방법은?</div><div class="acsq">Q2. 용접부 검사 항목은?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">K</span><span class="proj2-acs">AM.X.K</span><div class="proj2-title">프로젝트 — 방빙계통<span class="en">Project — Ice Protection</span></div><a class="proj2-link" href="ch15_ice_rain.html">CH15 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>방빙·제빙 계통을 점검한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>지정 항공기, 정비교범</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>제빙부츠 점검, 피토 히터 작동 확인, 방빙액 계통 점검.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 방빙(Anti-ice)과 제빙(De-ice)의 차이는?</div><div class="acsq">Q2. 공압 부츠 작동 원리는?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">L</span><span class="proj2-acs">AM.XI.L</span><div class="proj2-title">프로젝트 — 화재감지<span class="en">Project — Fire Detection</span></div><a class="proj2-link" href="ch17_fire_protection.html">CH17 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>화재감지 계통을 시험한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>지정 항공기, 시험 장비</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>연속루프 도통 시험, 감지회로 점검, 소화병 압력 확인.</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. 연속루프식 화재감지의 원리는?</div><div class="acsq">Q2. 소화병 방출지시기가 사라지면?</div></div></div></div><div class="proj2"><div class="proj2-head"><span class="proj2-badge">M</span><span class="proj2-acs">AM.XII.M</span><div class="proj2-title">프로젝트 — 검사·기록<span class="en">Project — Inspection &amp; Records</span></div><a class="proj2-link" href="ch01_aircraft_structures.html">CH01 →</a></div><div class="proj2-body"><div class="pf"><span class="pf-lab">DESCRIPTION · 작업 설명</span><p>기체 검사를 수행하고 기록한다.</p></div><div class="pf"><span class="pf-lab">GIVEN · 제공물</span><p>지정 항공기, 검사 체크리스트, Form 337</p></div><div class="pf"><span class="pf-lab">PERFORMANCE STANDARD · 수행 기준</span><p>기체 검사 수행, 결함 판정, 정비 기록·서명(Form 337).</p></div><div class="pf pf-oral"><span class="pf-lab">🗣 프로젝트 연계 구술질문 (DME 질문 2개)</span><div class="acsq">Q1. Form 337은 언제 작성하는가?</div><div class="acsq">Q2. 주요 수리(Major Repair)의 정의는?</div></div></div></div>
+    <div class="acs-sec2" id="acs-orals">🗣 샘플 구술시험 / SAMPLE ORAL EXAM</div>
+    <div class="oral2"><div class="oral2-ch">CH01 · 항공기 구조</div><div class="oral2-q">Q. 세미모노코크가 모노코크보다 나은 점은?</div><div class="oral2-a"><b>모범답안 A.</b> 외피와 내부 골격이 하중을 분담해 찌그러짐·손상에 강하고 수리가 쉽습니다.</div></div><div class="oral2"><div class="oral2-ch">CH01 · 항공기 구조</div><div class="oral2-q">Q. 스파의 역할은?</div><div class="oral2-a"><b>모범답안 A.</b> 날개 길이 방향으로 뻗어 공기력을 동체로 전달하는 주 하중 부재입니다.</div></div><div class="oral2"><div class="oral2-ch">CH01 · 항공기 구조</div><div class="oral2-q">Q. 조종면 도장 후 반드시 해야 하는 것은?</div><div class="oral2-a"><b>모범답안 A.</b> 무게가 바뀌었으므로 정적 평형(Static Balance)을 재확인해 플러터를 방지해야 합니다.</div></div><div class="oral2"><div class="oral2-ch">CH01 · 항공기 구조</div><div class="oral2-q">Q. 항공기의 세 축과 조종면을 짝지으면?</div><div class="oral2-a"><b>모범답안 A.</b> 세로축-에일러론(롤), 가로축-승강타(피치), 수직축-방향타(요)입니다.</div></div><div class="oral2"><div class="oral2-ch">CH01 · 항공기 구조</div><div class="oral2-q">Q. 페어리드(Fairlead)로 케이블 방향을 바꿔도 되는가?</div><div class="oral2-a"><b>모범답안 A.</b> 안 됩니다. 페어리드는 구조 접촉 방지용이며, 방향 전환은 반드시 풀리로 해야 합니다.</div></div><div class="oral2"><div class="oral2-ch">CH02 · 공기역학·조립·리깅</div><div class="oral2-q">Q. 임계 받음각을 넘으면 무슨 일이 생기는가?</div><div class="oral2-a"><b>모범답안 A.</b> 윗면 기류가 박리되어 양력을 잃는 실속(Stall)이 발생합니다.</div></div><div class="oral2"><div class="oral2-ch">CH02 · 공기역학·조립·리깅</div><div class="oral2-q">Q. 방향 안정성을 위해 필요한 면적 조건은?</div><div class="oral2-a"><b>모범답안 A.</b> 무게중심(CG) 뒤쪽 면적이 앞쪽보다 커야 풍향계처럼 정렬됩니다.</div></div><div class="oral2"><div class="oral2-ch">CH02 · 공기역학·조립·리깅</div><div class="oral2-q">Q. 탠덤 로터 헬리콥터가 반토크 로터가 필요 없는 이유는?</div><div class="oral2-a"><b>모범답안 A.</b> 앞뒤 두 로터가 서로 반대로 돌아 토크가 상쇄되기 때문입니다.</div></div><div class="oral2"><div class="oral2-ch">CH02 · 공기역학·조립·리깅</div><div class="oral2-q">Q. 자동회전 진입 시 조종사가 하는 첫 조작은?</div><div class="oral2-a"><b>모범답안 A.</b> 콜렉티브를 내려 블레이드 피치를 줄이고, 아래에서 위로 공기가 흐르게 합니다.</div></div><div class="oral2"><div class="oral2-ch">CH03 · 항공기 우포 외피</div><div class="oral2-q">Q. 그레이드 A 면의 신품 최소 인장강도는?</div><div class="oral2-a"><b>모범답안 A.</b> 폭 1인치당 80파운드(80 lb/in)이며, 56 lb/in까지 감항입니다.</div></div><div class="oral2"><div class="oral2-ch">CH03 · 항공기 우포 외피</div><div class="oral2-q">Q. 바이어스(Bias) 방향은 왜 곡면 성형에 쓰이는가?</div><div class="oral2-a"><b>모범답안 A.</b> 워프에 45° 대각선 방향이라 늘어나서 곡면·모서리 성형에 유리합니다.</div></div><div class="oral2"><div class="oral2-ch">CH03 · 항공기 우포 외피</div><div class="oral2-q">Q. 검사링(Inspection Ring)의 역할은?</div><div class="oral2-a"><b>모범답안 A.</b> 내부 구조 접근구를 만들면서 우포에 강도를 더하고 풀림을 방지합니다.</div></div><div class="oral2"><div class="oral2-ch">CH04 · 금속 구조 수리</div><div class="oral2-q">Q. 리벳 구멍은 왜 생크보다 약간 크게 뚫는가?</div><div class="oral2-a"><b>모범답안 A.</b> 약 0.003인치 크게 뚫어야 리벳이 들어가고, 구동 시 팽창해 구멍을 꽉 채웁니다.</div></div><div class="oral2"><div class="oral2-ch">CH04 · 금속 구조 수리</div><div class="oral2-q">Q. 아이스박스 리벳을 재열처리하면 강도가 손상되는가?</div><div class="oral2-a"><b>모범답안 A.</b> 아니요. 재열처리를 반복해도 강도가 손상되지 않습니다.</div></div><div class="oral2"><div class="oral2-ch">CH04 · 금속 구조 수리</div><div class="oral2-q">Q. 접시머리 리벳 설치 전 판재에 하는 두 가지 가공은?</div><div class="oral2-a"><b>모범답안 A.</b> 얇은 판은 딤플링(눌러 성형), 두꺼운 판은 카운터싱킹(절삭)입니다.</div></div><div class="oral2"><div class="oral2-ch">CH04 · 금속 구조 수리</div><div class="oral2-q">Q. Dzus 파스너가 제대로 잠겼는지 어떻게 확인하는가?</div><div class="oral2-a"><b>모범답안 A.</b> 잠길 때 딸깍 소리가 나고, 모든 파스너 머리가 일렬로 정렬됩니다.</div></div><div class="oral2"><div class="oral2-ch">CH07 · 첨단 복합재료</div><div class="oral2-q">Q. 탄소섬유 복합재 취급 시 전기적 주의사항은?</div><div class="oral2-a"><b>모범답안 A.</b> 탄소섬유는 전기 전도성이 있어 전자장비 근처 분진에 주의해야 합니다.</div></div><div class="oral2"><div class="oral2-ch">CH09 · 항공기 전기 계통</div><div class="oral2-q">Q. 납산 배터리의 충전 상태는 무엇으로 확인합니까?</div><div class="oral2-a"><b>모범답안 A.</b> 전해액의 비중(Specific Gravity)을 비중계(Hydrometer)로 측정합니다.</div></div><div class="oral2"><div class="oral2-ch">CH09 · 항공기 전기 계통</div><div class="oral2-q">Q. 부하계(Loadmeter)는 무엇을 %로 표시합니까?</div><div class="oral2-a"><b>모범답안 A.</b> 발전기 정격 대비 현재 전기 부하를 %로 표시하며, 100%를 넘기면 안 됩니다.</div></div><div class="oral2"><div class="oral2-ch">CH09 · 항공기 전기 계통</div><div class="oral2-q">Q. 발전기를 버스에 병렬 연결하기 전 일치시켜야 하는 세 가지는?</div><div class="oral2-a"><b>모범답안 A.</b> 전압(Voltage), 위상(Phase), 주파수(Frequency)입니다.</div></div><div class="oral2"><div class="oral2-ch">CH12 · 유압·공압 계통</div><div class="oral2-q">Q. 서로 다른 유압유를 혼합하면 어떤 문제가 생깁니까?</div><div class="oral2-a"><b>모범답안 A.</b> 실(Seal)과 계통 부품이 손상되므로 절대 혼합하면 안 됩니다.</div></div><div class="oral2"><div class="oral2-ch">CH13 · 착륙장치 계통</div><div class="oral2-q">Q. 안티스키드(Anti-Skid) 계통의 목적은?</div><div class="oral2-a"><b>모범답안 A.</b> 휠 잠김을 방지해 제동 효율을 높이고 타이어를 보호합니다.</div></div><div class="oral2"><div class="oral2-ch">CH16 · 객실 환경 제어</div><div class="oral2-q">Q. 비상용 산소 공급에 쓰이는 발생기 형식은?</div><div class="oral2-a"><b>모범답안 A.</b> 화학 산소 발생기(Chemical Oxygen Generator)입니다.</div></div><div class="oral2"><div class="oral2-ch">CH17 · 화재 방지 계통</div><div class="oral2-q">Q. 소화 계통의 열방출 지시기(빨강 디스크)가 사라졌다면?</div><div class="oral2-a"><b>모범답안 A.</b> 과열로 소화제가 열방출되었음을 의미하며, 원인 조사와 용기 교체가 필요합니다.</div></div>
+  </main>
 </div>
 <button class="backtop" id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
