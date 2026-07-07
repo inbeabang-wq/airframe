@@ -78,7 +78,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
       <span class="badge">출처 <b>FAA-H-8083-31B</b></span>
       <span class="badge">총 <b>17개 챕터</b></span>
       <span class="badge">정리 <b>한국어 + 영문 용어</b></span>
-      <span class="badge">구술 대비 <b>40문항</b></span>
+      <span class="badge">구술 대비 <b>68문항</b></span>
     </div>
   </div>
 
@@ -106,8 +106,8 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
       <span class="status s-done" style="background:rgba(96,165,250,.15);color:var(--cyan);border-color:rgba(96,165,250,.3);">● 색인</span></div>
     <h3>📖 교재 정리 색인</h3>
     <div class="cen">Textbook Index — 주제별 핸드북 바로가기</div>
-    <div class="desc">17개 챕터 104개 주제를 한곳에. 각 주제를 클릭하면 해당 챕터 본문으로 바로 이동합니다.</div>
-    <div class="quizbadge" style="color:#60A5FA;background:rgba(96,165,250,.10);border-color:rgba(96,165,250,.28);">📚 주제 104개 · 연계 기출 112문항</div>
+    <div class="desc">17개 챕터 147개 주제를 한곳에. 각 주제를 클릭하면 해당 챕터 본문으로 바로 이동합니다.</div>
+    <div class="quizbadge" style="color:#60A5FA;background:rgba(96,165,250,.10);border-color:rgba(96,165,250,.28);">📚 주제 147개 · 연계 기출 175문항</div>
     <span class="arrow">→</span>
   </a>
   <a href="systems.html" class="card done" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(224,99,90,.10),rgba(96,165,250,.05));border-color:rgba(224,99,90,.35);margin-top:14px;">
@@ -158,19 +158,19 @@ var CH=[
   {no:10, ko:"항공기 계기 계통", en:"Aircraft Instrument Systems", file:"ch10_instruments.html", done:true,
    desc:"계기 개요 / 계기의 분류 / 압력의 종류", quiz:10, oral:3},
   {no:11, ko:"통신·항법", en:"Communication & Navigation", file:"ch11_comm_nav.html", done:true,
-   desc:"무선 항법 / 전파 간섭 저감", quiz:1},
+   desc:"항공전자 개요 / 전파의 기초 / 안테나", quiz:10, oral:4},
   {no:12, ko:"유압·공압 계통", en:"Hydraulic & Pneumatic Power", file:"ch12_hydraulic_pneumatic.html", done:true,
-   desc:"유압유 / 유압 부품", quiz:1, oral:1},
+   desc:"유압 계통 개요 / 파스칼 법칙과 힘·면적·압력 / 기계적 이점", quiz:10, oral:4},
   {no:13, ko:"착륙장치 계통", en:"Landing Gear Systems", file:"ch13_landing_gear.html", done:true,
-   desc:"완충 스트럿 / 브레이크와 안티스키드", quiz:1, oral:1},
+   desc:"착륙장치 개요와 배열 / 충격 흡수 방식 / 오레오 스트럿", quiz:10, oral:5},
   {no:14, ko:"항공기 연료 계통", en:"Aircraft Fuel Systems", file:"ch14_fuel_systems.html", done:true,
-   desc:"항공 연료 종류 / 연료 계통 부품", quiz:1},
+   desc:"연료 계통 개요 / 왕복엔진 연료 (Avgas) / 데토네이션과 프리이그니션", quiz:10, oral:4},
   {no:15, ko:"방빙·제우 계통", en:"Ice & Rain Protection", file:"ch15_ice_rain.html", done:true,
-   desc:"방빙과 제빙", quiz:1},
+   desc:"결빙의 위험과 방빙·제빙 / 결빙 탐지 / 열 방빙 (블리드 에어)", quiz:10, oral:4},
   {no:16, ko:"객실 환경 제어", en:"Cabin Environmental Control", file:"ch16_cabin_environment.html", done:true,
-   desc:"산소 계통 / 여압 계통", quiz:1, oral:1},
+   desc:"대기와 비행 생리학 / 저산소증과 일산화탄소 중독 / 산소 공급원", quiz:10, oral:5},
   {no:17, ko:"화재 방지 계통", en:"Fire Protection Systems", file:"ch17_fire_protection.html", done:true,
-   desc:"화재 감지 / 소화 계통", quiz:1, oral:1},
+   desc:"화재의 원리와 등급 / 화재 구역 / 화재 탐지 계통 요건", quiz:10, oral:6},
 ];
 
 var grid=document.getElementById('grid');
