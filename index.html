@@ -78,7 +78,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
       <span class="badge">출처 <b>FAA-H-8083-31B</b></span>
       <span class="badge">총 <b>17개 챕터</b></span>
       <span class="badge">정리 <b>한국어 + 영문 용어</b></span>
-      <span class="badge">구술 대비 <b>84문항</b></span>
+      <span class="badge">구술 대비 <b>92문항</b></span>
     </div>
   </div>
 
@@ -99,7 +99,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
     <h3>&#9997;&#65039; 필기 모의고사 (Exam Simulator)</h3>
     <p class="desc">실제 FAA 필기 방식 그대로 &mdash; 무작위 출제 &middot; 타이머(1.2분/문항) &middot; 합격선 70% &middot; English Only 실전 모드 &middot; 오답노트 자동 저장&middot;재시험.</p>
     <div class="meta">
-      <span class="badge">문제은행 <b>255문항</b></span>
+      <span class="badge">문제은행 <b>314문항</b></span>
       <span class="badge">모드 <b>30/50/100문항</b></span>
       <span class="badge">챕터별 연습 <b>지원</b></span>
     </div>
@@ -120,7 +120,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
     <h3>📖 교재 정리 색인</h3>
     <div class="cen">Textbook Index — 주제별 핸드북 바로가기</div>
     <div class="desc">17개 챕터 154개 주제를 한곳에. 각 주제를 클릭하면 해당 챕터 본문으로 바로 이동합니다.</div>
-    <div class="quizbadge" style="color:#60A5FA;background:rgba(96,165,250,.10);border-color:rgba(96,165,250,.28);">📚 주제 154개 · 연계 기출 255문항</div>
+    <div class="quizbadge" style="color:#60A5FA;background:rgba(96,165,250,.10);border-color:rgba(96,165,250,.28);">📚 주제 154개 · 연계 기출 314문항</div>
     <span class="arrow">→</span>
   </a>
   <a href="systems.html" class="card done" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(224,99,90,.10),rgba(96,165,250,.05));border-color:rgba(224,99,90,.35);margin-top:14px;">
@@ -151,19 +151,19 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 <script>
 var CH=[
   {no:1, ko:"항공기 구조", en:"Aircraft Structures", file:"ch01_aircraft_structures.html", done:true,
-   desc:"항공기 구조 개요 / 구조 설계의 발전 / 익형과 양력", quiz:18, oral:7},
+   desc:"항공기 구조 개요 / 구조 설계의 발전 / 익형과 양력", quiz:34, oral:10},
   {no:2, ko:"공기역학·조립·리깅", en:"Aerodynamics, Assembly & Rigging", file:"ch02_aerodynamics_rigging.html", done:true,
-   desc:"비행의 네 가지 힘 / 양력의 발생 / 항력의 종류", quiz:10, oral:4},
+   desc:"비행의 네 가지 힘 / 양력의 발생 / 항력의 종류", quiz:24, oral:6},
   {no:3, ko:"항공기 우포 외피", en:"Aircraft Fabric Covering", file:"ch03_fabric_covering.html", done:true,
    desc:"우포 외피 개요 / FAA 승인 기준 / 부품 제작 승인(PMA)", quiz:18, oral:4},
   {no:4, ko:"금속 구조 수리", en:"Metal Structural Repair", file:"ch04_metal_repair.html", done:true,
-   desc:"금속 구조 수리 개요 / 펀치와 리벳 제거 / 드릴과 Magic 7", quiz:35, oral:8},
+   desc:"금속 구조 수리 개요 / 펀치와 리벳 제거 / 드릴과 Magic 7", quiz:40, oral:9},
   {no:5, ko:"항공기 용접", en:"Aircraft Welding", file:"ch05_welding.html", done:true,
    desc:"용접 개요 / 좋은 용접의 평가 / 산화 방지", quiz:24, oral:6},
   {no:6, ko:"목재 구조 수리", en:"Wood Structural Repair", file:"ch06_wood_structure.html", done:true,
    desc:"목재 구조 개요 / 항공용 목재와 대체목 / 합판과 라미네이트 목재", quiz:20, oral:4},
   {no:7, ko:"첨단 복합재료", en:"Advanced Composites", file:"ch07_composites.html", done:true,
-   desc:"복합재 개요 / 라미네이트 구성 요소 / 섬유 방향과 적층 순서", quiz:22, oral:4},
+   desc:"복합재 개요 / 라미네이트 구성 요소 / 섬유 방향과 적층 순서", quiz:30, oral:5},
   {no:8, ko:"도장·마감", en:"Painting & Finishing", file:"ch08_painting.html", done:true,
    desc:"도장 개요와 표면 준비 / 페인트 스트리핑 / 부식 제거와 컨버전 코팅", quiz:12, oral:4},
   {no:9, ko:"항공기 전기 계통", en:"Aircraft Electrical System", file:"ch09_electrical.html", done:true,
@@ -175,7 +175,7 @@ var CH=[
   {no:12, ko:"유압·공압 계통", en:"Hydraulic & Pneumatic Power", file:"ch12_hydraulic_pneumatic.html", done:true,
    desc:"유압 계통 개요 / 파스칼 법칙과 힘·면적·압력 / 기계적 이점", quiz:10, oral:4},
   {no:13, ko:"착륙장치 계통", en:"Landing Gear Systems", file:"ch13_landing_gear.html", done:true,
-   desc:"착륙장치 개요와 배열 / 충격 흡수 방식 / 오레오 스트럿", quiz:14, oral:7},
+   desc:"착륙장치 개요와 배열 / 충격 흡수 방식 / 오레오 스트럿", quiz:30, oral:8},
   {no:14, ko:"항공기 연료 계통", en:"Aircraft Fuel Systems", file:"ch14_fuel_systems.html", done:true,
    desc:"연료 계통 개요 / 왕복엔진 연료 (Avgas) / 데토네이션과 프리이그니션", quiz:10, oral:4},
   {no:15, ko:"방빙·제우 계통", en:"Ice & Rain Protection", file:"ch15_ice_rain.html", done:true,
