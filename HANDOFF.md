@@ -1,6 +1,6 @@
 # HANDOFF — Airframe ASA 기출문제 이식 프로젝트
 
-> 최종 업데이트: 2026-07-10 (토론토) · 상태: **전 17개 챕터 이식 완료 ✅**
+> 최종 업데이트: 2026-07-10 2차 (토론토) · 상태: **전 17개 챕터 + 실물 책 페이지(64~83p) 추가 이식 완료 ✅**
 
 ## 1. 프로젝트 개요
 - 사이트: FAA Airframe 학습 웹사이트 (GitHub Pages)
@@ -21,16 +21,17 @@
 | ch07 복합재 | ch07_composites.html | 30 | 20 | 8052–8098 |
 | ch08 도장·마감 | ch08_painting.html | 24 | 12 | 8026–8040 |
 | ch09 전기 | ch09_electrical.html | 16 | 10 | 8803–8816 |
-| ch10 계기 | ch10_instruments.html | 26 | 16 | 8586–8643 |
+| ch10 계기 | ch10_instruments.html | 55 | 45 | 8586–8646, 8940, 8601-1 (도면문항 없음) |
 | ch11 통신·항법 | ch11_comm_nav.html | 17 | 7 | 8647–8656 (8659는 ch02와 중복 회피로 제외) |
-| ch12 유압·공압 | ch12_hydraulic_pneumatic.html | 25 | 15 | 8386–8401 |
+| ch12 유압·공압 | ch12_hydraulic_pneumatic.html | 44 | 34 | 8386–8401, 8434–8487 |
 | ch13 착륙장치 | ch13_landing_gear.html | 30 | 16 | 8316–8375, 8951–8962, 9039 |
 | ch14 연료 | ch14_fuel_systems.html | 26 | 16 | 8699–8786 |
 | ch15 방빙·제우 | ch15_ice_rain.html | 21 | 9 | 8970–8983 |
-| ch16 객실 환경 | ch16_cabin_environment.html | 28 | 14 | 8497–8510 |
+| ch16 객실 환경 | ch16_cabin_environment.html | 100 | 86 | 8497–8585 (도면 8542/8572 제외, 여압·에어사이클·증기순환·산소 전체) |
 | ch17 화재 방지 | ch17_fire_protection.html | 25 | 15 | 8997–9028 (도면문제 9020/9021 제외) |
 
-- **mock_exam.html QB: 총 428문항** (전 챕터 동기화 완료)
+- **mock_exam.html QB: 총 548문항** (전 챕터 동기화 완료)
+- 근거 자료: 사용자가 업로드한 실물 ASA Airframe Test Guide 페이지 64–83 (유압 후반·환경계통 전체·계기 전반). 도면 필요 문항 8542(Fig.13), 8572(Fig.14), 9020/9021(Fig.21)은 미이식.
 
 ## 3. 구조·규칙 (변경 금지)
 - 각 챕터 `<section id="s-quiz">` 내 `iqcard` 카드: 문제 KO + `<span class="en-text">`EN, 보기 3개 A/B/C `iqPick(this,'정답문자')`, `iqToggle` 해설, 해설 끝 `(ASA NNNN)` 표기. ASA 카드에는 oral 섹션 없음.
