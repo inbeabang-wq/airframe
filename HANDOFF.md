@@ -41,10 +41,6 @@
 - **ASA 번호는 절대 임의 생성 금지.** web_search로 원문·정답이 검증된 번호만 사용.
 - 빌드 도구: `/home/claude/work/asa_common.py` → `build(chfile, chnum, chko, Q, start_idx, old_label)`. 실행은 반드시 `cd /home/claude/airframe` 후 (상대경로 사용). Q 항목: `(asa, ko질문, en질문, [(ko보기,en보기)×3], 정답인덱스, ko해설, en해설)`.
 
-## 3.5 practical_acs.html 이중언어화 (2026-07-10 완료)
-- 구술 92문항 + 실기 프로젝트 연계(DME) 26문항 전체에 영어 질문·Model Answer 병기 완료.
-- 구조: 질문 뒤 `<span class="en-q">`, 답안 뒤 `<span class="en-a">` 삽입. CSS는 </style> 직전에 .en-q/.en-a 추가됨.
-
 ## 4. 남은/선택 작업
 1. (선택) 도면(Figure) 필요 문항 추가: ch17 9020/9021 (Fig.21 압력-온도 차트), 기타 챕터 도면 문제 — fg 필드에 base64 이미지 넣는 방식은 검증 완료.
 2. (선택) ch11 오토파일럿 vs ch02 요댐퍼(8659) 주제 배분 검토.
