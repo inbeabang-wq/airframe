@@ -250,6 +250,14 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .ph-title{font-weight:700;color:var(--cyan,#60A5FA);font-size:15px;}
 .ph-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t2,#a0aec0);}
 .ph-note{font-size:11px;color:var(--t3,#718096);}
+
+/* 반응형 이미지 보정 - 모든 화면에서 잘림 방지 */
+.comp-text img, .fig img, .fig-page img, figure img {
+  max-width: 100% !important;
+  height: auto !important;
+  box-sizing: border-box;
+}
+.fig, .fig-page, figure { max-width: 100%; overflow: hidden; }
 </style></head>
 <body>
 <a class="home-fab" href="index.html">🏠 전체목차</a>
