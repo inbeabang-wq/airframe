@@ -244,6 +244,14 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .menu-btn{z-index:201 !important;}
 @media(min-width:881px){.home-fab{top:16px;right:16px;}}
 .src-badge{display:inline-block;margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#34D399;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);border-radius:5px;padding:2px 7px;vertical-align:middle;}
+
+/* 반응형 이미지 보정 - 모든 화면에서 잘림 방지 */
+.comp-text img, .fig img, .fig-page img, figure img {
+  max-width: 100% !important;
+  height: auto !important;
+  box-sizing: border-box;
+}
+.fig, .fig-page, figure { max-width: 100%; overflow: hidden; }
 </style></head>
 <body>
 <a class="home-fab" href="index.html">🏠 전체목차</a>
