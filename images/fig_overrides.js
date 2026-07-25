@@ -1,0 +1,1 @@
+window.FIG_OVERRIDE={"ch02_aerodynamics_rigging|s-highspeed-aero": "none", "ch10_instruments|s-temp-instruments": "fig10-72", "ch10_instruments|s-direction-instruments": "fig10-79", "ch11_comm_nav|s-modulation": "fig11-79", "ch14_fuel_systems|s-fuel-pumps-detail": "fig14-48", "ch14_fuel_systems|s-fuel-instruments": "fig14-67", "ch14_fuel_systems|s-jep-fuel-water": "fig14-93"};
