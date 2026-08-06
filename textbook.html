@@ -1,621 +1,82 @@
-<!DOCTYPE html><html lang="ko"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0F172A"><title>교재 정리 색인 — Airframe</title>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0F172A">
+<title>FAA General 교재 정리 색인 — Textbook Index</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0F172A;--panel:#13203b;--panel2:#1a2a4a;
-  --cyan:#60A5FA;--cyan2:#3B82F6;--gold:#FBBF24;
-  --t1:#F1F5F9;--t2:#CBD5E1;--t3:#7c8db0;--line:rgba(96,165,250,.18);
-}
+:root{--bg:#0F172A;--panel:#13203b;--panel2:#1a2a4a;--cyan:#60A5FA;--gold:#FBBF24;--green:#34D399;
+--t1:#F1F5F9;--t2:#CBD5E1;--t3:#7c8db0;--line:rgba(96,165,250,.18);}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR',sans-serif;line-height:1.6;
+background-image:linear-gradient(rgba(96,165,250,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.04) 1px,transparent 1px);background-size:44px 44px;}
 a{color:inherit;text-decoration:none;}
-
-/* layout */
-.layout{display:grid;grid-template-columns:320px 1fr;min-height:100vh;}
-/* sidebar */
-.side{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:0;}
-.side-head{padding:22px 20px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel);z-index:5;}
-.side-head .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:2px;}
-.side-head h1{font-family:'Space Grotesk',sans-serif;font-size:17px;color:var(--cyan);margin-top:6px;line-height:1.3;}
-.side-head .sub{font-size:12px;color:var(--t3);margin-top:4px;}
-.search{margin-top:14px;width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--t1);font-family:'Noto Sans KR';font-size:13px;}
+.wrap{max-width:960px;margin:0 auto;padding:40px 22px 90px;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:3px;}
+h1{font-family:'Space Grotesk',sans-serif;font-size:34px;margin:10px 0 4px;}
+.sub{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:14px;margin-bottom:22px;}
+.top-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);}
+.search{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+padding:13px 16px;color:var(--t1);font-family:'Noto Sans KR';font-size:15px;margin-bottom:22px;}
 .search::placeholder{color:var(--t3);}
-.toc{list-style:none;padding:12px 10px 60px;}
-.toc li a{display:block;padding:9px 12px;border-radius:7px;font-size:14px;color:var(--t2);border-left:2px solid transparent;transition:.15s;}
-.toc li a .en{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3);margin-top:1px;}
-.toc li a:hover{background:var(--panel2);color:var(--t1);}
-.toc li a.active{background:rgba(96,165,250,.12);border-left-color:var(--cyan);color:var(--cyan);}
-
-/* main */
-.main{padding:0 0 80px;}
-.hero{padding:48px 56px 36px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#13203b,transparent);
-  background-image:linear-gradient(rgba(96,165,250,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.05) 1px,transparent 1px);background-size:40px 40px;}
-.hero .ch{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--gold);letter-spacing:3px;}
-.hero h2{font-size:38px;font-weight:900;margin:10px 0 6px;letter-spacing:-.5px;}
-.hero .en{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:15px;}
-.hero .meta{margin-top:18px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;color:var(--t3);font-family:'JetBrains Mono',monospace;}
-.hero .meta b{color:var(--t2);}
-
-.wrap{padding:30px 56px;max-width:1000px;}
-.comp{margin-bottom:26px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;scroll-margin-top:20px;}
-.comp-head{padding:18px 24px;background:var(--panel2);border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
-.comp-head h3{font-size:21px;font-weight:700;color:var(--t1);}
-.comp-head .comp-en{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan);}
-.comp-body{padding:22px 24px;display:grid;grid-template-columns:1fr;gap:20px;}
-.comp-body.has-img{grid-template-columns:1.1fr .9fr;}
-.comp-text p{margin-bottom:11px;font-size:15px;color:var(--t2);}
-.comp-text p:last-child{margin-bottom:0;}
-.comp-text b{color:var(--gold);font-weight:700;}
-.fig{align-self:start;}
-.fig img{width:100%;border-radius:8px;border:1px solid var(--line);display:block;}
-.fig figcaption{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3);margin-top:7px;text-align:center;}
-
-.no-result{display:none;padding:40px;text-align:center;color:var(--t3);}
-.backtop{position:fixed;right:26px;bottom:26px;background:var(--cyan2);color:#04122e;border:none;width:46px;height:46px;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.2s;}
-.backtop.show{opacity:1;pointer-events:auto;}
-
-@media(max-width:880px){
-  .layout{grid-template-columns:1fr;}
-  .side{position:fixed;left:-320px;width:300px;z-index:50;transition:.25s;box-shadow:0 0 40px rgba(0,0,0,.5);}
-  .side.open{left:0;}
-  .menu-btn{display:block;position:fixed;top:14px;left:14px;z-index:60;background:var(--cyan2);color:#04122e;border:none;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;}
-  .hero,.wrap{padding-left:20px;padding-right:20px;}
-  .hero h2{font-size:28px;}
-  .comp-body.has-img{grid-template-columns:1fr;}
-}
-.menu-btn{display:none;}
-
-/* === 기출문제 스타일 (이식) === */
-.iq-wrap{margin:18px 0 4px;border-top:1px dashed var(--line);padding-top:16px;}
-.iq-label{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:.4px;margin-bottom:12px;text-transform:none;}
-.iq-label .iq-pin{font-size:13px;}
-.iq-label .iq-n{font-weight:500;color:var(--t3);font-size:11.5px;background:var(--card);border:1px solid var(--line);padding:2px 8px;border-radius:12px;}
-.iqcard{background:rgba(96,165,250,.04);border:1px solid var(--line);border-radius:10px;margin:9px 0;overflow:hidden;}
-.iqcard .iqno{display:inline-block;background:var(--accent);color:#06223f;font-weight:700;font-size:11px;padding:2px 8px;border-radius:5px;margin-right:8px;letter-spacing:.3px;vertical-align:middle;}
-.iqq{padding:13px 15px;font-size:14px;line-height:1.6;color:var(--t1);}
-.iqopts{list-style:none;padding:0 15px 4px;margin:0;}
-.iqopts li{padding:7px 11px;margin:4px 0;border:1px solid var(--line);border-radius:7px;font-size:13.5px;color:var(--t2);line-height:1.5;cursor:pointer;transition:.15s;}
-.iqopts li:hover{border-color:var(--accent);background:rgba(96,165,250,.06);}
-.iqopts li.correct{border-color:#34d399;background:rgba(52,211,153,.12);color:#a7f3d0;font-weight:600;}
-.iqopts li.wrong{border-color:#f87171;background:rgba(248,113,113,.10);color:#fca5a5;}
-.iqreveal{padding:0 15px 14px;}
-.iqbtn{background:transparent;border:1px solid var(--accent);color:var(--accent);font-size:12.5px;padding:6px 14px;border-radius:7px;cursor:pointer;font-family:inherit;transition:.15s;}
-.iqbtn:hover{background:var(--accent);color:#06223f;}
-.iqexp{display:none;margin-top:11px;padding:12px 14px;background:rgba(251,191,36,.06);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;font-size:13.5px;line-height:1.7;color:var(--t2);}
-.iqexp.show{display:block;}
-.iqexp .iqans{color:#34d399;font-weight:700;}
-.en-text{display:block;margin-top:3px;font-size:13.5px;color:var(--t3);line-height:1.55;font-style:normal;padding-left:11px;border-left:2px solid var(--line);}
-.iqexp .en-text{display:block;margin-top:5px;font-size:12.5px;color:var(--t3);line-height:1.5;padding-left:9px;border-left:2px solid var(--line);}
-.iqq .en-text{display:block;margin-top:4px;font-size:13px;color:var(--t3);line-height:1.5;font-weight:400;padding-left:0;border-left:none;}
-.iqopts li .en-text{display:block;margin-top:2px;font-size:12.5px;color:var(--t3);line-height:1.45;padding-left:0;border-left:none;}
-.oral{margin-top:11px;padding:12px 14px;background:rgba(167,139,250,.06);border-left:3px solid #a78bfa;border-radius:0 8px 8px 0;}
-.oral-tag{display:inline-block;font-size:10.5px;font-weight:700;color:#c4b5fd;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);padding:2px 8px;border-radius:5px;letter-spacing:.4px;margin-bottom:8px;}
-.oral-q{font-size:13.5px;color:var(--t1);line-height:1.6;margin-bottom:3px;font-weight:600;}
-.oral-q .en-text{display:block;margin-top:2px;font-size:12.5px;color:#a5b4d4;font-weight:400;font-style:italic;}
-.oral-a{font-size:13px;color:var(--t2);line-height:1.65;margin-top:7px;}
-.oral-a .oral-alabel{color:#c4b5fd;font-weight:700;}
-.oral-a .en-text{display:block;margin-top:3px;font-size:12px;color:var(--t3);padding-left:9px;border-left:2px solid var(--line);line-height:1.5;}
-li.correct{border-color:#34d399;background:rgba(52,211,153,.12);color:#a7f3d0;font-weight:600;}
-li.wrong{border-color:#f87171;background:rgba(248,113,113,.10);color:#fca5a5;}
-
-/* ===== 터빈 배경 레이어 (AeroMech) ===== */
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYwMCAxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIHNsaWNlIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2xvdyIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFlM2E1ZiIgc3RvcC1vcGFjaXR5PSIwLjUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI2MiUiIHN0b3AtY29sb3I9IiMxMzIwM2IiIHN0b3Atb3BhY2l0eT0iMC4yIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBGMTcyQSIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZGQ0YmYiIHN0b3Atb3BhY2l0eT0iMC4xNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjQyJSIgc3RvcC1jb2xvcj0iIzYwQTVGQSIgc3RvcC1vcGFjaXR5PSIwLjYyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzJkZDRiZiIgc3RvcC1vcGFjaXR5PSIwLjIyIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmaWxsRyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjBBNUZBIiBzdG9wLW9wYWNpdHk9IjAuMSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyZGQ0YmYiIHN0b3Atb3BhY2l0eT0iMC4wMyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDxjaXJjbGUgY3g9IjEwNTAiIGN5PSI1MDAiIHI9IjQ1MCIgZmlsbD0idXJsKCNnbG93KSIvPgogIDwhLS0gRkEtNTAg64+Z7LK0IC0tPgogIDxwYXRoIGQ9IgogICAgTSAxNDAwIDUwMgogICAgQyAxMzY1IDQ4NCwgMTMxMCA0NzYsIDEyNTUgNDc2CiAgICBDIDEyMTAgNDUyLCAxMTMwIDQ0NiwgMTA3MCA0NTIKICAgIEMgMTAzMCA0NTYsIDEwMDggNDY4LCA5OTggNDgwCiAgICBMIDY0MCA0ODYKICAgIEMgNTYwIDQ4OCwgNTA1IDQ5MiwgNDkwIDQ5OAogICAgTCA0NzggNTAwCiAgICBMIDQ5MCA1MTIKICAgIEwgNTA1IDUxNgogICAgQyA1NjAgNTIwLCA2NDAgNTIyLCA3MjAgNTIyCiAgICBMIDEwMTAgNTI0CiAgICBDIDExMjAgNTI2LCAxMjQwIDUyMiwgMTMxMCA1MTYKICAgIEMgMTM2MCA1MTIsIDEzODggNTA4LCAxNDAwIDUwMiBaIgogICAgZmlsbD0idXJsKCNmaWxsRykiIHN0cm9rZT0idXJsKCNib2R5KSIgc3Ryb2tlLXdpZHRoPSIyLjUiIG9wYWNpdHk9IjAuOSIvPgogIDwhLS0g7YOg642kIOy6kOuFuO2UvCAtLT4KICA8cGF0aCBkPSJNIDEwNzAgNDUyIEMgMTEwMCA0NDIsIDExNTAgNDQyLCAxMjAwIDQ0OCBDIDEyMzAgNDUyLCAxMjUwIDQ2MiwgMTI1NSA0NzYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjMiIG9wYWNpdHk9IjAuNSIvPgogIDxsaW5lIHgxPSIxMTUwIiB5MT0iNDQ2IiB4Mj0iMTE1NSIgeTI9IjQ3NiIgc3Ryb2tlPSIjMmRkNGJmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0gTEVSWCDsnbXqt7zsl7DsnqUgLS0+CiAgPHBhdGggZD0iTSA5OTggNDgwIEMgOTUwIDQ4MiwgOTAwIDQ4NCwgODcwIDQ5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjEuMiIgb3BhY2l0eT0iMC40Ii8+CiAgPCEtLSDso7zsnbUgKO2bhO2HtOydtSkgLS0+CiAgPHBhdGggZD0iTSA4ODAgNTIwIEwgNjQwIDU1NiBMIDY5MCA1MjggTCA4NTUgNTE2IFoiCiAgICBmaWxsPSJ1cmwoI2ZpbGxHKSIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iMC41Ii8+CiAgPGxpbmUgeDE9IjYzOCIgeTE9IjU1NiIgeDI9IjYwMCIgeTI9IjU1OCIgc3Ryb2tlPSIjMmRkNGJmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0g7IiY7KeBIOuvuOydtSAtLT4KICA8cGF0aCBkPSJNIDY0MCA0NzYgTCA1NjAgMzU2IEwgNjE4IDM2NiBMIDY5MCA0NzAgWiIKICAgIGZpbGw9InVybCgjZmlsbEcpIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMS42IiBvcGFjaXR5PSIwLjU1Ii8+CiAgPCEtLSDsiJjtj4kg66+47J21IC0tPgogIDxwYXRoIGQ9Ik0gNjQwIDUxNiBMIDUwMCA1MzIgTCA1NjAgNTEwIEwgNjUwIDUwNiBaIgogICAgZmlsbD0idXJsKCNmaWxsRykiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjQiIG9wYWNpdHk9IjAuNDUiLz4KICA8IS0tIOuypO2KuOuftCDtlYAgLS0+CiAgPHBhdGggZD0iTSA2MjAgNTI0IEwgNTg1IDU1NiBMIDY0MCA1MjggWiIgZmlsbD0idXJsKCNmaWxsRykiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjIiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0g67Cw6riwIOuFuOymkCAtLT4KICA8cGF0aCBkPSJNIDQ5MCA0OTAgTCA0NjIgNDg2IEwgNDYyIDUxNCBMIDQ5MCA1MTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9IjAuNSIvPgogIDxsaW5lIHgxPSI0NzgiIHkxPSI0OTQiIHgyPSI0NzgiIHkyPSI1MDgiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1kYXNoYXJyYXk9IjIgMyIgb3BhY2l0eT0iMC40Ii8+CiAgPCEtLSDsl5Tsp4Qg7J247YWM7J207YGsIC0tPgogIDxwYXRoIGQ9Ik0gMTAxMCA1MjQgQyAxMDAwIDUzNiwgOTg1IDU0MCwgOTY1IDUzOCBMIDk0MCA1MzQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjMiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0g7ZSE66CI7J6EIOyKpO2FjOydtOyFmCAtLT4KICA8bGluZSB4MT0iNTYwIiB5MT0iNDg2IiB4Mj0iNTYwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSI2NTAiIHkxPSI0ODYiIHgyPSI2NTAiIHkyPSI1MjIiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIwLjciIHN0cm9rZS1kYXNoYXJyYXk9IjMgOCIgb3BhY2l0eT0iMC4yIi8+CiAgPGxpbmUgeDE9Ijc0MCIgeTE9IjQ4NiIgeDI9Ijc0MCIgeTI9IjUyMiIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjAuNyIgc3Ryb2tlLWRhc2hhcnJheT0iMyA4IiBvcGFjaXR5PSIwLjIiLz4KICA8bGluZSB4MT0iODMwIiB5MT0iNDg2IiB4Mj0iODMwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSI5MjAiIHkxPSI0ODYiIHgyPSI5MjAiIHkyPSI1MjIiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIwLjciIHN0cm9rZS1kYXNoYXJyYXk9IjMgOCIgb3BhY2l0eT0iMC4yIi8+CiAgPGxpbmUgeDE9IjEwMTAiIHkxPSI0ODYiIHgyPSIxMDEwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSIxMTAwIiB5MT0iNDg2IiB4Mj0iMTEwMCIgeTI9IjUyMiIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjAuNyIgc3Ryb2tlLWRhc2hhcnJheT0iMyA4IiBvcGFjaXR5PSIwLjIiLz4KICA8bGluZSB4MT0iMTE5MCIgeTE9IjQ4NiIgeDI9IjExOTAiIHkyPSI1MjIiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIwLjciIHN0cm9rZS1kYXNoYXJyYXk9IjMgOCIgb3BhY2l0eT0iMC4yIi8+CiAgPGxpbmUgeDE9IjEyODAiIHkxPSI0ODYiIHgyPSIxMjgwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSI0NjAiIHkxPSI1MDUiIHgyPSIxNDA1IiB5Mj0iNTA1IiBzdHJva2U9IiMyZGQ0YmYiIHN0cm9rZS13aWR0aD0iMC44IiBzdHJva2UtZGFzaGFycmF5PSIxNiA4IDMgOCIgb3BhY2l0eT0iMC4yMiIvPgogIDxsaW5lIHgxPSIxNDAwIiB5MT0iNjQwIiB4Mj0iNDYyIiB5Mj0iNjQwIiBzdHJva2U9IiMyZGQ0YmYiIHN0cm9rZS13aWR0aD0iMC42IiBvcGFjaXR5PSIwLjE1Ii8+CiAgPGxpbmUgeDE9IjE0MDAiIHkxPSI2MzIiIHgyPSIxNDAwIiB5Mj0iNjQ4IiBzdHJva2U9IiMyZGQ0YmYiIHN0cm9rZS13aWR0aD0iMC42IiBvcGFjaXR5PSIwLjE1Ii8+CiAgPGxpbmUgeDE9IjQ2MiIgeTE9IjYzMiIgeDI9IjQ2MiIgeTI9IjY0OCIgc3Ryb2tlPSIjMmRkNGJmIiBzdHJva2Utd2lkdGg9IjAuNiIgb3BhY2l0eT0iMC4xNSIvPgo8L3N2Zz4=");
-  background-size:cover;background-position:center right;opacity:0.5;}
-body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse at 75% 50%, rgba(15,23,42,0) 0%, rgba(15,23,42,.45) 70%, rgba(15,23,42,.75) 100%);}
-
-.layout{position:relative;z-index:1;}
-.menu-btn{z-index:101;}
-.backtop{z-index:50;}
-
-/* ===== 교재 보기 링크 (Textbook Link) ===== */
-.tb-link{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--gold,#FBBF24);
-  color:var(--gold,#FBBF24);font-size:12px;padding:6px 12px;border-radius:7px;cursor:pointer;font-family:inherit;
-  margin-left:8px;transition:.15s;vertical-align:middle;}
-.tb-link:hover{background:var(--gold,#FBBF24);color:#3a2c05;}
-.tb-flash{animation:tbFlash 1.6s ease;}
-@keyframes tbFlash{0%,100%{background:transparent;}25%,60%{background:rgba(251,191,36,.10);}}
-
-/* ===== 교재 보기 버튼 + 모달 ===== */
-.tb-link{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--gold,#FBBF24);
-  color:var(--gold,#FBBF24);font-size:12.5px;padding:6px 13px;border-radius:7px;cursor:pointer;font-family:inherit;
-  margin-right:8px;transition:.15s;vertical-align:middle;}
-.tb-link:hover{background:var(--gold,#FBBF24);color:#3a2c05;}
-.tbm-overlay{position:fixed;inset:0;z-index:9999;background:rgba(6,12,22,.78);backdrop-filter:blur(4px);
-  display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;}
-.tbm-overlay.show{display:flex;}
-.tbm-box{background:var(--bg,#0F172A);border:1px solid var(--gold,#FBBF24);border-radius:16px;max-width:760px;width:100%;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;margin:auto;overflow:hidden;}
-.tbm-head{display:flex;align-items:center;gap:10px;padding:18px 22px;border-bottom:1px solid var(--line,rgba(96,165,250,.18));
-  background:rgba(251,191,36,.06);position:sticky;top:0;}
-.tbm-head .tbm-pin{font-size:18px;}
-.tbm-head h3{font-size:17px;font-weight:700;color:var(--t1,#F1F5F9);flex:1;}
-.tbm-head .tbm-en{font-size:12px;color:var(--t3,#7c8db0);font-weight:500;display:block;margin-top:2px;}
-.tbm-close{background:transparent;border:1px solid var(--line,rgba(96,165,250,.18));color:var(--t2,#CBD5E1);
-  width:34px;height:34px;border-radius:8px;font-size:18px;cursor:pointer;flex:0 0 auto;transition:.15s;}
-.tbm-close:hover{background:var(--red,#E0635A);border-color:var(--red,#E0635A);color:#fff;}
-.tbm-body{padding:22px;max-height:70vh;overflow-y:auto;}
-.tbm-body .comp-text{font-size:14.5px;line-height:1.75;color:var(--t1,#F1F5F9);}
-.tbm-body .en-text{display:block;margin-top:3px;font-size:13px;color:var(--t3,#7c8db0);line-height:1.6;}
-.tbm-body .fig{margin:14px 0;text-align:center;}
-.tbm-body .fig img{max-width:100%;border-radius:10px;border:1px solid var(--line,rgba(96,165,250,.18));}
-.tbm-body .fig-cap{font-size:12px;color:var(--t3,#7c8db0);margin-top:6px;}
-.tbm-foot{padding:14px 22px;border-top:1px solid var(--line,rgba(96,165,250,.18));display:flex;gap:10px;justify-content:flex-end;}
-.tbm-foot a{font-size:12.5px;color:var(--cyan,#60A5FA);border:1px solid var(--cyan,#60A5FA);padding:7px 14px;border-radius:8px;transition:.15s;}
-.tbm-foot a:hover{background:var(--cyan,#60A5FA);color:#06223f;}
-.tbm-empty{color:var(--t3,#7c8db0);font-size:14px;text-align:center;padding:30px;}
-
-.tbm-sec-label{font-size:12px;font-weight:800;color:var(--gold,#FBBF24);letter-spacing:.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line,rgba(96,165,250,.18));}
-.tbm-core{background:rgba(52,211,153,.06);border-left:3px solid var(--green,#34D399);border-radius:0 8px 8px 0;padding:14px 16px;font-size:14px;line-height:1.7;color:var(--t1,#F1F5F9);}
-.tbm-core .iqans{color:var(--green,#34D399);font-weight:700;}
-.tbm-core .en-text{display:block;margin-top:3px;font-size:12.5px;color:var(--t3,#7c8db0);font-style:italic;}
-.tbm-core .oral{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line,rgba(96,165,250,.18));}
-.tbm-core .oral-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--cyan,#60A5FA);margin-bottom:5px;}
-.tbm-core .oral-q{font-size:13.5px;font-weight:600;margin-bottom:5px;}
-.tbm-core .oral-a{font-size:13px;color:var(--t2,#CBD5E1);}
-.tbm-core .oral-alabel{color:var(--gold,#FBBF24);font-weight:700;}
-.tbm-rel{font-size:13.5px;line-height:1.7;color:var(--t2,#CBD5E1);margin-bottom:10px;}
-.tbm-rel .en-text{display:block;margin-top:3px;font-size:12px;color:var(--t3,#7c8db0);font-style:italic;}
-
-.tbm-page{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--cyan,#60A5FA);background:rgba(96,165,250,.10);border:1px solid rgba(96,165,250,.30);border-radius:5px;padding:2px 7px;margin-left:6px;vertical-align:middle;}
-
-#tbmPdf{font-size:12.5px;color:#fff;background:linear-gradient(135deg,#E0635A,#C9484A);border:1px solid #E0635A;padding:7px 15px;border-radius:8px;font-weight:600;transition:.15s;}
-#tbmPdf:hover{filter:brightness(1.12);transform:translateY(-1px);}
-
-.sec-pdf-link{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-family:'JetBrains Mono',monospace;color:#E0635A;border:1px solid rgba(224,99,90,.4);background:rgba(224,99,90,.08);padding:3px 9px;border-radius:6px;margin-left:10px;vertical-align:middle;text-decoration:none;transition:.15s;white-space:nowrap;}
-.sec-pdf-link:hover{background:#E0635A;color:#fff;border-color:#E0635A;}
-.comp-head{display:flex;align-items:center;flex-wrap:wrap;gap:4px;}
-
-.ch-pdf-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#fff !important;background:linear-gradient(135deg,#E0635A,#C9484A);border:1px solid #E0635A;padding:5px 12px;border-radius:7px;text-decoration:none;font-weight:600;transition:.15s;}
-.ch-pdf-badge:hover{filter:brightness(1.12);transform:translateY(-1px);}
-
-.hb-block{margin-top:16px;border:1px solid rgba(224,99,90,.25);border-radius:12px;overflow:hidden;background:rgba(224,99,90,.03);}
-.hb-head{display:flex;align-items:center;gap:8px;padding:10px 15px;background:rgba(224,99,90,.08);border-bottom:1px solid rgba(224,99,90,.18);font-size:12.5px;font-weight:700;color:#E0635A;cursor:pointer;user-select:none;}
-.hb-head .hb-toggle{margin-left:auto;font-size:11px;transition:.2s;}
-.hb-block.open .hb-head .hb-toggle{transform:rotate(180deg);}
-.hb-body{display:none;padding:14px 16px;}
-.hb-block.open .hb-body{display:block;}
-.hb-en{font-size:13px;line-height:1.7;color:var(--t2,#CBD5E1);font-style:italic;background:rgba(96,165,250,.04);border-left:2px solid var(--cyan,#60A5FA);padding:9px 13px;border-radius:0 7px 7px 0;margin-bottom:11px;}
-.hb-ko{font-size:14px;line-height:1.75;color:var(--t1,#F1F5F9);}
-.hb-pdflink{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:11.5px;font-family:'JetBrains Mono',monospace;color:#E0635A;border:1px solid rgba(224,99,90,.4);background:rgba(224,99,90,.07);padding:5px 11px;border-radius:6px;text-decoration:none;transition:.15s;}
-.hb-pdflink:hover{background:#E0635A;color:#fff;}
-
-/* === 이미지 라이트박스(확대/축소) === */
-.fig img{cursor:zoom-in;transition:opacity .15s;}
-.fig img:hover{opacity:.9;}
-#imgLightbox{position:fixed;inset:0;z-index:9999;background:rgba(5,10,20,.94);
-  display:none;align-items:center;justify-content:center;
-  -webkit-user-select:none;user-select:none;touch-action:none;}
-#imgLightbox.open{display:flex;}
-#ilbImg{max-width:none;max-height:none;transform-origin:center center;
-  transition:transform .08s ease-out;will-change:transform;
-  box-shadow:0 10px 60px rgba(0,0,0,.6);border-radius:6px;
-  cursor:grab;-webkit-user-drag:none;user-drag:none;pointer-events:auto;}
-#ilbImg.grabbing{cursor:grabbing;transition:none;}
-.ilb-bar{position:fixed;top:18px;right:18px;display:flex;gap:8px;z-index:10000;}
-.ilb-btn{width:46px;height:46px;border-radius:11px;border:1px solid rgba(255,255,255,.18);
-  background:rgba(20,30,50,.85);color:#F1F5F9;font-size:22px;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  line-height:1;transition:.15s;backdrop-filter:blur(4px);font-family:inherit;}
-.ilb-btn:hover{background:rgba(96,165,250,.85);border-color:rgba(96,165,250,.9);}
-.ilb-cap{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-  font-size:13px;color:#CBD5E1;background:rgba(20,30,50,.8);
-  padding:8px 16px;border-radius:10px;backdrop-filter:blur(4px);
-  border:1px solid rgba(255,255,255,.12);max-width:90vw;text-align:center;z-index:10000;}
-.ilb-hint{position:fixed;top:18px;left:18px;font-size:12px;color:#94a3b8;
-  background:rgba(20,30,50,.7);padding:7px 13px;border-radius:9px;
-  backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.1);z-index:10000;
-  line-height:1.6;}
-@media(max-width:640px){.ilb-hint{display:none;}.ilb-btn{width:42px;height:42px;}}
-
-
-/* FAA 시험 참조 그림 (접이식) */
-.figref{margin:10px 0 6px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--panel);}
-.figref-head{display:flex;align-items:center;gap:7px;padding:9px 12px;cursor:pointer;user-select:none;font-size:12.5px;font-weight:700;color:var(--cyan);background:rgba(96,165,250,.08);transition:background .15s;}
-.figref-head:hover{background:rgba(96,165,250,.14);}
-.figref-head .fr-arrow{font-size:10px;transition:transform .2s;}
-.figref-head.open .fr-arrow{transform:rotate(90deg);}
-.figref-body{display:none;padding:10px;}
-.figref-body.open{display:block;}
-.figref-body .fig{margin:0;}
-.figref-body .fig img{background:#fff;}
-
-
-.figgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:14px}
-.figgal{background:#0b1220;border:1px solid #1e293b;border-radius:10px;padding:8px;margin:0}
-.figgal img{width:100%;border-radius:6px;cursor:zoom-in;background:#fff}
-.figgal figcaption{font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.4}
-.figpdf{color:#FBBF24}
-
-
-
-.home-fab{position:fixed;top:14px;right:14px;z-index:200;background:var(--gold,#FBBF24);color:#0F172A;
-  border:none;border-radius:22px;padding:9px 16px;font-weight:700;font-size:13px;font-family:'Noto Sans KR',sans-serif;
-  cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
-.home-fab:hover{background:#e8c766;}
-.menu-btn{z-index:201 !important;}
-
-
-    .layout{display:flex;min-height:100vh}
-    .tbtopic{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 15px;background:var(--bg);border:1px solid var(--line);border-radius:9px;margin-bottom:7px}
-    .tbtopic:hover{border-color:var(--cyan)}
-    .tbt-name{font-size:14.5px;color:var(--t1);font-weight:500}
-    .tbt-en{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);font-weight:400;margin-left:6px}
-    .tbt-badges{display:flex;gap:6px;flex-shrink:0}
-    .tbt-q{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--gold);background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.28);padding:3px 8px;border-radius:20px}
-    .tbt-pdf{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#E0635A;background:rgba(224,99,90,.1);border:1px solid rgba(224,99,90,.28);padding:3px 8px;border-radius:20px}
-    .tbsec{margin-bottom:26px}
-    .tbsec-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--gold)}
-    .tbsec-no{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:var(--cyan);background:rgba(96,165,250,.12);padding:4px 11px;border-radius:7px}
-    .tbsec-title{font-size:19px;font-weight:800}
-    .tbsec-title .en{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);font-weight:400}
-    .tbsec-count{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold)}
-    
-</style></head>
+.chblock{background:rgba(19,32,59,.95);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:14px;}
+.chhead{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.chhead a{font-size:19px;font-weight:700;}
+.chhead a:hover{color:var(--cyan);}
+.chhead .en{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);margin-left:8px;}
+.chhead .meta{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--t3);}
+.tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;}
+@media(max-width:680px){.tgrid{grid-template-columns:1fr;}}
+.topic{display:block;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+padding:9px 13px;font-size:13.5px;transition:.13s;}
+.topic:hover{border-color:var(--cyan);transform:translateX(3px);}
+.topic .en{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3);}
+.count{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green);margin-bottom:14px;}
+.noresult{display:none;padding:40px;text-align:center;color:var(--t3);}
+</style>
+</head>
 <body>
-<a class="home-fab" href="index.html">🏠 전체목차</a>
-<button class="menu-btn" onclick="document.querySelector('.side').classList.toggle('open')">☰ 목차</button>
-<div class="layout">
-  <aside class="side">
-    <div class="side-head">
-      <a href="index.html" style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);margin-bottom:10px;">← 전체 목차 (Master Index)</a>
-      <div class="kicker">FAA-H-8083-31B</div><h1>교재 정리 색인</h1>
-      <div class="sub">Textbook Index</div>
-      <input class="search" id="search" placeholder="🔍 주제 검색 (예: 리벳, 양력, 유압)" oninput="tbSearch(this.value)">
-    </div>
-    <ul class="toc" id="toc"><li><a href="#tb-ch1" data-target="tb-ch1">CH1. 항공기 구조</a></li>
-<li><a href="#tb-ch2" data-target="tb-ch2">CH2. 공기역학·조립·리깅</a></li>
-<li><a href="#tb-ch3" data-target="tb-ch3">CH3. 항공기 우포 외피</a></li>
-<li><a href="#tb-ch4" data-target="tb-ch4">CH4. 금속 구조 수리</a></li>
-<li><a href="#tb-ch5" data-target="tb-ch5">CH5. 항공기 용접</a></li>
-<li><a href="#tb-ch6" data-target="tb-ch6">CH6. 목재 구조 수리</a></li>
-<li><a href="#tb-ch7" data-target="tb-ch7">CH7. 첨단 복합재료</a></li>
-<li><a href="#tb-ch8" data-target="tb-ch8">CH8. 도장·마감</a></li>
-<li><a href="#tb-ch9" data-target="tb-ch9">CH9. 항공기 전기 계통</a></li>
-<li><a href="#tb-ch10" data-target="tb-ch10">CH10. 항공기 계기 계통</a></li>
-<li><a href="#tb-ch11" data-target="tb-ch11">CH11. 통신·항법</a></li>
-<li><a href="#tb-ch12" data-target="tb-ch12">CH12. 유압·공압 계통</a></li>
-<li><a href="#tb-ch13" data-target="tb-ch13">CH13. 착륙장치 계통</a></li>
-<li><a href="#tb-ch14" data-target="tb-ch14">CH14. 항공기 연료 계통</a></li>
-<li><a href="#tb-ch15" data-target="tb-ch15">CH15. 방빙·제우 계통</a></li>
-<li><a href="#tb-ch16" data-target="tb-ch16">CH16. 객실 환경 제어</a></li>
-<li><a href="#tb-ch17" data-target="tb-ch17">CH17. 화재 방지 계통</a></li>
-</ul>
-  </aside>
-  <main>
-    <div class="hero"><div class="ch">TEXTBOOK INDEX</div>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:30px;margin:8px 0 4px">📖 교재 정리 색인</h2>
-      <div class="en" style="font-family:'JetBrains Mono',monospace;color:var(--cyan)">Textbook Index — 주제별 핸드북 바로가기</div>
-      <p style="color:var(--t2);margin-top:12px">17개 챕터 154개 주제를 한곳에. 각 주제를 클릭하면 해당 챕터 본문으로 바로 이동합니다.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-        <span class="quizbadge" style="color:#60A5FA;background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.28)">📚 챕터 17개 · 주제 154개 · 연계 기출 340문항</span>
-      </div>
-    </div>
-    <section id="tb-ch1" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 1</span><span class="tbsec-title">항공기 구조 <span class="en">Aircraft Structures</span></span><span class="tbsec-count">13개 주제 · 기출 34</span></div><div class="tbtopics"><a class="tbtopic" href="ch01_aircraft_structures.html#s-intro"><span class="tbt-name">항공기 구조 개요 <span class="tbt-en">Aircraft Structures Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-structural-design"><span class="tbt-name">구조 설계의 발전 <span class="tbt-en">Evolution of Structural Design</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-airfoil"><span class="tbt-name">익형과 양력 <span class="tbt-en">Airfoil &amp; Lift</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-wing-construction"><span class="tbt-name">날개 구조 <span class="tbt-en">Wing Construction</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-control-surfaces"><span class="tbt-name">조종면 구조와 플러터 <span class="tbt-en">Control Surfaces &amp; Flutter</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-aux-surfaces"><span class="tbt-name">보조 양력장치 <span class="tbt-en">Auxiliary Lift Devices</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-empennage"><span class="tbt-name">꼬리날개 구조 <span class="tbt-en">Empennage Structures</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-fuselage"><span class="tbt-name">동체 구조 <span class="tbt-en">Fuselage Structures</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-landing-gear"><span class="tbt-name">착륙장치 형식 <span class="tbt-en">Landing Gear Types</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-rigging-axes"><span class="tbt-name">기체 축과 안정성 <span class="tbt-en">Aircraft Axes &amp; Stability</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-trim-tabs"><span class="tbt-name">조종·트림 탭 <span class="tbt-en">Control &amp; Trim Tabs</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-cable-system"><span class="tbt-name">조종 케이블 계통 <span class="tbt-en">Control Cable System</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a><a class="tbtopic" href="ch01_aircraft_structures.html#s-inspection-records"><span class="tbt-name">기체 검사와 기록 <span class="tbt-en">Airframe Inspection &amp; Records</span></span><span class="tbt-badges"><span class="tbt-q">기출 34</span><span class="tbt-pdf">p.27</span></span></a></div></section><section id="tb-ch2" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 2</span><span class="tbsec-title">공기역학·조립·리깅 <span class="en">Aerodynamics, Assembly &amp; Rigging</span></span><span class="tbsec-count">10개 주제 · 기출 24</span></div><div class="tbtopics"><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-four-forces"><span class="tbt-name">비행의 네 가지 힘 <span class="tbt-en">The Four Forces of Flight</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-lift-generation"><span class="tbt-name">양력의 발생 <span class="tbt-en">How Lift Is Generated</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-drag-types"><span class="tbt-name">항력의 종류 <span class="tbt-en">Types of Drag</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-stability"><span class="tbt-name">안정성 — 정적·동적 <span class="tbt-en">Static &amp; Dynamic Stability</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-stability-axes"><span class="tbt-name">축별 안정성 <span class="tbt-en">Stability About Each Axis</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-heli-rotor"><span class="tbt-name">헬리콥터 로터 계통 <span class="tbt-en">Helicopter Rotor Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-antitorque"><span class="tbt-name">반토크 계통 <span class="tbt-en">Antitorque Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-heli-flight"><span class="tbt-name">헬리콥터 비행 원리 <span class="tbt-en">Helicopter Flight Principles</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-autorotation"><span class="tbt-name">자동회전 <span class="tbt-en">Autorotation</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a><a class="tbtopic" href="ch02_aerodynamics_rigging.html#s-gyro-coriolis"><span class="tbt-name">자이로 세차·코리올리 효과 <span class="tbt-en">Gyroscopic Precession &amp; Coriolis Effect</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.72</span></span></a></div></section><section id="tb-ch3" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 3</span><span class="tbsec-title">항공기 우포 외피 <span class="en">Aircraft Fabric Covering</span></span><span class="tbsec-count">8개 주제 · 기출 18</span></div><div class="tbtopics"><a class="tbtopic" href="ch03_fabric_covering.html#s-intro"><span class="tbt-name">우포 외피 개요 <span class="tbt-en">Fabric Covering Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a><a class="tbtopic" href="ch03_fabric_covering.html#s-faa-approval"><span class="tbt-name">FAA 승인 기준 <span class="tbt-en">FAA Approval Criteria</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a><a class="tbtopic" href="ch03_fabric_covering.html#s-pma"><span class="tbt-name">부품 제작 승인(PMA) <span class="tbt-en">Parts Manufacturer Approval</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a><a class="tbtopic" href="ch03_fabric_covering.html#s-orientation"><span class="tbt-name">섬유 방향 <span class="tbt-en">Fabric Orientation</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a><a class="tbtopic" href="ch03_fabric_covering.html#s-fabric-strength"><span class="tbt-name">우포 강도 기준 <span class="tbt-en">Fabric Strength Standards</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a><a class="tbtopic" href="ch03_fabric_covering.html#s-covering-method"><span class="tbt-name">도포 방법 <span class="tbt-en">Covering Methods</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a><a class="tbtopic" href="ch03_fabric_covering.html#s-dope"><span class="tbt-name">도프와 마감 <span class="tbt-en">Dope &amp; Finishing</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a><a class="tbtopic" href="ch03_fabric_covering.html#s-grommets"><span class="tbt-name">그로밋과 검사링 <span class="tbt-en">Grommets &amp; Inspection Rings</span></span><span class="tbt-badges"><span class="tbt-q">기출 18</span><span class="tbt-pdf">p.139</span></span></a></div></section><section id="tb-ch4" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 4</span><span class="tbsec-title">금속 구조 수리 <span class="en">Metal Structural Repair</span></span><span class="tbsec-count">11개 주제 · 기출 40</span></div><div class="tbtopics"><a class="tbtopic" href="ch04_metal_repair.html#s-intro"><span class="tbt-name">금속 구조 수리 개요 <span class="tbt-en">Metal Structural Repair Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-punches"><span class="tbt-name">펀치와 리벳 제거 <span class="tbt-en">Punches &amp; Rivet Removal</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-drills"><span class="tbt-name">드릴과 Magic 7 <span class="tbt-en">Twist Drills &amp; Magic 7</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-drill-stops-clecos"><span class="tbt-name">드릴 스톱과 클레코 색상 <span class="tbt-en">Drill Stops &amp; Cleco Colors</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-rivet-code"><span class="tbt-name">솔리드 리벳 코드 <span class="tbt-en">Solid Rivet Codes</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-rivet-alloy"><span class="tbt-name">리벳 알로이와 머리 표시 <span class="tbt-en">Rivet Alloys &amp; Head Markings</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-rivet-install"><span class="tbt-name">리벳 설치 규격 <span class="tbt-en">Rivet Installation Dimensions</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-blind-rivets"><span class="tbt-name">블라인드(특수) 리벳 <span class="tbt-en">Blind (Special) Rivets</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-special-fasteners"><span class="tbt-name">특수 파스너 <span class="tbt-en">Special Fasteners</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-turnlock"><span class="tbt-name">턴록 파스너 (카울링) <span class="tbt-en">Turnlock Fasteners (Cowling)</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a><a class="tbtopic" href="ch04_metal_repair.html#s-bend-layout"><span class="tbt-name">판금 굽힘 레이아웃 <span class="tbt-en">Sheet Metal Bend Layout</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.163</span></span></a></div></section><section id="tb-ch5" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 5</span><span class="tbsec-title">항공기 용접 <span class="en">Aircraft Welding</span></span><span class="tbsec-count">10개 주제 · 기출 24</span></div><div class="tbtopics"><a class="tbtopic" href="ch05_welding.html#s-intro"><span class="tbt-name">용접 개요 <span class="tbt-en">Welding Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-weld-quality"><span class="tbt-name">좋은 용접의 평가 <span class="tbt-en">Evaluating a Good Weld</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-oxidation"><span class="tbt-name">산화 방지 <span class="tbt-en">Controlling Oxidation</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-oxyacetylene"><span class="tbt-name">산소아세틸렌 용접 <span class="tbt-en">Oxyacetylene Welding</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-arc-welding"><span class="tbt-name">아크 용접 (SMAW·GMAW·TIG) <span class="tbt-en">Electric Arc Welding</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-tig-polarity"><span class="tbt-name">TIG 극성과 전극 <span class="tbt-en">TIG Polarity &amp; Electrodes</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-resistance"><span class="tbt-name">전기 저항 용접 <span class="tbt-en">Electric Resistance Welding</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-joints"><span class="tbt-name">용접 이음의 종류 <span class="tbt-en">Types of Welded Joints</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-weld-parts"><span class="tbt-name">용접부 명칭과 결함 <span class="tbt-en">Weld Parts &amp; Defects</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a><a class="tbtopic" href="ch05_welding.html#s-brazing-soldering"><span class="tbt-name">브레이징과 솔더링 <span class="tbt-en">Brazing &amp; Soldering</span></span><span class="tbt-badges"><span class="tbt-q">기출 24</span><span class="tbt-pdf">p.277</span></span></a></div></section><section id="tb-ch6" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 6</span><span class="tbsec-title">목재 구조 수리 <span class="en">Wood Structural Repair</span></span><span class="tbsec-count">9개 주제 · 기출 20</span></div><div class="tbtopics"><a class="tbtopic" href="ch06_wood_structure.html#s-intro"><span class="tbt-name">목재 구조 개요 <span class="tbt-en">Wood Structure Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-wood-species"><span class="tbt-name">항공용 목재와 대체목 <span class="tbt-en">Aircraft Wood &amp; Substitutes</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-plywood-laminated"><span class="tbt-name">합판과 라미네이트 목재 <span class="tbt-en">Plywood &amp; Laminated Wood</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-wood-defects"><span class="tbt-name">목재 결함 판별 <span class="tbt-en">Identifying Wood Defects</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-adhesives"><span class="tbt-name">항공용 접착제 <span class="tbt-en">Aircraft Adhesives</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-bonding"><span class="tbt-name">접착 공정 <span class="tbt-en">The Bonding Process</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-inspection"><span class="tbt-name">목재 구조 검사 <span class="tbt-en">Inspecting Wood Structures</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-spar-repair"><span class="tbt-name">스파·리브 수리 <span class="tbt-en">Spar &amp; Rib Repairs</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a><a class="tbtopic" href="ch06_wood_structure.html#s-plywood-patch"><span class="tbt-name">합판 외피 패치 <span class="tbt-en">Plywood Skin Patches</span></span><span class="tbt-badges"><span class="tbt-q">기출 20</span><span class="tbt-pdf">p.312</span></span></a></div></section><section id="tb-ch7" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 7</span><span class="tbsec-title">첨단 복합재료 <span class="en">Advanced Composites</span></span><span class="tbsec-count">9개 주제 · 기출 30</span></div><div class="tbtopics"><a class="tbtopic" href="ch07_composites.html#s-intro"><span class="tbt-name">복합재 개요 <span class="tbt-en">Composite Materials Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-laminate"><span class="tbt-name">라미네이트 구성 요소 <span class="tbt-en">Major Components of a Laminate</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-fiber-orientation"><span class="tbt-name">섬유 방향과 적층 순서 <span class="tbt-en">Fiber Orientation &amp; Ply Sequence</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-warp-clock"><span class="tbt-name">워프 클록과 섬유 형태 <span class="tbt-en">Warp Clock &amp; Fiber Forms</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-fiber-types"><span class="tbt-name">섬유의 종류 <span class="tbt-en">Types of Fiber</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-matrix"><span class="tbt-name">매트릭스 수지 <span class="tbt-en">Matrix Resins</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-core"><span class="tbt-name">코어와 샌드위치 구조 <span class="tbt-en">Core &amp; Sandwich Structures</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-inspection"><span class="tbt-name">복합재 검사 <span class="tbt-en">Composite Inspection</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a><a class="tbtopic" href="ch07_composites.html#s-repair"><span class="tbt-name">복합재 수리 <span class="tbt-en">Composite Repair</span></span><span class="tbt-badges"><span class="tbt-q">기출 30</span><span class="tbt-pdf">p.338</span></span></a></div></section><section id="tb-ch8" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 8</span><span class="tbsec-title">도장·마감 <span class="en">Painting &amp; Finishing</span></span><span class="tbsec-count">8개 주제 · 기출 12</span></div><div class="tbtopics"><a class="tbtopic" href="ch08_painting.html#s-intro"><span class="tbt-name">도장 개요와 표면 준비 <span class="tbt-en">Painting &amp; Surface Prep</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a><a class="tbtopic" href="ch08_painting.html#s-stripping"><span class="tbt-name">페인트 스트리핑 <span class="tbt-en">Paint Stripping</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a><a class="tbtopic" href="ch08_painting.html#s-corrosion"><span class="tbt-name">부식 제거와 컨버전 코팅 <span class="tbt-en">Corrosion &amp; Conversion Coating</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a><a class="tbtopic" href="ch08_painting.html#s-primers"><span class="tbt-name">프라이머 <span class="tbt-en">Primers</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a><a class="tbtopic" href="ch08_painting.html#s-topcoats"><span class="tbt-name">마감재 (톱코트) <span class="tbt-en">Topcoat Finishing Materials</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a><a class="tbtopic" href="ch08_painting.html#s-special"><span class="tbt-name">특수 마감 <span class="tbt-en">Special Finishes</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a><a class="tbtopic" href="ch08_painting.html#s-thinners"><span class="tbt-name">신너와 리듀서 <span class="tbt-en">Thinners &amp; Reducers</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a><a class="tbtopic" href="ch08_painting.html#s-application"><span class="tbt-name">도장 안전과 적용 <span class="tbt-en">Spray Safety &amp; Application</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.396</span></span></a></div></section><section id="tb-ch9" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 9</span><span class="tbsec-title">항공기 전기 계통 <span class="en">Aircraft Electrical System</span></span><span class="tbsec-count">7개 주제 · 기출 6</span></div><div class="tbtopics"><a class="tbtopic" href="ch09_electrical.html#s-ohm"><span class="tbt-name">옴의 법칙 <span class="tbt-en">Ohm&#x27;s Law</span></span><span class="tbt-badges"><span class="tbt-q">기출 6</span><span class="tbt-pdf">p.417</span></span></a><a class="tbtopic" href="ch09_electrical.html#s-battery"><span class="tbt-name">항공기 배터리 <span class="tbt-en">Aircraft Batteries</span></span><span class="tbt-badges"><span class="tbt-q">기출 6</span><span class="tbt-pdf">p.417</span></span></a><a class="tbtopic" href="ch09_electrical.html#s-wiring"><span class="tbt-name">배선 설치 <span class="tbt-en">Wiring Installation</span></span><span class="tbt-badges"><span class="tbt-q">기출 6</span><span class="tbt-pdf">p.417</span></span></a><a class="tbtopic" href="ch09_electrical.html#s-battery-circuit"><span class="tbt-name">배터리·솔레노이드 회로 <span class="tbt-en">Battery &amp; Solenoid Circuit</span></span><span class="tbt-badges"><span class="tbt-q">기출 6</span><span class="tbt-pdf">p.417</span></span></a><a class="tbtopic" href="ch09_electrical.html#s-gen-alt-circuit"><span class="tbt-name">발전기·교류발전기 회로 <span class="tbt-en">Generator &amp; Alternator Circuit</span></span><span class="tbt-badges"><span class="tbt-q">기출 6</span><span class="tbt-pdf">p.417</span></span></a><a class="tbtopic" href="ch09_electrical.html#s-large-dist"><span class="tbt-name">대형기 전력 분배 <span class="tbt-en">Large Aircraft Power Distribution</span></span><span class="tbt-badges"><span class="tbt-q">기출 6</span><span class="tbt-pdf">p.417</span></span></a><a class="tbtopic" href="ch09_electrical.html#s-esds"><span class="tbt-name">정전기 민감 부품 취급 <span class="tbt-en">Handling ESDS Components</span></span><span class="tbt-badges"><span class="tbt-q">기출 6</span><span class="tbt-pdf">p.417</span></span></a></div></section><section id="tb-ch10" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 10</span><span class="tbsec-title">항공기 계기 계통 <span class="en">Aircraft Instrument Systems</span></span><span class="tbsec-count">8개 주제 · 기출 10</span></div><div class="tbtopics"><a class="tbtopic" href="ch10_instruments.html#s-intro"><span class="tbt-name">계기 개요 <span class="tbt-en">Instruments Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a><a class="tbtopic" href="ch10_instruments.html#s-classify"><span class="tbt-name">계기의 분류 <span class="tbt-en">Classifying Instruments</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a><a class="tbtopic" href="ch10_instruments.html#s-pressure-types"><span class="tbt-name">압력의 종류 <span class="tbt-en">Types of Pressure</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a><a class="tbtopic" href="ch10_instruments.html#s-pitot-static"><span class="tbt-name">피토정압 계통 <span class="tbt-en">Pitot-Static System</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a><a class="tbtopic" href="ch10_instruments.html#s-altimeter"><span class="tbt-name">고도계와 고도 <span class="tbt-en">Altimeter &amp; Altitude</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a><a class="tbtopic" href="ch10_instruments.html#s-gyro"><span class="tbt-name">자이로 계기 <span class="tbt-en">Gyroscopic Instruments</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a><a class="tbtopic" href="ch10_instruments.html#s-remote"><span class="tbt-name">원격 지시 계기 <span class="tbt-en">Remote-Indicating Instruments</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a><a class="tbtopic" href="ch10_instruments.html#s-install"><span class="tbt-name">계기 취급과 장착 <span class="tbt-en">Instrument Handling &amp; Installation</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.520</span></span></a></div></section><section id="tb-ch11" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 11</span><span class="tbsec-title">통신·항법 <span class="en">Communication &amp; Navigation</span></span><span class="tbsec-count">8개 주제 · 기출 10</span></div><div class="tbtopics"><a class="tbtopic" href="ch11_comm_nav.html#s-intro"><span class="tbt-name">항공전자 개요 <span class="tbt-en">Avionics Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a><a class="tbtopic" href="ch11_comm_nav.html#s-radio-principles"><span class="tbt-name">전파의 기초 <span class="tbt-en">Radio Wave Fundamentals</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a><a class="tbtopic" href="ch11_comm_nav.html#s-antennas"><span class="tbt-name">안테나 <span class="tbt-en">Antennas</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a><a class="tbtopic" href="ch11_comm_nav.html#s-communication"><span class="tbt-name">통신 계통 <span class="tbt-en">Communication Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a><a class="tbtopic" href="ch11_comm_nav.html#s-vor-adf"><span class="tbt-name">VOR와 ADF 항법 <span class="tbt-en">VOR &amp; ADF Navigation</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a><a class="tbtopic" href="ch11_comm_nav.html#s-ils"><span class="tbt-name">계기착륙장치 (ILS) <span class="tbt-en">Instrument Landing System (ILS)</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a><a class="tbtopic" href="ch11_comm_nav.html#s-dme-transponder"><span class="tbt-name">DME·트랜스폰더·RNAV <span class="tbt-en">DME, Transponder &amp; RNAV</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a><a class="tbtopic" href="ch11_comm_nav.html#s-gps-tcas"><span class="tbt-name">GPS와 충돌방지 (TCAS) <span class="tbt-en">GPS &amp; Collision Avoidance (TCAS)</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.604</span></span></a></div></section><section id="tb-ch12" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 12</span><span class="tbsec-title">유압·공압 계통 <span class="en">Hydraulic &amp; Pneumatic Power</span></span><span class="tbsec-count">8개 주제 · 기출 26</span></div><div class="tbtopics"><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-intro"><span class="tbt-name">유압 계통 개요 <span class="tbt-en">Hydraulic Systems Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-pascal"><span class="tbt-name">파스칼 법칙과 힘·면적·압력 <span class="tbt-en">Pascal&#x27;s Law &amp; Force-Area-Pressure</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-mechanical-advantage"><span class="tbt-name">기계적 이점 <span class="tbt-en">Mechanical Advantage</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-fluid-properties"><span class="tbt-name">유압유의 성질 <span class="tbt-en">Hydraulic Fluid Properties</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-fluid-types"><span class="tbt-name">유압유의 종류 <span class="tbt-en">Types of Hydraulic Fluid</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-components"><span class="tbt-name">유압 계통 구성품 <span class="tbt-en">Hydraulic System Components</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-brakes"><span class="tbt-name">유압 브레이크 <span class="tbt-en">Hydraulic Brakes</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a><a class="tbtopic" href="ch12_hydraulic_pneumatic.html#s-pneumatic"><span class="tbt-name">공압 계통 <span class="tbt-en">Pneumatic Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 26</span><span class="tbt-pdf">p.680</span></span></a></div></section><section id="tb-ch13" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 13</span><span class="tbsec-title">착륙장치 계통 <span class="en">Landing Gear Systems</span></span><span class="tbsec-count">11개 주제 · 기출 40</span></div><div class="tbtopics"><a class="tbtopic" href="ch13_landing_gear.html#s-intro"><span class="tbt-name">착륙장치 개요와 배열 <span class="tbt-en">Landing Gear Types &amp; Arrangement</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-shock-absorption"><span class="tbt-name">충격 흡수 방식 <span class="tbt-en">Shock Absorption</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-oleo-strut"><span class="tbt-name">오레오 스트럿 <span class="tbt-en">Oleo (Air-Oil) Strut</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-wheels"><span class="tbt-name">항공기 휠 <span class="tbt-en">Aircraft Wheels</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-bearings"><span class="tbt-name">휠 베어링 검사 <span class="tbt-en">Wheel Bearing Inspection</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-wheel-inspection"><span class="tbt-name">휠·볼트 검사 <span class="tbt-en">Wheel &amp; Bolt Inspection</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-tires"><span class="tbt-name">타이어와 튜브 <span class="tbt-en">Tires &amp; Tubes</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-brakes-antiskid"><span class="tbt-name">브레이크 종류·블리딩·안티스키드 <span class="tbt-en">Brake Types, Bleeding &amp; Anti-Skid</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-steering-shimmy"><span class="tbt-name">조향과 시미 댐퍼 <span class="tbt-en">Nose Wheel Steering &amp; Shimmy Damper</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-alignment"><span class="tbt-name">휠 정렬 (토·캠버) <span class="tbt-en">Wheel Alignment (Toe &amp; Camber)</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a><a class="tbtopic" href="ch13_landing_gear.html#s-retraction"><span class="tbt-name">접이식·안전장치 <span class="tbt-en">Retraction &amp; Safety Devices</span></span><span class="tbt-badges"><span class="tbt-q">기출 40</span><span class="tbt-pdf">p.732</span></span></a></div></section><section id="tb-ch14" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 14</span><span class="tbsec-title">항공기 연료 계통 <span class="en">Aircraft Fuel Systems</span></span><span class="tbsec-count">8개 주제 · 기출 10</span></div><div class="tbtopics"><a class="tbtopic" href="ch14_fuel_systems.html#s-intro"><span class="tbt-name">연료 계통 개요 <span class="tbt-en">Fuel Systems Introduction</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a><a class="tbtopic" href="ch14_fuel_systems.html#s-avgas"><span class="tbt-name">왕복엔진 연료 (Avgas) <span class="tbt-en">Reciprocating Engine Fuel (Avgas)</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a><a class="tbtopic" href="ch14_fuel_systems.html#s-detonation"><span class="tbt-name">데토네이션과 프리이그니션 <span class="tbt-en">Detonation &amp; Preignition</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a><a class="tbtopic" href="ch14_fuel_systems.html#s-jet-fuel"><span class="tbt-name">터빈엔진 연료 (Jet Fuel) <span class="tbt-en">Turbine Engine Fuel (Jet Fuel)</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a><a class="tbtopic" href="ch14_fuel_systems.html#s-water"><span class="tbt-name">연료 속 수분 문제 <span class="tbt-en">Water in Fuel</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a><a class="tbtopic" href="ch14_fuel_systems.html#s-tanks"><span class="tbt-name">연료 탱크 <span class="tbt-en">Fuel Tanks</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a><a class="tbtopic" href="ch14_fuel_systems.html#s-components"><span class="tbt-name">연료 계통 구성품 <span class="tbt-en">Fuel System Components</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a><a class="tbtopic" href="ch14_fuel_systems.html#s-indication-servicing"><span class="tbt-name">연료량 지시와 급유·정비 <span class="tbt-en">Fuel Quantity &amp; Servicing</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.824</span></span></a></div></section><section id="tb-ch15" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 15</span><span class="tbsec-title">방빙·제우 계통 <span class="en">Ice &amp; Rain Protection</span></span><span class="tbsec-count">10개 주제 · 기출 12</span></div><div class="tbtopics"><a class="tbtopic" href="ch15_ice_rain.html#s-intro"><span class="tbt-name">결빙의 위험과 방빙·제빙 <span class="tbt-en">Icing Hazards, Anti-Ice vs De-Ice</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-ice-detection"><span class="tbt-name">결빙 탐지 <span class="tbt-en">Ice Detection</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-thermal-antiice"><span class="tbt-name">열 방빙 (블리드 에어) <span class="tbt-en">Thermal Anti-Icing (Bleed Air)</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-electric-antiice"><span class="tbt-name">전기 방빙 <span class="tbt-en">Electric Anti-Icing</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-chemical-antiice"><span class="tbt-name">화학 방빙과 위핑윙 <span class="tbt-en">Chemical Anti-Icing &amp; Weeping Wing</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-deice-boots"><span class="tbt-name">제빙 부츠 (공압) <span class="tbt-en">Pneumatic De-Icer Boots</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-boot-maintenance"><span class="tbt-name">제빙 부츠 정비 <span class="tbt-en">De-Icer Boot Maintenance</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-prop-deice"><span class="tbt-name">프로펠러 제빙 (전기열) <span class="tbt-en">Propeller De-Icing (Electrothermal)</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-ground-deice"><span class="tbt-name">지상 제빙 (FPD) <span class="tbt-en">Ground De-Icing (FPD Fluids)</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a><a class="tbtopic" href="ch15_ice_rain.html#s-rain-control"><span class="tbt-name">제우 계통 (Rain Control) <span class="tbt-en">Rain Control Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 12</span><span class="tbt-pdf">p.881</span></span></a></div></section><section id="tb-ch16" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 16</span><span class="tbsec-title">객실 환경 제어 <span class="en">Cabin Environmental Control</span></span><span class="tbsec-count">9개 주제 · 기출 14</span></div><div class="tbtopics"><a class="tbtopic" href="ch16_cabin_environment.html#s-atmosphere"><span class="tbt-name">대기와 비행 생리학 <span class="tbt-en">Atmosphere &amp; Flight Physiology</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-hypoxia"><span class="tbt-name">저산소증과 일산화탄소 중독 <span class="tbt-en">Hypoxia &amp; Carbon Monoxide Poisoning</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-oxygen-sources"><span class="tbt-name">산소 공급원 <span class="tbt-en">Sources of Oxygen</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-oxygen-regulators"><span class="tbt-name">산소 레귤레이터와 마스크 <span class="tbt-en">Oxygen Regulators &amp; Masks</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-oxygen-servicing"><span class="tbt-name">산소 계통 정비 <span class="tbt-en">Oxygen System Servicing</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-pressurization"><span class="tbt-name">여압 계통 <span class="tbt-en">Pressurization Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-outflow-control"><span class="tbt-name">여압 제어와 밸브 <span class="tbt-en">Pressure Control &amp; Valves</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-air-conditioning"><span class="tbt-name">냉난방 계통 (ACM·증기사이클) <span class="tbt-en">Air Conditioning &amp; Heating</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a><a class="tbtopic" href="ch16_cabin_environment.html#s-water-waste"><span class="tbt-name">물·폐수 계통 <span class="tbt-en">Water &amp; Waste Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 14</span><span class="tbt-pdf">p.912</span></span></a></div></section><section id="tb-ch17" class="tbsec"><div class="tbsec-head"><span class="tbsec-no">CH 17</span><span class="tbsec-title">화재 방지 계통 <span class="en">Fire Protection Systems</span></span><span class="tbsec-count">7개 주제 · 기출 10</span></div><div class="tbtopics"><a class="tbtopic" href="ch17_fire_protection.html#s-fire-triangle"><span class="tbt-name">화재의 원리와 등급 <span class="tbt-en">Fire Principles &amp; Classes</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.973</span></span></a><a class="tbtopic" href="ch17_fire_protection.html#s-fire-zones"><span class="tbt-name">화재 구역 <span class="tbt-en">Fire Zones</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.973</span></span></a><a class="tbtopic" href="ch17_fire_protection.html#s-detection-requirements"><span class="tbt-name">화재 탐지 계통 요건 <span class="tbt-en">Fire Detection Requirements</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.973</span></span></a><a class="tbtopic" href="ch17_fire_protection.html#s-spot-detectors"><span class="tbt-name">스팟 탐지기 (열스위치·열전대) <span class="tbt-en">Spot Detectors (Thermoswitch &amp; Thermocouple)</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.973</span></span></a><a class="tbtopic" href="ch17_fire_protection.html#s-continuous-loop"><span class="tbt-name">연속 루프 탐지기 <span class="tbt-en">Continuous-Loop Detectors</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.973</span></span></a><a class="tbtopic" href="ch17_fire_protection.html#s-smoke-detectors"><span class="tbt-name">연기·CO 탐지기 <span class="tbt-en">Smoke &amp; CO Detectors</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.973</span></span></a><a class="tbtopic" href="ch17_fire_protection.html#s-extinguishing"><span class="tbt-name">소화 계통 <span class="tbt-en">Fire Extinguishing Systems</span></span><span class="tbt-badges"><span class="tbt-q">기출 10</span><span class="tbt-pdf">p.973</span></span></a></div></section>
-    <div class="no-result" id="noresult">검색 결과가 없습니다.</div>
-  </main>
+<div class="wrap">
+<a class="top-link" href="index.html">← 전체 목차 (Master Index)</a>
+<div class="kicker" style="margin-top:14px">FAA-H-8083-31B · ASA AIRFRAME · TEXTBOOK INDEX</div>
+<h1>📖 교재 정리 색인</h1>
+<div class="sub">Textbook Index — 17개 챕터 154개 주제, 클릭하면 해당 본문으로 이동</div>
+<input class="search" id="q" placeholder="🔍 주제 검색 (예: 리벳, 스파, rivet, spar)" oninput="doSearch(this.value)">
+<div class="count" id="count"></div>
+<div id="list"></div>
+<div class="noresult" id="noresult">검색 결과가 없습니다.</div>
 </div>
-<button class="backtop" id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
-/* ===== 통합 인터랙션 핸들러 (견고 버전) ===== */
-// 정답 선택
-function iqPick(el, ans){
-  try{
-    var ul = el.parentNode;
-    [].forEach.call(ul.children, function(li){ li.classList.remove('correct','wrong'); });
-    [].forEach.call(ul.children, function(li){
-      if(li.getAttribute('data-letter')===ans) li.classList.add('correct');
+var DATA = [{"no": 1, "ko": "항공기 구조", "en": "Aircraft Structures", "file": "ch01_aircraft_structures.html", "quiz": 34, "oral": 0, "topics": [{"id": "s-intro", "ko": "항공기 구조 개요", "en": "Aircraft Structures Introduction"}, {"id": "s-structural-design", "ko": "구조 설계의 발전", "en": "Evolution of Structural Design"}, {"id": "s-airfoil", "ko": "익형과 양력", "en": "Airfoil &amp; Lift"}, {"id": "s-wing-construction", "ko": "날개 구조", "en": "Wing Construction"}, {"id": "s-control-surfaces", "ko": "조종면 구조와 플러터", "en": "Control Surfaces &amp; Flutter"}, {"id": "s-aux-surfaces", "ko": "보조 양력장치", "en": "Auxiliary Lift Devices"}, {"id": "s-empennage", "ko": "꼬리날개 구조", "en": "Empennage Structures"}, {"id": "s-fuselage", "ko": "동체 구조", "en": "Fuselage Structures"}, {"id": "s-landing-gear", "ko": "착륙장치 형식", "en": "Landing Gear Types"}, {"id": "s-rigging-axes", "ko": "기체 축과 안정성", "en": "Aircraft Axes &amp; Stability"}, {"id": "s-trim-tabs", "ko": "조종·트림 탭", "en": "Control &amp; Trim Tabs"}, {"id": "s-cable-system", "ko": "조종 케이블 계통", "en": "Control Cable System"}, {"id": "s-inspection-records", "ko": "기체 검사와 기록", "en": "Airframe Inspection &amp; Records"}]}, {"no": 2, "ko": "공기역학·조립·리깅", "en": "Aerodynamics, Assembly &amp; Rigging", "file": "ch02_aerodynamics_rigging.html", "quiz": 24, "oral": 0, "topics": [{"id": "s-four-forces", "ko": "비행의 네 가지 힘", "en": "The Four Forces of Flight"}, {"id": "s-lift-generation", "ko": "양력의 발생", "en": "How Lift Is Generated"}, {"id": "s-drag-types", "ko": "항력의 종류", "en": "Types of Drag"}, {"id": "s-stability", "ko": "안정성 — 정적·동적", "en": "Static &amp; Dynamic Stability"}, {"id": "s-stability-axes", "ko": "축별 안정성", "en": "Stability About Each Axis"}, {"id": "s-heli-rotor", "ko": "헬리콥터 로터 계통", "en": "Helicopter Rotor Systems"}, {"id": "s-antitorque", "ko": "반토크 계통", "en": "Antitorque Systems"}, {"id": "s-heli-flight", "ko": "헬리콥터 비행 원리", "en": "Helicopter Flight Principles"}, {"id": "s-autorotation", "ko": "자동회전", "en": "Autorotation"}, {"id": "s-gyro-coriolis", "ko": "자이로 세차·코리올리 효과", "en": "Gyroscopic Precession &amp; Coriolis Effect"}]}, {"no": 3, "ko": "항공기 우포 외피", "en": "Aircraft Fabric Covering", "file": "ch03_fabric_covering.html", "quiz": 18, "oral": 0, "topics": [{"id": "s-intro", "ko": "우포 외피 개요", "en": "Fabric Covering Introduction"}, {"id": "s-faa-approval", "ko": "FAA 승인 기준", "en": "FAA Approval Criteria"}, {"id": "s-pma", "ko": "부품 제작 승인(PMA)", "en": "Parts Manufacturer Approval"}, {"id": "s-orientation", "ko": "섬유 방향", "en": "Fabric Orientation"}, {"id": "s-fabric-strength", "ko": "우포 강도 기준", "en": "Fabric Strength Standards"}, {"id": "s-covering-method", "ko": "도포 방법", "en": "Covering Methods"}, {"id": "s-dope", "ko": "도프와 마감", "en": "Dope &amp; Finishing"}, {"id": "s-grommets", "ko": "그로밋과 검사링", "en": "Grommets &amp; Inspection Rings"}]}, {"no": 4, "ko": "금속 구조 수리", "en": "Metal Structural Repair", "file": "ch04_metal_repair.html", "quiz": 40, "oral": 0, "topics": [{"id": "s-intro", "ko": "금속 구조 수리 개요", "en": "Metal Structural Repair Introduction"}, {"id": "s-punches", "ko": "펀치와 리벳 제거", "en": "Punches &amp; Rivet Removal"}, {"id": "s-drills", "ko": "드릴과 Magic 7", "en": "Twist Drills &amp; Magic 7"}, {"id": "s-drill-stops-clecos", "ko": "드릴 스톱과 클레코 색상", "en": "Drill Stops &amp; Cleco Colors"}, {"id": "s-rivet-code", "ko": "솔리드 리벳 코드", "en": "Solid Rivet Codes"}, {"id": "s-rivet-alloy", "ko": "리벳 알로이와 머리 표시", "en": "Rivet Alloys &amp; Head Markings"}, {"id": "s-rivet-install", "ko": "리벳 설치 규격", "en": "Rivet Installation Dimensions"}, {"id": "s-blind-rivets", "ko": "블라인드(특수) 리벳", "en": "Blind (Special) Rivets"}, {"id": "s-special-fasteners", "ko": "특수 파스너", "en": "Special Fasteners"}, {"id": "s-turnlock", "ko": "턴록 파스너 (카울링)", "en": "Turnlock Fasteners (Cowling)"}, {"id": "s-bend-layout", "ko": "판금 굽힘 레이아웃", "en": "Sheet Metal Bend Layout"}]}, {"no": 5, "ko": "항공기 용접", "en": "Aircraft Welding", "file": "ch05_welding.html", "quiz": 24, "oral": 0, "topics": [{"id": "s-intro", "ko": "용접 개요", "en": "Welding Introduction"}, {"id": "s-weld-quality", "ko": "좋은 용접의 평가", "en": "Evaluating a Good Weld"}, {"id": "s-oxidation", "ko": "산화 방지", "en": "Controlling Oxidation"}, {"id": "s-oxyacetylene", "ko": "산소아세틸렌 용접", "en": "Oxyacetylene Welding"}, {"id": "s-arc-welding", "ko": "아크 용접 (SMAW·GMAW·TIG)", "en": "Electric Arc Welding"}, {"id": "s-tig-polarity", "ko": "TIG 극성과 전극", "en": "TIG Polarity &amp; Electrodes"}, {"id": "s-resistance", "ko": "전기 저항 용접", "en": "Electric Resistance Welding"}, {"id": "s-joints", "ko": "용접 이음의 종류", "en": "Types of Welded Joints"}, {"id": "s-weld-parts", "ko": "용접부 명칭과 결함", "en": "Weld Parts &amp; Defects"}, {"id": "s-brazing-soldering", "ko": "브레이징과 솔더링", "en": "Brazing &amp; Soldering"}]}, {"no": 6, "ko": "목재 구조 수리", "en": "Wood Structural Repair", "file": "ch06_wood_structure.html", "quiz": 20, "oral": 0, "topics": [{"id": "s-intro", "ko": "목재 구조 개요", "en": "Wood Structure Introduction"}, {"id": "s-wood-species", "ko": "항공용 목재와 대체목", "en": "Aircraft Wood &amp; Substitutes"}, {"id": "s-plywood-laminated", "ko": "합판과 라미네이트 목재", "en": "Plywood &amp; Laminated Wood"}, {"id": "s-wood-defects", "ko": "목재 결함 판별", "en": "Identifying Wood Defects"}, {"id": "s-adhesives", "ko": "항공용 접착제", "en": "Aircraft Adhesives"}, {"id": "s-bonding", "ko": "접착 공정", "en": "The Bonding Process"}, {"id": "s-inspection", "ko": "목재 구조 검사", "en": "Inspecting Wood Structures"}, {"id": "s-spar-repair", "ko": "스파·리브 수리", "en": "Spar &amp; Rib Repairs"}, {"id": "s-plywood-patch", "ko": "합판 외피 패치", "en": "Plywood Skin Patches"}]}, {"no": 7, "ko": "첨단 복합재료", "en": "Advanced Composites", "file": "ch07_composites.html", "quiz": 30, "oral": 0, "topics": [{"id": "s-intro", "ko": "복합재 개요", "en": "Composite Materials Introduction"}, {"id": "s-laminate", "ko": "라미네이트 구성 요소", "en": "Major Components of a Laminate"}, {"id": "s-fiber-orientation", "ko": "섬유 방향과 적층 순서", "en": "Fiber Orientation &amp; Ply Sequence"}, {"id": "s-warp-clock", "ko": "워프 클록과 섬유 형태", "en": "Warp Clock &amp; Fiber Forms"}, {"id": "s-fiber-types", "ko": "섬유의 종류", "en": "Types of Fiber"}, {"id": "s-matrix", "ko": "매트릭스 수지", "en": "Matrix Resins"}, {"id": "s-core", "ko": "코어와 샌드위치 구조", "en": "Core &amp; Sandwich Structures"}, {"id": "s-inspection", "ko": "복합재 검사", "en": "Composite Inspection"}, {"id": "s-repair", "ko": "복합재 수리", "en": "Composite Repair"}]}, {"no": 8, "ko": "도장·마감", "en": "Painting &amp; Finishing", "file": "ch08_painting.html", "quiz": 12, "oral": 0, "topics": [{"id": "s-intro", "ko": "도장 개요와 표면 준비", "en": "Painting &amp; Surface Prep"}, {"id": "s-stripping", "ko": "페인트 스트리핑", "en": "Paint Stripping"}, {"id": "s-corrosion", "ko": "부식 제거와 컨버전 코팅", "en": "Corrosion &amp; Conversion Coating"}, {"id": "s-primers", "ko": "프라이머", "en": "Primers"}, {"id": "s-topcoats", "ko": "마감재 (톱코트)", "en": "Topcoat Finishing Materials"}, {"id": "s-special", "ko": "특수 마감", "en": "Special Finishes"}, {"id": "s-thinners", "ko": "신너와 리듀서", "en": "Thinners &amp; Reducers"}, {"id": "s-application", "ko": "도장 안전과 적용", "en": "Spray Safety &amp; Application"}]}, {"no": 9, "ko": "항공기 전기 계통", "en": "Aircraft Electrical System", "file": "ch09_electrical.html", "quiz": 6, "oral": 0, "topics": [{"id": "s-ohm", "ko": "옴의 법칙", "en": "Ohm&#x27;s Law"}, {"id": "s-battery", "ko": "항공기 배터리", "en": "Aircraft Batteries"}, {"id": "s-wiring", "ko": "배선 설치", "en": "Wiring Installation"}, {"id": "s-battery-circuit", "ko": "배터리·솔레노이드 회로", "en": "Battery &amp; Solenoid Circuit"}, {"id": "s-gen-alt-circuit", "ko": "발전기·교류발전기 회로", "en": "Generator &amp; Alternator Circuit"}, {"id": "s-large-dist", "ko": "대형기 전력 분배", "en": "Large Aircraft Power Distribution"}, {"id": "s-esds", "ko": "정전기 민감 부품 취급", "en": "Handling ESDS Components"}]}, {"no": 10, "ko": "항공기 계기 계통", "en": "Aircraft Instrument Systems", "file": "ch10_instruments.html", "quiz": 10, "oral": 0, "topics": [{"id": "s-intro", "ko": "계기 개요", "en": "Instruments Introduction"}, {"id": "s-classify", "ko": "계기의 분류", "en": "Classifying Instruments"}, {"id": "s-pressure-types", "ko": "압력의 종류", "en": "Types of Pressure"}, {"id": "s-pitot-static", "ko": "피토정압 계통", "en": "Pitot-Static System"}, {"id": "s-altimeter", "ko": "고도계와 고도", "en": "Altimeter &amp; Altitude"}, {"id": "s-gyro", "ko": "자이로 계기", "en": "Gyroscopic Instruments"}, {"id": "s-remote", "ko": "원격 지시 계기", "en": "Remote-Indicating Instruments"}, {"id": "s-install", "ko": "계기 취급과 장착", "en": "Instrument Handling &amp; Installation"}]}, {"no": 11, "ko": "통신·항법", "en": "Communication &amp; Navigation", "file": "ch11_comm_nav.html", "quiz": 10, "oral": 0, "topics": [{"id": "s-intro", "ko": "항공전자 개요", "en": "Avionics Introduction"}, {"id": "s-radio-principles", "ko": "전파의 기초", "en": "Radio Wave Fundamentals"}, {"id": "s-antennas", "ko": "안테나", "en": "Antennas"}, {"id": "s-communication", "ko": "통신 계통", "en": "Communication Systems"}, {"id": "s-vor-adf", "ko": "VOR와 ADF 항법", "en": "VOR &amp; ADF Navigation"}, {"id": "s-ils", "ko": "계기착륙장치 (ILS)", "en": "Instrument Landing System (ILS)"}, {"id": "s-dme-transponder", "ko": "DME·트랜스폰더·RNAV", "en": "DME, Transponder &amp; RNAV"}, {"id": "s-gps-tcas", "ko": "GPS와 충돌방지 (TCAS)", "en": "GPS &amp; Collision Avoidance (TCAS)"}]}, {"no": 12, "ko": "유압·공압 계통", "en": "Hydraulic &amp; Pneumatic Power", "file": "ch12_hydraulic_pneumatic.html", "quiz": 26, "oral": 0, "topics": [{"id": "s-intro", "ko": "유압 계통 개요", "en": "Hydraulic Systems Introduction"}, {"id": "s-pascal", "ko": "파스칼 법칙과 힘·면적·압력", "en": "Pascal&#x27;s Law &amp; Force-Area-Pressure"}, {"id": "s-mechanical-advantage", "ko": "기계적 이점", "en": "Mechanical Advantage"}, {"id": "s-fluid-properties", "ko": "유압유의 성질", "en": "Hydraulic Fluid Properties"}, {"id": "s-fluid-types", "ko": "유압유의 종류", "en": "Types of Hydraulic Fluid"}, {"id": "s-components", "ko": "유압 계통 구성품", "en": "Hydraulic System Components"}, {"id": "s-brakes", "ko": "유압 브레이크", "en": "Hydraulic Brakes"}, {"id": "s-pneumatic", "ko": "공압 계통", "en": "Pneumatic Systems"}]}, {"no": 13, "ko": "착륙장치 계통", "en": "Landing Gear Systems", "file": "ch13_landing_gear.html", "quiz": 40, "oral": 0, "topics": [{"id": "s-intro", "ko": "착륙장치 개요와 배열", "en": "Landing Gear Types &amp; Arrangement"}, {"id": "s-shock-absorption", "ko": "충격 흡수 방식", "en": "Shock Absorption"}, {"id": "s-oleo-strut", "ko": "오레오 스트럿", "en": "Oleo (Air-Oil) Strut"}, {"id": "s-wheels", "ko": "항공기 휠", "en": "Aircraft Wheels"}, {"id": "s-bearings", "ko": "휠 베어링 검사", "en": "Wheel Bearing Inspection"}, {"id": "s-wheel-inspection", "ko": "휠·볼트 검사", "en": "Wheel &amp; Bolt Inspection"}, {"id": "s-tires", "ko": "타이어와 튜브", "en": "Tires &amp; Tubes"}, {"id": "s-brakes-antiskid", "ko": "브레이크 종류·블리딩·안티스키드", "en": "Brake Types, Bleeding &amp; Anti-Skid"}, {"id": "s-steering-shimmy", "ko": "조향과 시미 댐퍼", "en": "Nose Wheel Steering &amp; Shimmy Damper"}, {"id": "s-alignment", "ko": "휠 정렬 (토·캠버)", "en": "Wheel Alignment (Toe &amp; Camber)"}, {"id": "s-retraction", "ko": "접이식·안전장치", "en": "Retraction &amp; Safety Devices"}]}, {"no": 14, "ko": "항공기 연료 계통", "en": "Aircraft Fuel Systems", "file": "ch14_fuel_systems.html", "quiz": 10, "oral": 0, "topics": [{"id": "s-intro", "ko": "연료 계통 개요", "en": "Fuel Systems Introduction"}, {"id": "s-avgas", "ko": "왕복엔진 연료 (Avgas)", "en": "Reciprocating Engine Fuel (Avgas)"}, {"id": "s-detonation", "ko": "데토네이션과 프리이그니션", "en": "Detonation &amp; Preignition"}, {"id": "s-jet-fuel", "ko": "터빈엔진 연료 (Jet Fuel)", "en": "Turbine Engine Fuel (Jet Fuel)"}, {"id": "s-water", "ko": "연료 속 수분 문제", "en": "Water in Fuel"}, {"id": "s-tanks", "ko": "연료 탱크", "en": "Fuel Tanks"}, {"id": "s-components", "ko": "연료 계통 구성품", "en": "Fuel System Components"}, {"id": "s-indication-servicing", "ko": "연료량 지시와 급유·정비", "en": "Fuel Quantity &amp; Servicing"}]}, {"no": 15, "ko": "방빙·제우 계통", "en": "Ice &amp; Rain Protection", "file": "ch15_ice_rain.html", "quiz": 12, "oral": 0, "topics": [{"id": "s-intro", "ko": "결빙의 위험과 방빙·제빙", "en": "Icing Hazards, Anti-Ice vs De-Ice"}, {"id": "s-ice-detection", "ko": "결빙 탐지", "en": "Ice Detection"}, {"id": "s-thermal-antiice", "ko": "열 방빙 (블리드 에어)", "en": "Thermal Anti-Icing (Bleed Air)"}, {"id": "s-electric-antiice", "ko": "전기 방빙", "en": "Electric Anti-Icing"}, {"id": "s-chemical-antiice", "ko": "화학 방빙과 위핑윙", "en": "Chemical Anti-Icing &amp; Weeping Wing"}, {"id": "s-deice-boots", "ko": "제빙 부츠 (공압)", "en": "Pneumatic De-Icer Boots"}, {"id": "s-boot-maintenance", "ko": "제빙 부츠 정비", "en": "De-Icer Boot Maintenance"}, {"id": "s-prop-deice", "ko": "프로펠러 제빙 (전기열)", "en": "Propeller De-Icing (Electrothermal)"}, {"id": "s-ground-deice", "ko": "지상 제빙 (FPD)", "en": "Ground De-Icing (FPD Fluids)"}, {"id": "s-rain-control", "ko": "제우 계통 (Rain Control)", "en": "Rain Control Systems"}]}, {"no": 16, "ko": "객실 환경 제어", "en": "Cabin Environmental Control", "file": "ch16_cabin_environment.html", "quiz": 14, "oral": 0, "topics": [{"id": "s-atmosphere", "ko": "대기와 비행 생리학", "en": "Atmosphere &amp; Flight Physiology"}, {"id": "s-hypoxia", "ko": "저산소증과 일산화탄소 중독", "en": "Hypoxia &amp; Carbon Monoxide Poisoning"}, {"id": "s-oxygen-sources", "ko": "산소 공급원", "en": "Sources of Oxygen"}, {"id": "s-oxygen-regulators", "ko": "산소 레귤레이터와 마스크", "en": "Oxygen Regulators &amp; Masks"}, {"id": "s-oxygen-servicing", "ko": "산소 계통 정비", "en": "Oxygen System Servicing"}, {"id": "s-pressurization", "ko": "여압 계통", "en": "Pressurization Systems"}, {"id": "s-outflow-control", "ko": "여압 제어와 밸브", "en": "Pressure Control &amp; Valves"}, {"id": "s-air-conditioning", "ko": "냉난방 계통 (ACM·증기사이클)", "en": "Air Conditioning &amp; Heating"}, {"id": "s-water-waste", "ko": "물·폐수 계통", "en": "Water &amp; Waste Systems"}]}, {"no": 17, "ko": "화재 방지 계통", "en": "Fire Protection Systems", "file": "ch17_fire_protection.html", "quiz": 10, "oral": 0, "topics": [{"id": "s-fire-triangle", "ko": "화재의 원리와 등급", "en": "Fire Principles &amp; Classes"}, {"id": "s-fire-zones", "ko": "화재 구역", "en": "Fire Zones"}, {"id": "s-detection-requirements", "ko": "화재 탐지 계통 요건", "en": "Fire Detection Requirements"}, {"id": "s-spot-detectors", "ko": "스팟 탐지기 (열스위치·열전대)", "en": "Spot Detectors (Thermoswitch &amp; Thermocouple)"}, {"id": "s-continuous-loop", "ko": "연속 루프 탐지기", "en": "Continuous-Loop Detectors"}, {"id": "s-smoke-detectors", "ko": "연기·CO 탐지기", "en": "Smoke &amp; CO Detectors"}, {"id": "s-extinguishing", "ko": "소화 계통", "en": "Fire Extinguishing Systems"}]}];
+var list = document.getElementById('list');
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function render(q){
+  q = (q||'').trim().toLowerCase();
+  list.innerHTML=''; var shown=0;
+  DATA.forEach(function(ch){
+    var hits = ch.topics.filter(function(t){
+      return !q || (t.ko+' '+t.en).toLowerCase().indexOf(q)>=0;
     });
-    if(el.getAttribute('data-letter')!==ans) el.classList.add('wrong');
-  }catch(e){}
+    if(!hits.length) return;
+    shown += hits.length;
+    var b = document.createElement('div'); b.className='chblock';
+    var h = '<div class="chhead"><div><a href="'+ch.file+'">Ch.'+ch.no+' '+ch.ko+'</a>'
+      + '<span class="en">'+esc(ch.en)+'</span></div>'
+      + '<span class="meta">주제 '+hits.length+' · 구술 '+ch.oral+' · 기출 '+ch.quiz+'</span></div><div class="tgrid">';
+    hits.forEach(function(t){
+      h += '<a class="topic" href="'+ch.file+'#'+t.id+'">'+t.ko+'<span class="en">'+esc(t.en)+'</span></a>';
+    });
+    h += '</div>';
+    b.innerHTML = h; list.appendChild(b);
+  });
+  document.getElementById('count').textContent = '주제 '+shown+'개' + (q?' (검색: '+q+')':'');
+  document.getElementById('noresult').style.display = shown?'none':'block';
 }
-// 정답·해설 토글 (구조 비의존: 가장 가까운 .iqreveal 안에서 .iqexp 검색)
-function iqToggle(btn){
-  try{
-    var wrap = btn.closest ? btn.closest('.iqreveal') : btn.parentNode;
-    var exp = wrap ? wrap.querySelector('.iqexp') : btn.nextElementSibling;
-    if(!exp) return;
-    exp.classList.toggle('show');
-    btn.textContent = exp.classList.contains('show') ? '해설 접기' : '정답·해설 보기';
-  }catch(e){}
-}
-
-
-
-/* ===== 교재 보기 모달 (문제 맞춤형) ===== */
-function tbmOpen(btn){
-  try{
-    var card = btn.closest ? btn.closest('.iqcard') : null;
-    if(!card){ var p=btn; while(p&&!(p.className&&p.className.indexOf('iqcard')>=0)){p=p.parentNode;} card=p; }
-    if(!card) return;
-    var qno = card.getAttribute('data-q') || '';
-    var qq = card.querySelector('.iqq');
-    var qtext = qq ? qq.textContent.replace(qno,'').trim() : '';
-    // 정답·해설(iqexp) 내용 = 이 문제의 핵심 교재
-    var exp = card.querySelector('.iqexp');
-    var expClone = exp ? exp.cloneNode(true) : null;
-    if(expClone){ expClone.classList.remove('show'); }
-    // 매칭된 관련 섹션
-    var msid = card.getAttribute('data-tbsec') || '';
-    var mtitle = card.getAttribute('data-tbtitle') || '';
-    var mpage = card.getAttribute('data-tbpage') || '';
-    var mpdf = card.getAttribute('data-pdfpage') || '';
-
-    document.getElementById('tbmTitle').textContent = 'Q'+qno+' 관련 교재';
-    document.getElementById('tbmEn').textContent = qtext.length>60?qtext.slice(0,60)+'…':qtext;
-
-    var body = document.getElementById('tbmBody');
-    body.innerHTML = '';
-    // 1) 핵심: 정답·해설
-    var coreLabel = document.createElement('div');
-    coreLabel.className='tbm-sec-label';
-    coreLabel.textContent='📌 이 문제의 핵심 (정답·해설)';
-    body.appendChild(coreLabel);
-    if(expClone){
-      var core=document.createElement('div');
-      core.className='tbm-core';
-      core.innerHTML = expClone.innerHTML;
-      body.appendChild(core);
-    }
-    // 2) 관련 교재 섹션 (강한 매칭일 때만)
-    var gotoBtn = document.getElementById('tbmGoto');
-    if(msid){
-      var sec = document.getElementById(msid);
-      if(sec){
-        var relLabel=document.createElement('div');
-        relLabel.className='tbm-sec-label';
-        relLabel.style.marginTop='18px';
-        relLabel.innerHTML='📖 관련 교재: '+mtitle+(mpage?' <span class="tbm-page">📄 FAA-H-8083-32B p.'+mpage+'</span>':'');
-        body.appendChild(relLabel);
-        var texts=sec.querySelectorAll('.comp-text');
-        var figs=sec.querySelectorAll('.fig');
-        [].forEach.call(texts,function(tx){var c=tx.cloneNode(true);c.className='tbm-rel';body.appendChild(c);});
-        [].forEach.call(figs,function(fg){body.appendChild(fg.cloneNode(true));});
-        gotoBtn.style.display='';
-        gotoBtn.textContent=mtitle+(mpage?' (p.'+mpage+')':'')+' 교재 전체 보기 →';
-        gotoBtn.onclick=function(e){e.preventDefault();tbmClose();sec.scrollIntoView({behavior:'smooth',block:'start'});};
-        var pdfBtn=document.getElementById('tbmPdf');
-        if(pdfBtn&&mpdf){
-          pdfBtn.style.display='';
-          pdfBtn.textContent='📄 FAA 핸드북 PDF p.'+mpdf+' 열기';
-          pdfBtn.href='https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/amt_powerplant_handbook.pdf#page='+mpdf;
-        }
-      } else { gotoBtn.style.display='none'; }
-    } else {
-      gotoBtn.style.display='none';
-      var pb=document.getElementById('tbmPdf');if(pb)pb.style.display='none';
-    }
-    document.getElementById('tbmOverlay').classList.add('show');
-    document.body.style.overflow='hidden';
-  }catch(e){}
-}
-function tbmClose(){
-  var o=document.getElementById('tbmOverlay');
-  if(o)o.classList.remove('show');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')tbmClose();});
-
-
-function figRefToggle(el){
-  el.classList.toggle('open');
-  var body = el.nextElementSibling;
-  if(body) body.classList.toggle('open');
-}
-
-
-// 이미지 있는 섹션에 클래스 부여
-document.querySelectorAll('.comp-body').forEach(function(b){
-  if(b.querySelector('.fig')) b.classList.add('has-img');
-});
-// 스크롤 스파이
-var links=[...document.querySelectorAll('.toc a')];
-var secs=links.map(function(a){return document.getElementById(a.dataset.target);});
-function onScroll(){
-  var y=window.scrollY+120, cur=-1;
-  secs.forEach(function(s,i){ if(s&&s.offsetTop<=y) cur=i; });
-  links.forEach(function(a,i){ a.classList.toggle('active',i===cur); });
-  document.getElementById('backtop').classList.toggle('show',window.scrollY>400);
-}
-window.addEventListener('scroll',onScroll); onScroll();
-// 부드러운 스크롤 + 모바일 메뉴 닫기
-links.forEach(function(a){
-  a.addEventListener('click',function(e){
-    e.preventDefault();
-    var t=document.getElementById(a.dataset.target);
-    t.scrollIntoView({behavior:'smooth'});
-    document.querySelector('.side').classList.remove('open');
-  });
-});
-// 검색
-function doSearch(q){
-  q=q.trim().toLowerCase();
-  var any=false;
-  // 1) 제목(한글 h3 + 영문 .en) 우선 매칭
-  var titleHits=[];
-  document.querySelectorAll('.comp').forEach(function(sec){
-    var h3=sec.querySelector('.comp-head h3, h3');
-    var en=sec.querySelector('.comp-en, .en');
-    var title=((h3?h3.textContent:'')+' '+(en?en.textContent:'')).toLowerCase();
-    titleHits.push(!q||title.includes(q));
-  });
-  var anyTitle=titleHits.some(function(h){return h;});
-  // 2) 제목에 하나도 없으면 본문 전체로 폴백
-  document.querySelectorAll('.comp').forEach(function(sec,i){
-    var hit;
-    if(!q){hit=true;}
-    else if(anyTitle){hit=titleHits[i];}
-    else{hit=sec.textContent.toLowerCase().includes(q);}
-    sec.style.display=hit?'':'none';
-    if(hit)any=true;
-  });
-  links.forEach(function(a){
-    var t=document.getElementById(a.dataset.target);
-    a.parentElement.style.display=(!q||(t&&t.style.display!=='none'))?'':'none';
-  });
-  var nr=document.getElementById('noresult');
-  if(nr)nr.style.display=any?'none':'block';
-}
-
-
-
-
-/* === 이미지 라이트박스: 클릭 확대, 휠/버튼 줌, 드래그 이동 === */
-(function(){
-  if(document.getElementById('imgLightbox')) return;
-
-  var lb = document.createElement('div');
-  lb.id = 'imgLightbox';
-  lb.innerHTML =
-    '<div class="ilb-hint">🖱️ 휠/+− 버튼: 확대·축소<br>드래그: 이동 · ESC/배경: 닫기</div>' +
-    '<div class="ilb-bar">' +
-      '<button class="ilb-btn" data-act="out" title="축소">−</button>' +
-      '<button class="ilb-btn" data-act="in" title="확대">＋</button>' +
-      '<button class="ilb-btn" data-act="reset" title="원래대로">⤢</button>' +
-      '<button class="ilb-btn" data-act="close" title="닫기">✕</button>' +
-    '</div>' +
-    '<img id="ilbImg" alt="">' +
-    '<div class="ilb-cap" id="ilbCap"></div>';
-  document.body.appendChild(lb);
-
-  var img = document.getElementById('ilbImg');
-  var cap = document.getElementById('ilbCap');
-  var scale = 1, tx = 0, ty = 0;
-  var MIN = 0.3, MAX = 8;
-
-  function apply(){
-    img.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+scale+')';
-  }
-  function reset(){
-    scale = 1; tx = 0; ty = 0; apply();
-  }
-  function open(src, caption){
-    img.src = src;
-    cap.textContent = caption || '';
-    cap.style.display = caption ? 'block' : 'none';
-    reset();
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function close(){
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    img.src = '';
-  }
-  function zoomAt(factor){
-    var ns = Math.min(MAX, Math.max(MIN, scale * factor));
-    scale = ns; apply();
-  }
-
-  // 썸네일 클릭 → 열기
-  document.addEventListener('click', function(e){
-    var im = e.target.closest && e.target.closest('.fig img');
-    if(im){
-      e.preventDefault();
-      var fc = im.parentNode.querySelector('figcaption');
-      open(im.src, fc ? fc.textContent : '');
-    }
-  });
-
-  // 버튼
-  lb.querySelector('.ilb-bar').addEventListener('click', function(e){
-    var b = e.target.closest('.ilb-btn'); if(!b) return;
-    var a = b.getAttribute('data-act');
-    if(a==='in') zoomAt(1.3);
-    else if(a==='out') zoomAt(1/1.3);
-    else if(a==='reset') reset();
-    else if(a==='close') close();
-  });
-
-  // 배경 클릭 닫기 (이미지/버튼 제외)
-  lb.addEventListener('click', function(e){
-    if(e.target === lb) close();
-  });
-
-  // 휠 줌 (커서 기준)
-  lb.addEventListener('wheel', function(e){
-    if(!lb.classList.contains('open')) return;
-    e.preventDefault();
-    var factor = e.deltaY < 0 ? 1.12 : 1/1.12;
-    var ns = Math.min(MAX, Math.max(MIN, scale * factor));
-    // 커서 위치 기준 확대
-    var rect = img.getBoundingClientRect();
-    var cx = e.clientX - (rect.left + rect.width/2);
-    var cy = e.clientY - (rect.top + rect.height/2);
-    var ratio = ns/scale;
-    tx -= cx*(ratio-1);
-    ty -= cy*(ratio-1);
-    scale = ns; apply();
-  }, {passive:false});
-
-  // 더블클릭: 확대/원복 토글
-  img.addEventListener('dblclick', function(e){
-    e.preventDefault();
-    if(scale > 1.2){ reset(); } else { zoomAt(2); }
-  });
-
-  // 드래그 이동 (마우스)
-  var dragging=false, sx=0, sy=0, stx=0, sty=0;
-  img.addEventListener('mousedown', function(e){
-    e.preventDefault(); dragging=true;
-    sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
-    img.classList.add('grabbing');
-  });
-  window.addEventListener('mousemove', function(e){
-    if(!dragging) return;
-    tx = stx + (e.clientX - sx);
-    ty = sty + (e.clientY - sy);
-    apply();
-  });
-  window.addEventListener('mouseup', function(){
-    dragging=false; img.classList.remove('grabbing');
-  });
-
-  // 터치: 1손가락 이동, 2손가락 핀치 줌
-  var touchMode=null, startDist=0, startScale=1, ttx=0, tty=0, tsx=0, tsy=0;
-  function dist(t){var dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.hypot(dx,dy);}
-  img.addEventListener('touchstart', function(e){
-    if(e.touches.length===1){
-      touchMode='pan'; tsx=e.touches[0].clientX; tsy=e.touches[0].clientY; ttx=tx; tty=ty;
-    } else if(e.touches.length===2){
-      touchMode='pinch'; startDist=dist(e.touches); startScale=scale;
-    }
-  }, {passive:true});
-  img.addEventListener('touchmove', function(e){
-    if(touchMode==='pan' && e.touches.length===1){
-      tx = ttx + (e.touches[0].clientX - tsx);
-      ty = tty + (e.touches[0].clientY - tsy);
-      apply();
-    } else if(touchMode==='pinch' && e.touches.length===2){
-      var d = dist(e.touches);
-      scale = Math.min(MAX, Math.max(MIN, startScale * (d/startDist)));
-      apply();
-    }
-    if(e.cancelable) e.preventDefault();
-  }, {passive:false});
-  img.addEventListener('touchend', function(e){
-    if(e.touches.length===0) touchMode=null;
-  });
-
-  // 키보드
-  document.addEventListener('keydown', function(e){
-    if(!lb.classList.contains('open')) return;
-    if(e.key==='Escape') close();
-    else if(e.key==='+'||e.key==='=') zoomAt(1.3);
-    else if(e.key==='-'||e.key==='_') zoomAt(1/1.3);
-    else if(e.key==='0') reset();
-  });
-})();
-
-function tbSearch(q){q=(q||'').toLowerCase().trim();
-  document.querySelectorAll('.tbtopic').forEach(function(t){
-    t.style.display = t.textContent.toLowerCase().includes(q)?'flex':'none';});
-  document.querySelectorAll('.tbsec').forEach(function(s){
-    var vis=[].some.call(s.querySelectorAll('.tbtopic'),function(t){return t.style.display!=='none'});
-    s.style.display=vis?'block':'none';});
-}</script>
-</body></html>
+function doSearch(v){render(v);}
+render('');
+</script>
+</body>
+</html>
