@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAA Airframe 2026 업데이트 — Test Guide Update</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F172A;--panel:#13203b;--panel2:#1a2a4a;--cyan:#60A5FA;--gold:#FBBF24;--green:#34D399;--t1:#F1F5F9;--t2:#CBD5E1;--t3:#7c8db0;--line:#24344f;}
+*{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--t1);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+.top-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);text-decoration:none;}
+.top-link:hover{text-decoration:underline;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:1px;margin:18px 0 6px;}
+h1{font-family:'Space Grotesk',sans-serif;font-size:30px;margin:0 0 6px;display:flex;align-items:center;gap:10px;}
+.sub{color:var(--cyan);font-size:15px;margin-bottom:18px;}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--t2);}
+.chip b{color:var(--t1);}
+.legend{display:flex;gap:14px;margin-bottom:20px;font-size:13px;color:var(--t3);}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+.dot.new{background:var(--green);} .dot.rev{background:var(--gold);}
+.search{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 16px;color:var(--t1);font-family:'Noto Sans KR';font-size:15px;margin-bottom:22px;}
+.search::placeholder{color:var(--t3);}
+.card{background:rgba(19,32,59,.95);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;border-left:4px solid var(--green);}
+.card.rev{border-left-color:var(--gold);}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.qno{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--cyan);}
+.badge{font-size:11px;font-family:'JetBrains Mono',monospace;padding:3px 9px;border-radius:20px;font-weight:600;}
+.badge.new{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.4);}
+.badge.rev{background:rgba(251,191,36,.15);color:var(--gold);border:1px solid rgba(251,191,36,.4);}
+.qtext{font-size:15.5px;font-weight:500;margin-bottom:4px;}
+.qtext-en{font-size:13.5px;color:var(--t3);font-style:italic;margin-bottom:14px;}
+.opts{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.opt{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:11px 14px;font-size:14px;}
+.opt.correct{border-color:var(--green);background:rgba(52,211,153,.1);}
+.opt .lt{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--cyan);margin-right:8px;}
+.opt.correct .lt{color:var(--green);}
+.opt-en{display:block;color:var(--t3);font-size:12.5px;margin-top:2px;font-style:italic;}
+.ans{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green);font-weight:600;margin-bottom:10px;}
+.exp{background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-radius:9px;padding:13px 15px;font-size:14px;color:var(--t2);}
+.exp-en{color:var(--t3);font-size:12.5px;font-style:italic;margin-top:8px;}
+.tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:3px 8px;}
+.count{color:var(--green);font-size:14px;font-family:'JetBrains Mono',monospace;margin-bottom:14px;}
+.noresult{color:var(--t3);text-align:center;padding:40px;display:none;}
+.disclaimer{margin-top:30px;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--t3);line-height:1.7;}
+</style></head>
+<body><div class="wrap">
+<a class="top-link" href="index.html">← 전체 목차 (Master Index)</a>
+<div class="kicker">Airframe Mechanic Test Guide 2026 (ASA-AMA-26) · July 2026</div>
+<h1>🔄 2026 업데이트</h1>
+<div class="sub">Airframe Test Guide Update — 신규 추가 및 수정 문제</div>
+<div class="meta">
+<span class="chip">출처 <b>ASA Airframe 2026</b></span>
+<span class="chip">신규 추가 <b>6문항</b></span>
+<span class="chip">수정 <b>0문항</b></span>
+<span class="chip">기준 <b>FAA-CT-8080-4G</b></span>
+</div>
+<div class="legend"><span><span class="dot new"></span>신규 추가</span><span><span class="dot rev"></span>기존 문제 수정</span></div>
+<input class="search" id="q" placeholder="🔍 문제번호·키워드 검색 (예: 8613, 토크, EGT, corrosion)">
+<div class="count" id="count"></div>
+<div id="list"></div>
+<div class="noresult" id="noresult">검색 결과가 없습니다.</div>
+<div class="disclaimer">⚠️ 본 페이지는 ASA 2026 Test Guide Update(July 2026)를 학습용으로 정리한 것입니다. FAA 시험은 "closed test"로 실제 문제은행은 공개되지 않으며, 실제 시험에서는 보기 순서(A·B·C)가 바뀔 수 있습니다. 정답 암기보다 내용 이해를 권장합니다.</div>
+</div>
+<script>
+var DATA = [{"type": "new", "q": "8179-1", "ans": "B", "acs": "AM.II.A.K13", "ref": "FAA-H-8083-31", "page": 14, "question_ko": "\ube44\uc18c\ubaa8\uc131 \ud145\uc2a4\ud150 \uc804\uadf9\uc744 \uc0ac\uc6a9\ud558\ub294 \uc6a9\uc811 \uacf5\uc815\uc740?", "question_en": "Which welding process uses a nonconsumable tungsten electrode?", "opts": [["A", "\uac00\uc2a4 \uae08\uc18d \uc544\ud06c \uc6a9\uc811(MIG)", "Gas metal arc welding (MIG)"], ["B", "\uac00\uc2a4 \ud145\uc2a4\ud150 \uc544\ud06c \uc6a9\uc811(TIG)", "Gas tungsten arc welding (TIG)"], ["C", "\ud53c\ubcf5 \uc544\ud06c \uc6a9\uc811", "Shielded metal arc welding"]], "exp_ko": "TIG(\uac00\uc2a4 \ud145\uc2a4\ud150 \uc544\ud06c \uc6a9\uc811)\ub294 \ube44\uc18c\ubaa8\uc131 \ud145\uc2a4\ud150 \uc804\uadf9\uc73c\ub85c \uc544\ud06c\ub97c \ub9cc\ub4e4\uba70 \uc804\uadf9\uc774 \uc6a9\uc811\ubd80\uc5d0 \ub179\uc544 \ub4e4\uc5b4\uac00\uc9c0 \uc54a\ub294\ub2e4. MIG\ub294 \uc5f0\uc18d \uacf5\uae09\ub418\ub294 \uc18c\ubaa8\uc131 \uc640\uc774\uc5b4 \uc804\uadf9\uc744, \uc544\ud06c \uc6a9\uc811\uc740 \uc18c\ubaa8\uc131 \ud53c\ubcf5 \uc804\uadf9\uc744 \uc4f4\ub2e4.", "exp_en": "TIG uses a nonconsumable tungsten electrode; it does not melt into the weld. MIG uses a continuously fed consumable wire; arc welding uses a consumable coated electrode."}, {"type": "new", "q": "8293-3", "ans": "B", "acs": "AM.II.D.K5", "ref": "AC 43.13-1B", "page": 37, "question_ko": "\ud558\ub4dc\ub79c\ub529\uc744 \uacaa\uc740 \ud56d\uacf5\uae30\ub97c \uac80\uc0ac\ud55c\ub2e4. \uac10\ud56d \ubcf5\uadc0 \uc804 \uc694\uad6c\ub418\ub294 \uae30\uccb4 \uac80\uc0ac \uc720\ud615\uc740?", "question_en": "An aircraft that experienced a hard landing is brought in. Which airframe inspection is required before return to service?", "opts": [["A", "\uc815\uae30 100\uc2dc\uac04 \uac80\uc0ac", "A routine 100-hour inspection"], ["B", "\uc81c\uc791\uc0ac/FAA \uc9c0\uce68\uc5d0 \uc815\uc758\ub41c \ud2b9\ubcc4\uac80\uc0ac", "A special inspection per manufacturer or FAA guidance"], ["C", "\uc6b4\uc601\uc790\uac00 \uc694\uad6c\ud560 \ub54c\ub9cc \uc5f0\ucc28\uac80\uc0ac", "Annual only if required by operator"]], "exp_ko": "\ud558\ub4dc\ub79c\ub529\uc740 \uc815\uae30\uac80\uc0ac\ub85c \ubc1c\uacac\ub418\uc9c0 \uc54a\uc744 \uad6c\uc870 \uc190\uc0c1\uc744 \uc720\ubc1c\ud560 \uc218 \uc788\ub294 \ube44\uc815\uc0c1 \uc0c1\ud0dc\ub2e4. \uc774 \uacbd\uc6b0 \uc81c\uc791\uc0ac \uc815\ube44\uad50\ubc94/FAA \uc2b9\uc778 \uc790\ub8cc\uc5d0 \ub530\ub978 \ud2b9\ubcc4\uac80\uc0ac\uac00 \uc694\uad6c\ub41c\ub2e4. 100\uc2dc\uac04\u00b7\uc5f0\ucc28\uac80\uc0ac\ub294 \ud574\ub2f9 \ud2b9\ubcc4\uac80\uc0ac \uae30\uc900\uc744 \ud3ec\ud568\ud558\uc9c0 \uc54a\ub294 \ud55c \ubd88\ucda9\ubd84\ud558\ub2e4.", "exp_en": "A hard landing is an abnormal condition that may cause damage not found in routine inspections. A special inspection per the manufacturer\u2019s manual or FAA-approved data is required. Routine 100-hour/annual are insufficient unless they include the special criteria."}, {"type": "new", "q": "9040", "ans": "B", "acs": "AM.II.E.K12", "ref": "AC 43.13-1B", "page": 50, "question_ko": "\ud56d\uacf5\uae30 \uc720\uc555 \ube0c\ub808\uc774\ud06c \uc791\ub3d9\uacc4\ud1b5\uc5d0\uc11c \ucd95\uc555\uae30(accumulator)\uc758 \uc8fc\ub41c \ubaa9\uc801\uc740?", "question_en": "What is the primary purpose of an accumulator in an aircraft hydraulic brake actuating system?", "opts": [["A", "\ube0c\ub808\uc774\ud06c \ub77c\uc774\ub2dd \ub9c8\ubaa8 \uc800\ud56d \uc99d\uac00", "Increase brake lining wear resistance"], ["B", "\ube44\uc0c1/\uc8fc\ucc28 \ube0c\ub808\uc774\ud06c\uc6a9 \uc720\uc555 \uc800\uc7a5", "Store hydraulic pressure for emergency or parking brake"], ["C", "\ub9ac\uc800\ubc84\ub85c\uc758 \uc720\uccb4 \ubcf5\uadc0 \uc870\uc808", "Regulate fluid return to the reservoir"]], "exp_ko": "\ucd95\uc555\uae30\ub294 \ubcf4\ud1b5 \uc555\ucd95\uac00\uc2a4\ub85c \uc720\uc555\uc720\ub97c \uac00\uc555 \uc800\uc7a5\ud55c\ub2e4. \ube0c\ub808\uc774\ud06c \uacc4\ud1b5\uc5d0\uc11c \uc8fc\uacc4\ud1b5\uc774 \uc791\ub3d9\ud558\uc9c0 \uc54a\uc744 \ub54c \ube44\uc0c1 \uc81c\ub3d9\uc774\ub098 \uc8fc\ucc28 \ube0c\ub808\uc774\ud06c \uc555\ub825 \uc720\uc9c0\ub97c \uc704\ud55c \uc608\ube44 \uc555\ub825\uc6d0\uc744 \uc81c\uacf5\ud55c\ub2e4.", "exp_en": "An accumulator stores hydraulic fluid under pressure (usually via compressed gas), providing a reserve for emergency braking or parking brake pressure when the main system is inactive."}, {"type": "new", "q": "8941-1", "ans": "A", "acs": "AM.II.H.K21", "ref": "FAA-H-8083-31", "page": 84, "question_ko": "\ubca0\uc778\ud615 \ubc1b\uc74c\uac01(AOA) \uc2dc\uc2a4\ud15c \uc7a5\ucc29\uae30 \uac80\uc0ac \uc2dc, \uc798\ubabb\ub41c AOA \uc9c0\uc2dc\ub97c \uc720\ubc1c\ud560 \uac00\ub2a5\uc131\uc774 \uac00\uc7a5 \ud070 \uc0c1\ud0dc\ub294?", "question_en": "On an aircraft with a vane-type AOA system, what condition would most likely cause erroneous AOA indications?", "opts": [["A", "AOA \uac10\uc9c0 \ubca0\uc778\uc758 \uad6c\uc18d/\uc6c0\uc9c1\uc784 \uc81c\ud55c", "Binding or restricted movement of the AOA sensing vane"], ["B", "\ud53c\ud1a0\uacc4\ud1b5 \uc800\uc555", "Low pressure in the pitot system"], ["C", "\uc815\uc555\uacf5 \ub9c9\ud798", "A clogged static port"]], "exp_ko": "\ubca0\uc778\ud615 AOA\ub294 \uac10\uc9c0 \ubca0\uc778\uc774 \uc0c1\ub300\ud48d\uc5d0 \uc790\uc720\ub86d\uac8c \uc815\ub82c\ub418\uc5b4\uc57c \ud55c\ub2e4. \ubca0\uc778\uc774 \uad6c\uc18d\u00b7\uc624\uc5fc\u00b7\uace0\ucc29\ub418\uba74 \uae30\ub958 \ubcc0\ud654\uc5d0 \uc81c\ub300\ub85c \ubc18\uc751\ud558\uc9c0 \ubabb\ud574 \ubd80\uc815\ud655\ud55c AOA \uc9c0\uc2dc\uac00 \ub098\uc628\ub2e4. \ud53c\ud1a0-\uc815\uc555\uacc4\ud1b5\uc740 \ubca0\uc778\ud615 AOA\uc5d0 \uc9c1\uc811 \uc601\ud5a5\uc744 \uc8fc\uc9c0 \uc54a\ub294\ub2e4.", "exp_en": "A vane-type AOA relies on free vane movement to align with relative wind. If restricted or bound, it gives incorrect AOA. The pitot-static system does not directly affect a vane-type AOA."}, {"type": "new", "q": "9041", "ans": "B", "acs": "AM.II.J.K7", "ref": "FAA-H-8083-31", "page": 104, "question_ko": "\uae30\uc874 Jet A/A1\uacfc \ud63c\ud569\ud55c \uc2b9\uc778\ub41c \uc9c0\uc18d\uac00\ub2a5\ud56d\uacf5\uc5f0\ub8cc(SAF)\uc758 \ud575\uc2ec \ud2b9\uc131\uc740?", "question_en": "What is a key characteristic of approved sustainable aviation fuel (SAF) when blended with conventional Jet A/A1?", "opts": [["A", "\ud2b9\ubcc4 \uac1c\uc870 \ud130\ube48\uc5d4\uc9c4\uc5d0\uc11c\ub9cc \uc0ac\uc6a9", "Only in specially modified turbine engines"], ["B", "\uc801\uc808 \ud63c\ud569 \uc2dc \uae30\uc874 ASTM \uaddc\uaca9\uc744 \ub9cc\uc871\ud558\ub294 \ub4dc\ub86d\uc778 \uc5f0\ub8cc", "A drop-in fuel meeting existing ASTM specs when blended"], ["C", "\uae30\uc874 \uc81c\ud2b8\uc5f0\ub8cc\ubcf4\ub2e4 \uc5d0\ub108\uc9c0 \ud568\ub7c9\uc774 \ud06c\uac8c \ub192\uc74c", "Significantly higher energy content"]], "exp_ko": "\uc2b9\uc778\ub41c SAF\ub294 \"\ub4dc\ub86d\uc778\" \uc5f0\ub8cc\ub85c \uc124\uacc4\ub418\uc5b4, \uae30\uc874 \uc81c\ud2b8\uc5f0\ub8cc\uc640 \ud63c\ud569\ud558\uace0 ASTM \uaddc\uaca9(\uc608: D7566)\uc744 \ub9cc\uc871\ud558\uba74 \uac1c\uc870 \uc5c6\uc774 \uae30\uc874 \ud56d\uacf5\uae30\u00b7\uc5d4\uc9c4\uc5d0 \uc0ac\uc6a9\ud560 \uc218 \uc788\ub2e4. \uc5d0\ub108\uc9c0 \ud568\ub7c9\uc740 \uae30\uc874 \uc81c\ud2b8\uc5f0\ub8cc\uc640 \ube44\uc2b7\ud558\uac70\ub098 \uc57d\uac04 \ub0ae\ub2e4.", "exp_en": "Approved SAF is a \u201cdrop-in\u201d fuel usable without modification when blended and meeting ASTM standards (e.g., D7566). Energy content is similar or slightly lower than conventional jet fuel."}, {"type": "new", "q": "8899-1", "ans": "B", "acs": "AM.II.K.K2", "ref": "FAA-H-8083-31", "page": 115, "question_ko": "\ud56d\uacf5\uae30\uc5d0\uc11c DC \ub300\ube44 AC \uc804\ub825\uc758 \uc7a5\uc810\uc740?", "question_en": "What is an advantage of AC electrical power over DC in aircraft?", "opts": [["A", "\ub354 \ub0ae\uc740 \uc785\ub825 \uc804\uc555 \ud544\uc694", "Requires less input voltage"], ["B", "\uc2dc\uc2a4\ud15c \uc911\ub7c9 \uac10\uc18c \uac00\ub2a5", "Can reduce system weight"], ["C", "\ub354 \uc791\uc740 \uc124\uce58 \ud544\uc694", "Requires smaller installation"]], "exp_ko": "AC\ub294 DC\ubcf4\ub2e4 \uc2b9\uc555/\uac15\uc555\uc774 \uc26c\uc6cc \ud544\uc694 \uc2dc \uace0\uc804\uc555\u00b7\uc800\uc804\ub958\ub97c \uc4f8 \uc218 \uc788\ub2e4. \uc800\uc804\ub958\ub294 \ub3c4\uccb4\ub97c \uac00\ub298\uac8c, \uc804\uae30\ubd80\ud488\uc744 \uac00\ubccd\uac8c \ud574 \ud56d\uacf5\uae30 \uacc4\ud1b5 \uc911\ub7c9 \uac10\uc18c\uc5d0 \uae30\uc5ec\ud55c\ub2e4.", "exp_en": "AC can be stepped up/down more easily than DC, allowing higher voltage and lower current. Lower current permits smaller conductors and lighter components, reducing system weight."}];
+var list=document.getElementById('list'), cnt=document.getElementById('count'), nr=document.getElementById('noresult');
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function render(items){
+  list.innerHTML='';
+  if(!items.length){nr.style.display='block';cnt.textContent='';return;}
+  nr.style.display='none';
+  cnt.textContent='총 '+items.length+'문항';
+  items.forEach(function(it){
+    var isNew = it.type==='new';
+    var optsHtml='';
+    if(it.opts && it.opts.length){
+      optsHtml='<div class="opts">'+it.opts.map(function(o){
+        var correct = o[0]===it.ans ? ' correct':'';
+        return '<div class="opt'+correct+'"><span class="lt">'+o[0]+'</span>'+esc(o[1])+'<span class="opt-en">'+esc(o[2])+'</span></div>';
+      }).join('')+'</div>';
+    }
+    var tags='';
+    if(it.acs) tags+='<span class="tag">'+esc(it.acs)+'</span>';
+    if(it.ref) tags+='<span class="tag">'+esc(it.ref)+'</span>';
+    if(it.page) tags+='<span class="tag">p.'+it.page+'</span>';
+    var card='<div class="card'+(isNew?'':' rev')+'">'
+      +'<div class="card-top"><span class="qno">Q '+esc(it.q)+'</span>'
+      +'<span class="badge '+(isNew?'new':'rev')+'">'+(isNew?'신규 추가':'수정')+'</span></div>'
+      +'<div class="qtext">'+esc(it.question_ko)+'</div>'
+      +(it.question_en?'<div class="qtext-en">'+esc(it.question_en)+'</div>':'')
+      +optsHtml
+      +(isNew && it.ans?'<div class="ans">✓ 정답: '+esc(it.ans)+'</div>':'')
+      +'<div class="exp">'+esc(it.exp_ko)+(it.exp_en?'<div class="exp-en">'+esc(it.exp_en)+'</div>':'')+'</div>'
+      +(tags?'<div class="tags">'+tags+'</div>':'')
+      +'</div>';
+    list.insertAdjacentHTML('beforeend', card);
+  });
+}
+function doSearch(){
+  var q=document.getElementById('q').value.trim().toLowerCase();
+  if(!q){render(DATA);return;}
+  var f=DATA.filter(function(it){
+    var hay=(it.q+' '+it.question_ko+' '+it.question_en+' '+(it.acs||'')+' '+(it.exp_ko||'')+' '+(it.exp_en||'')).toLowerCase();
+    return hay.indexOf(q)>=0;
+  });
+  render(f);
+}
+document.getElementById('q').addEventListener('input',doSearch);
+render(DATA);
+</script></body></html>
