@@ -1,1 +1,12 @@
-window.FIG_OVERRIDE={"ch02_aerodynamics_rigging|s-highspeed-aero": "none", "ch10_instruments|s-temp-instruments": "fig10-72", "ch10_instruments|s-direction-instruments": "fig10-79", "ch11_comm_nav|s-modulation": "fig11-79", "ch14_fuel_systems|s-fuel-pumps-detail": "fig14-48", "ch14_fuel_systems|s-fuel-instruments": "fig14-67", "ch14_fuel_systems|s-jep-fuel-water": "fig14-93"};
+/* 도면 자동 오버라이드 — 전면 해제 (2026-09-19)
+ *
+ * 이 스크립트는 지정된 섹션의 figure.fig 를 전부 삭제한 뒤
+ * images/ 루트의 평면 파일을 끼워 넣는 방식이었다. 그 결과
+ *  (1) 각 챕터에 정식 삽입한 Jeppesen 도면이 화면에서 지워지고
+ *  (2) 캡션이 잘못 잘린 옛 평면 파일이 대신 표시되는
+ * 문제가 있었다.
+ *
+ * 이제 모든 챕터가 images/chNN/ 과 jep-image/chNN/ 의 정상 파일을
+ * HTML 안에서 직접 링크하므로 오버라이드는 불필요하다.
+ */
+window.FIG_OVERRIDE={};
