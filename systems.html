@@ -1,603 +1,542 @@
-<!DOCTYPE html><html lang="ko"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0F172A"><title>계통별 작동원리 &amp; 고장탐구 — Airframe</title>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>계통별 작동원리 &amp; 고장탐구 | FAA-H-8083-31B</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0F172A;--panel:#13203b;--panel2:#1a2a4a;
-  --cyan:#60A5FA;--cyan2:#3B82F6;--gold:#FBBF24;
-  --t1:#F1F5F9;--t2:#CBD5E1;--t3:#7c8db0;--line:rgba(96,165,250,.18);
-}
+:root{--bg:#0F172A;--panel:#13203b;--panel2:#1a2a4a;--cyan:#60A5FA;--cyan2:#3B82F6;--gold:#FBBF24;--green:#34D399;--red:#E0635A;--t1:#F1F5F9;--t2:#CBD5E1;--t3:#7c8db0;--line:rgba(96,165,250,.18);}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
-a{color:inherit;text-decoration:none;}
-
-/* layout */
-.layout{display:grid;grid-template-columns:320px 1fr;min-height:100vh;}
-/* sidebar */
-.side{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:0;}
-.side-head{padding:22px 20px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel);z-index:5;}
-.side-head .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:2px;}
-.side-head h1{font-family:'Space Grotesk',sans-serif;font-size:17px;color:var(--cyan);margin-top:6px;line-height:1.3;}
-.side-head .sub{font-size:12px;color:var(--t3);margin-top:4px;}
-.search{margin-top:14px;width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--t1);font-family:'Noto Sans KR';font-size:13px;}
-.search::placeholder{color:var(--t3);}
-.toc{list-style:none;padding:12px 10px 60px;}
-.toc li a{display:block;padding:9px 12px;border-radius:7px;font-size:14px;color:var(--t2);border-left:2px solid transparent;transition:.15s;}
-.toc li a .en{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3);margin-top:1px;}
-.toc li a:hover{background:var(--panel2);color:var(--t1);}
-.toc li a.active{background:rgba(96,165,250,.12);border-left-color:var(--cyan);color:var(--cyan);}
-
-/* main */
-.main{padding:0 0 80px;}
-.hero{padding:48px 56px 36px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#13203b,transparent);
-  background-image:linear-gradient(rgba(96,165,250,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.05) 1px,transparent 1px);background-size:40px 40px;}
-.hero .ch{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--gold);letter-spacing:3px;}
-.hero h2{font-size:38px;font-weight:900;margin:10px 0 6px;letter-spacing:-.5px;}
-.hero .en{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:15px;}
-.hero .meta{margin-top:18px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;color:var(--t3);font-family:'JetBrains Mono',monospace;}
-.hero .meta b{color:var(--t2);}
-
-.wrap{padding:30px 56px;max-width:1000px;}
-.comp{margin-bottom:26px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;scroll-margin-top:20px;}
-.comp-head{padding:18px 24px;background:var(--panel2);border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
-.comp-head h3{font-size:21px;font-weight:700;color:var(--t1);}
-.comp-head .comp-en{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan);}
-.comp-body{padding:22px 24px;display:grid;grid-template-columns:1fr;gap:20px;}
-.comp-body.has-img{grid-template-columns:1.1fr .9fr;}
-.comp-text p{margin-bottom:11px;font-size:15px;color:var(--t2);}
-.comp-text p:last-child{margin-bottom:0;}
-.comp-text b{color:var(--gold);font-weight:700;}
-.fig{align-self:start;}
-.fig img{width:100%;border-radius:8px;border:1px solid var(--line);display:block;}
-.fig figcaption{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3);margin-top:7px;text-align:center;}
-
-.no-result{display:none;padding:40px;text-align:center;color:var(--t3);}
-.backtop{position:fixed;right:26px;bottom:26px;background:var(--cyan2);color:#04122e;border:none;width:46px;height:46px;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.2s;}
-.backtop.show{opacity:1;pointer-events:auto;}
-
-@media(max-width:880px){
-  .layout{grid-template-columns:1fr;}
-  .side{position:fixed;left:-320px;width:300px;z-index:50;transition:.25s;box-shadow:0 0 40px rgba(0,0,0,.5);}
-  .side.open{left:0;}
-  .menu-btn{display:block;position:fixed;top:14px;left:14px;z-index:60;background:var(--cyan2);color:#04122e;border:none;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;}
-  .hero,.wrap{padding-left:20px;padding-right:20px;}
-  .hero h2{font-size:28px;}
-  .comp-body.has-img{grid-template-columns:1fr;}
-}
-.menu-btn{display:none;}
-
-/* === 기출문제 스타일 (이식) === */
-.iq-wrap{margin:18px 0 4px;border-top:1px dashed var(--line);padding-top:16px;}
-.iq-label{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:.4px;margin-bottom:12px;text-transform:none;}
-.iq-label .iq-pin{font-size:13px;}
-.iq-label .iq-n{font-weight:500;color:var(--t3);font-size:11.5px;background:var(--card);border:1px solid var(--line);padding:2px 8px;border-radius:12px;}
-.iqcard{background:rgba(96,165,250,.04);border:1px solid var(--line);border-radius:10px;margin:9px 0;overflow:hidden;}
-.iqcard .iqno{display:inline-block;background:var(--accent);color:#06223f;font-weight:700;font-size:11px;padding:2px 8px;border-radius:5px;margin-right:8px;letter-spacing:.3px;vertical-align:middle;}
-.iqq{padding:13px 15px;font-size:14px;line-height:1.6;color:var(--t1);}
-.iqopts{list-style:none;padding:0 15px 4px;margin:0;}
-.iqopts li{padding:7px 11px;margin:4px 0;border:1px solid var(--line);border-radius:7px;font-size:13.5px;color:var(--t2);line-height:1.5;cursor:pointer;transition:.15s;}
-.iqopts li:hover{border-color:var(--accent);background:rgba(96,165,250,.06);}
-.iqopts li.correct{border-color:#34d399;background:rgba(52,211,153,.12);color:#a7f3d0;font-weight:600;}
-.iqopts li.wrong{border-color:#f87171;background:rgba(248,113,113,.10);color:#fca5a5;}
-.iqreveal{padding:0 15px 14px;}
-.iqbtn{background:transparent;border:1px solid var(--accent);color:var(--accent);font-size:12.5px;padding:6px 14px;border-radius:7px;cursor:pointer;font-family:inherit;transition:.15s;}
-.iqbtn:hover{background:var(--accent);color:#06223f;}
-.iqexp{display:none;margin-top:11px;padding:12px 14px;background:rgba(251,191,36,.06);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;font-size:13.5px;line-height:1.7;color:var(--t2);}
-.iqexp.show{display:block;}
-.iqexp .iqans{color:#34d399;font-weight:700;}
-.en-text{display:block;margin-top:3px;font-size:13.5px;color:var(--t3);line-height:1.55;font-style:normal;padding-left:11px;border-left:2px solid var(--line);}
-.iqexp .en-text{display:block;margin-top:5px;font-size:12.5px;color:var(--t3);line-height:1.5;padding-left:9px;border-left:2px solid var(--line);}
-.iqq .en-text{display:block;margin-top:4px;font-size:13px;color:var(--t3);line-height:1.5;font-weight:400;padding-left:0;border-left:none;}
-.iqopts li .en-text{display:block;margin-top:2px;font-size:12.5px;color:var(--t3);line-height:1.45;padding-left:0;border-left:none;}
-.oral{margin-top:11px;padding:12px 14px;background:rgba(167,139,250,.06);border-left:3px solid #a78bfa;border-radius:0 8px 8px 0;}
-.oral-tag{display:inline-block;font-size:10.5px;font-weight:700;color:#c4b5fd;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);padding:2px 8px;border-radius:5px;letter-spacing:.4px;margin-bottom:8px;}
-.oral-q{font-size:13.5px;color:var(--t1);line-height:1.6;margin-bottom:3px;font-weight:600;}
-.oral-q .en-text{display:block;margin-top:2px;font-size:12.5px;color:#a5b4d4;font-weight:400;font-style:italic;}
-.oral-a{font-size:13px;color:var(--t2);line-height:1.65;margin-top:7px;}
-.oral-a .oral-alabel{color:#c4b5fd;font-weight:700;}
-.oral-a .en-text{display:block;margin-top:3px;font-size:12px;color:var(--t3);padding-left:9px;border-left:2px solid var(--line);line-height:1.5;}
-li.correct{border-color:#34d399;background:rgba(52,211,153,.12);color:#a7f3d0;font-weight:600;}
-li.wrong{border-color:#f87171;background:rgba(248,113,113,.10);color:#fca5a5;}
-
-/* ===== 터빈 배경 레이어 (AeroMech) ===== */
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYwMCAxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIHNsaWNlIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2xvdyIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFlM2E1ZiIgc3RvcC1vcGFjaXR5PSIwLjUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI2MiUiIHN0b3AtY29sb3I9IiMxMzIwM2IiIHN0b3Atb3BhY2l0eT0iMC4yIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBGMTcyQSIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZGQ0YmYiIHN0b3Atb3BhY2l0eT0iMC4xNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjQyJSIgc3RvcC1jb2xvcj0iIzYwQTVGQSIgc3RvcC1vcGFjaXR5PSIwLjYyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzJkZDRiZiIgc3RvcC1vcGFjaXR5PSIwLjIyIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmaWxsRyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjBBNUZBIiBzdG9wLW9wYWNpdHk9IjAuMSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyZGQ0YmYiIHN0b3Atb3BhY2l0eT0iMC4wMyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDxjaXJjbGUgY3g9IjEwNTAiIGN5PSI1MDAiIHI9IjQ1MCIgZmlsbD0idXJsKCNnbG93KSIvPgogIDwhLS0gRkEtNTAg64+Z7LK0IC0tPgogIDxwYXRoIGQ9IgogICAgTSAxNDAwIDUwMgogICAgQyAxMzY1IDQ4NCwgMTMxMCA0NzYsIDEyNTUgNDc2CiAgICBDIDEyMTAgNDUyLCAxMTMwIDQ0NiwgMTA3MCA0NTIKICAgIEMgMTAzMCA0NTYsIDEwMDggNDY4LCA5OTggNDgwCiAgICBMIDY0MCA0ODYKICAgIEMgNTYwIDQ4OCwgNTA1IDQ5MiwgNDkwIDQ5OAogICAgTCA0NzggNTAwCiAgICBMIDQ5MCA1MTIKICAgIEwgNTA1IDUxNgogICAgQyA1NjAgNTIwLCA2NDAgNTIyLCA3MjAgNTIyCiAgICBMIDEwMTAgNTI0CiAgICBDIDExMjAgNTI2LCAxMjQwIDUyMiwgMTMxMCA1MTYKICAgIEMgMTM2MCA1MTIsIDEzODggNTA4LCAxNDAwIDUwMiBaIgogICAgZmlsbD0idXJsKCNmaWxsRykiIHN0cm9rZT0idXJsKCNib2R5KSIgc3Ryb2tlLXdpZHRoPSIyLjUiIG9wYWNpdHk9IjAuOSIvPgogIDwhLS0g7YOg642kIOy6kOuFuO2UvCAtLT4KICA8cGF0aCBkPSJNIDEwNzAgNDUyIEMgMTEwMCA0NDIsIDExNTAgNDQyLCAxMjAwIDQ0OCBDIDEyMzAgNDUyLCAxMjUwIDQ2MiwgMTI1NSA0NzYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjMiIG9wYWNpdHk9IjAuNSIvPgogIDxsaW5lIHgxPSIxMTUwIiB5MT0iNDQ2IiB4Mj0iMTE1NSIgeTI9IjQ3NiIgc3Ryb2tlPSIjMmRkNGJmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0gTEVSWCDsnbXqt7zsl7DsnqUgLS0+CiAgPHBhdGggZD0iTSA5OTggNDgwIEMgOTUwIDQ4MiwgOTAwIDQ4NCwgODcwIDQ5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjEuMiIgb3BhY2l0eT0iMC40Ii8+CiAgPCEtLSDso7zsnbUgKO2bhO2HtOydtSkgLS0+CiAgPHBhdGggZD0iTSA4ODAgNTIwIEwgNjQwIDU1NiBMIDY5MCA1MjggTCA4NTUgNTE2IFoiCiAgICBmaWxsPSJ1cmwoI2ZpbGxHKSIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iMC41Ii8+CiAgPGxpbmUgeDE9IjYzOCIgeTE9IjU1NiIgeDI9IjYwMCIgeTI9IjU1OCIgc3Ryb2tlPSIjMmRkNGJmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0g7IiY7KeBIOuvuOydtSAtLT4KICA8cGF0aCBkPSJNIDY0MCA0NzYgTCA1NjAgMzU2IEwgNjE4IDM2NiBMIDY5MCA0NzAgWiIKICAgIGZpbGw9InVybCgjZmlsbEcpIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMS42IiBvcGFjaXR5PSIwLjU1Ii8+CiAgPCEtLSDsiJjtj4kg66+47J21IC0tPgogIDxwYXRoIGQ9Ik0gNjQwIDUxNiBMIDUwMCA1MzIgTCA1NjAgNTEwIEwgNjUwIDUwNiBaIgogICAgZmlsbD0idXJsKCNmaWxsRykiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjQiIG9wYWNpdHk9IjAuNDUiLz4KICA8IS0tIOuypO2KuOuftCDtlYAgLS0+CiAgPHBhdGggZD0iTSA2MjAgNTI0IEwgNTg1IDU1NiBMIDY0MCA1MjggWiIgZmlsbD0idXJsKCNmaWxsRykiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjIiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0g67Cw6riwIOuFuOymkCAtLT4KICA8cGF0aCBkPSJNIDQ5MCA0OTAgTCA0NjIgNDg2IEwgNDYyIDUxNCBMIDQ5MCA1MTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9IjAuNSIvPgogIDxsaW5lIHgxPSI0NzgiIHkxPSI0OTQiIHgyPSI0NzgiIHkyPSI1MDgiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIwLjgiIHN0cm9rZS1kYXNoYXJyYXk9IjIgMyIgb3BhY2l0eT0iMC40Ii8+CiAgPCEtLSDsl5Tsp4Qg7J247YWM7J207YGsIC0tPgogIDxwYXRoIGQ9Ik0gMTAxMCA1MjQgQyAxMDAwIDUzNiwgOTg1IDU0MCwgOTY1IDUzOCBMIDk0MCA1MzQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkZDRiZiIgc3Ryb2tlLXdpZHRoPSIxLjMiIG9wYWNpdHk9IjAuNCIvPgogIDwhLS0g7ZSE66CI7J6EIOyKpO2FjOydtOyFmCAtLT4KICA8bGluZSB4MT0iNTYwIiB5MT0iNDg2IiB4Mj0iNTYwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSI2NTAiIHkxPSI0ODYiIHgyPSI2NTAiIHkyPSI1MjIiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIwLjciIHN0cm9rZS1kYXNoYXJyYXk9IjMgOCIgb3BhY2l0eT0iMC4yIi8+CiAgPGxpbmUgeDE9Ijc0MCIgeTE9IjQ4NiIgeDI9Ijc0MCIgeTI9IjUyMiIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjAuNyIgc3Ryb2tlLWRhc2hhcnJheT0iMyA4IiBvcGFjaXR5PSIwLjIiLz4KICA8bGluZSB4MT0iODMwIiB5MT0iNDg2IiB4Mj0iODMwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSI5MjAiIHkxPSI0ODYiIHgyPSI5MjAiIHkyPSI1MjIiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIwLjciIHN0cm9rZS1kYXNoYXJyYXk9IjMgOCIgb3BhY2l0eT0iMC4yIi8+CiAgPGxpbmUgeDE9IjEwMTAiIHkxPSI0ODYiIHgyPSIxMDEwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSIxMTAwIiB5MT0iNDg2IiB4Mj0iMTEwMCIgeTI9IjUyMiIgc3Ryb2tlPSIjNjBBNUZBIiBzdHJva2Utd2lkdGg9IjAuNyIgc3Ryb2tlLWRhc2hhcnJheT0iMyA4IiBvcGFjaXR5PSIwLjIiLz4KICA8bGluZSB4MT0iMTE5MCIgeTE9IjQ4NiIgeDI9IjExOTAiIHkyPSI1MjIiIHN0cm9rZT0iIzYwQTVGQSIgc3Ryb2tlLXdpZHRoPSIwLjciIHN0cm9rZS1kYXNoYXJyYXk9IjMgOCIgb3BhY2l0eT0iMC4yIi8+CiAgPGxpbmUgeDE9IjEyODAiIHkxPSI0ODYiIHgyPSIxMjgwIiB5Mj0iNTIyIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMC43IiBzdHJva2UtZGFzaGFycmF5PSIzIDgiIG9wYWNpdHk9IjAuMiIvPgogIDxsaW5lIHgxPSI0NjAiIHkxPSI1MDUiIHgyPSIxNDA1IiB5Mj0iNTA1IiBzdHJva2U9IiMyZGQ0YmYiIHN0cm9rZS13aWR0aD0iMC44IiBzdHJva2UtZGFzaGFycmF5PSIxNiA4IDMgOCIgb3BhY2l0eT0iMC4yMiIvPgogIDxsaW5lIHgxPSIxNDAwIiB5MT0iNjQwIiB4Mj0iNDYyIiB5Mj0iNjQwIiBzdHJva2U9IiMyZGQ0YmYiIHN0cm9rZS13aWR0aD0iMC42IiBvcGFjaXR5PSIwLjE1Ii8+CiAgPGxpbmUgeDE9IjE0MDAiIHkxPSI2MzIiIHgyPSIxNDAwIiB5Mj0iNjQ4IiBzdHJva2U9IiMyZGQ0YmYiIHN0cm9rZS13aWR0aD0iMC42IiBvcGFjaXR5PSIwLjE1Ii8+CiAgPGxpbmUgeDE9IjQ2MiIgeTE9IjYzMiIgeDI9IjQ2MiIgeTI9IjY0OCIgc3Ryb2tlPSIjMmRkNGJmIiBzdHJva2Utd2lkdGg9IjAuNiIgb3BhY2l0eT0iMC4xNSIvPgo8L3N2Zz4=");
-  background-size:cover;background-position:center right;opacity:0.5;}
-body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse at 75% 50%, rgba(15,23,42,0) 0%, rgba(15,23,42,.45) 70%, rgba(15,23,42,.75) 100%);}
-
-.layout{position:relative;z-index:1;}
-.menu-btn{z-index:101;}
-.backtop{z-index:50;}
-
-/* ===== 교재 보기 링크 (Textbook Link) ===== */
-.tb-link{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--gold,#FBBF24);
-  color:var(--gold,#FBBF24);font-size:12px;padding:6px 12px;border-radius:7px;cursor:pointer;font-family:inherit;
-  margin-left:8px;transition:.15s;vertical-align:middle;}
-.tb-link:hover{background:var(--gold,#FBBF24);color:#3a2c05;}
-.tb-flash{animation:tbFlash 1.6s ease;}
-@keyframes tbFlash{0%,100%{background:transparent;}25%,60%{background:rgba(251,191,36,.10);}}
-
-/* ===== 교재 보기 버튼 + 모달 ===== */
-.tb-link{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--gold,#FBBF24);
-  color:var(--gold,#FBBF24);font-size:12.5px;padding:6px 13px;border-radius:7px;cursor:pointer;font-family:inherit;
-  margin-right:8px;transition:.15s;vertical-align:middle;}
-.tb-link:hover{background:var(--gold,#FBBF24);color:#3a2c05;}
-.tbm-overlay{position:fixed;inset:0;z-index:9999;background:rgba(6,12,22,.78);backdrop-filter:blur(4px);
-  display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;}
-.tbm-overlay.show{display:flex;}
-.tbm-box{background:var(--bg,#0F172A);border:1px solid var(--gold,#FBBF24);border-radius:16px;max-width:760px;width:100%;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;margin:auto;overflow:hidden;}
-.tbm-head{display:flex;align-items:center;gap:10px;padding:18px 22px;border-bottom:1px solid var(--line,rgba(96,165,250,.18));
-  background:rgba(251,191,36,.06);position:sticky;top:0;}
-.tbm-head .tbm-pin{font-size:18px;}
-.tbm-head h3{font-size:17px;font-weight:700;color:var(--t1,#F1F5F9);flex:1;}
-.tbm-head .tbm-en{font-size:12px;color:var(--t3,#7c8db0);font-weight:500;display:block;margin-top:2px;}
-.tbm-close{background:transparent;border:1px solid var(--line,rgba(96,165,250,.18));color:var(--t2,#CBD5E1);
-  width:34px;height:34px;border-radius:8px;font-size:18px;cursor:pointer;flex:0 0 auto;transition:.15s;}
-.tbm-close:hover{background:var(--red,#E0635A);border-color:var(--red,#E0635A);color:#fff;}
-.tbm-body{padding:22px;max-height:70vh;overflow-y:auto;}
-.tbm-body .comp-text{font-size:14.5px;line-height:1.75;color:var(--t1,#F1F5F9);}
-.tbm-body .en-text{display:block;margin-top:3px;font-size:13px;color:var(--t3,#7c8db0);line-height:1.6;}
-.tbm-body .fig{margin:14px 0;text-align:center;}
-.tbm-body .fig img{max-width:100%;border-radius:10px;border:1px solid var(--line,rgba(96,165,250,.18));}
-.tbm-body .fig-cap{font-size:12px;color:var(--t3,#7c8db0);margin-top:6px;}
-.tbm-foot{padding:14px 22px;border-top:1px solid var(--line,rgba(96,165,250,.18));display:flex;gap:10px;justify-content:flex-end;}
-.tbm-foot a{font-size:12.5px;color:var(--cyan,#60A5FA);border:1px solid var(--cyan,#60A5FA);padding:7px 14px;border-radius:8px;transition:.15s;}
-.tbm-foot a:hover{background:var(--cyan,#60A5FA);color:#06223f;}
-.tbm-empty{color:var(--t3,#7c8db0);font-size:14px;text-align:center;padding:30px;}
-
-.tbm-sec-label{font-size:12px;font-weight:800;color:var(--gold,#FBBF24);letter-spacing:.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line,rgba(96,165,250,.18));}
-.tbm-core{background:rgba(52,211,153,.06);border-left:3px solid var(--green,#34D399);border-radius:0 8px 8px 0;padding:14px 16px;font-size:14px;line-height:1.7;color:var(--t1,#F1F5F9);}
-.tbm-core .iqans{color:var(--green,#34D399);font-weight:700;}
-.tbm-core .en-text{display:block;margin-top:3px;font-size:12.5px;color:var(--t3,#7c8db0);font-style:italic;}
-.tbm-core .oral{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line,rgba(96,165,250,.18));}
-.tbm-core .oral-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--cyan,#60A5FA);margin-bottom:5px;}
-.tbm-core .oral-q{font-size:13.5px;font-weight:600;margin-bottom:5px;}
-.tbm-core .oral-a{font-size:13px;color:var(--t2,#CBD5E1);}
-.tbm-core .oral-alabel{color:var(--gold,#FBBF24);font-weight:700;}
-.tbm-rel{font-size:13.5px;line-height:1.7;color:var(--t2,#CBD5E1);margin-bottom:10px;}
-.tbm-rel .en-text{display:block;margin-top:3px;font-size:12px;color:var(--t3,#7c8db0);font-style:italic;}
-
-.tbm-page{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--cyan,#60A5FA);background:rgba(96,165,250,.10);border:1px solid rgba(96,165,250,.30);border-radius:5px;padding:2px 7px;margin-left:6px;vertical-align:middle;}
-
-#tbmPdf{font-size:12.5px;color:#fff;background:linear-gradient(135deg,#E0635A,#C9484A);border:1px solid #E0635A;padding:7px 15px;border-radius:8px;font-weight:600;transition:.15s;}
-#tbmPdf:hover{filter:brightness(1.12);transform:translateY(-1px);}
-
-.sec-pdf-link{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-family:'JetBrains Mono',monospace;color:#E0635A;border:1px solid rgba(224,99,90,.4);background:rgba(224,99,90,.08);padding:3px 9px;border-radius:6px;margin-left:10px;vertical-align:middle;text-decoration:none;transition:.15s;white-space:nowrap;}
-.sec-pdf-link:hover{background:#E0635A;color:#fff;border-color:#E0635A;}
-.comp-head{display:flex;align-items:center;flex-wrap:wrap;gap:4px;}
-
-.ch-pdf-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#fff !important;background:linear-gradient(135deg,#E0635A,#C9484A);border:1px solid #E0635A;padding:5px 12px;border-radius:7px;text-decoration:none;font-weight:600;transition:.15s;}
-.ch-pdf-badge:hover{filter:brightness(1.12);transform:translateY(-1px);}
-
-.hb-block{margin-top:16px;border:1px solid rgba(224,99,90,.25);border-radius:12px;overflow:hidden;background:rgba(224,99,90,.03);}
-.hb-head{display:flex;align-items:center;gap:8px;padding:10px 15px;background:rgba(224,99,90,.08);border-bottom:1px solid rgba(224,99,90,.18);font-size:12.5px;font-weight:700;color:#E0635A;cursor:pointer;user-select:none;}
-.hb-head .hb-toggle{margin-left:auto;font-size:11px;transition:.2s;}
-.hb-block.open .hb-head .hb-toggle{transform:rotate(180deg);}
-.hb-body{display:none;padding:14px 16px;}
-.hb-block.open .hb-body{display:block;}
-.hb-en{font-size:13px;line-height:1.7;color:var(--t2,#CBD5E1);font-style:italic;background:rgba(96,165,250,.04);border-left:2px solid var(--cyan,#60A5FA);padding:9px 13px;border-radius:0 7px 7px 0;margin-bottom:11px;}
-.hb-ko{font-size:14px;line-height:1.75;color:var(--t1,#F1F5F9);}
-.hb-pdflink{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:11.5px;font-family:'JetBrains Mono',monospace;color:#E0635A;border:1px solid rgba(224,99,90,.4);background:rgba(224,99,90,.07);padding:5px 11px;border-radius:6px;text-decoration:none;transition:.15s;}
-.hb-pdflink:hover{background:#E0635A;color:#fff;}
-
-/* === 이미지 라이트박스(확대/축소) === */
-.fig img{cursor:zoom-in;transition:opacity .15s;}
-.fig img:hover{opacity:.9;}
-#imgLightbox{position:fixed;inset:0;z-index:9999;background:rgba(5,10,20,.94);
-  display:none;align-items:center;justify-content:center;
-  -webkit-user-select:none;user-select:none;touch-action:none;}
-#imgLightbox.open{display:flex;}
-#ilbImg{max-width:none;max-height:none;transform-origin:center center;
-  transition:transform .08s ease-out;will-change:transform;
-  box-shadow:0 10px 60px rgba(0,0,0,.6);border-radius:6px;
-  cursor:grab;-webkit-user-drag:none;user-drag:none;pointer-events:auto;}
-#ilbImg.grabbing{cursor:grabbing;transition:none;}
-.ilb-bar{position:fixed;top:18px;right:18px;display:flex;gap:8px;z-index:10000;}
-.ilb-btn{width:46px;height:46px;border-radius:11px;border:1px solid rgba(255,255,255,.18);
-  background:rgba(20,30,50,.85);color:#F1F5F9;font-size:22px;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  line-height:1;transition:.15s;backdrop-filter:blur(4px);font-family:inherit;}
-.ilb-btn:hover{background:rgba(96,165,250,.85);border-color:rgba(96,165,250,.9);}
-.ilb-cap{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-  font-size:13px;color:#CBD5E1;background:rgba(20,30,50,.8);
-  padding:8px 16px;border-radius:10px;backdrop-filter:blur(4px);
-  border:1px solid rgba(255,255,255,.12);max-width:90vw;text-align:center;z-index:10000;}
-.ilb-hint{position:fixed;top:18px;left:18px;font-size:12px;color:#94a3b8;
-  background:rgba(20,30,50,.7);padding:7px 13px;border-radius:9px;
-  backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.1);z-index:10000;
-  line-height:1.6;}
-@media(max-width:640px){.ilb-hint{display:none;}.ilb-btn{width:42px;height:42px;}}
-
-
-/* FAA 시험 참조 그림 (접이식) */
-.figref{margin:10px 0 6px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--panel);}
-.figref-head{display:flex;align-items:center;gap:7px;padding:9px 12px;cursor:pointer;user-select:none;font-size:12.5px;font-weight:700;color:var(--cyan);background:rgba(96,165,250,.08);transition:background .15s;}
-.figref-head:hover{background:rgba(96,165,250,.14);}
-.figref-head .fr-arrow{font-size:10px;transition:transform .2s;}
-.figref-head.open .fr-arrow{transform:rotate(90deg);}
-.figref-body{display:none;padding:10px;}
-.figref-body.open{display:block;}
-.figref-body .fig{margin:0;}
-.figref-body .fig img{background:#fff;}
-
-
-.figgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:14px}
-.figgal{background:#0b1220;border:1px solid #1e293b;border-radius:10px;padding:8px;margin:0}
-.figgal img{width:100%;border-radius:6px;cursor:zoom-in;background:#fff}
-.figgal figcaption{font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.4}
-.figpdf{color:#FBBF24}
-
-
-
-.home-fab{position:fixed;top:14px;right:14px;z-index:200;background:var(--gold,#FBBF24);color:#0F172A;
-  border:none;border-radius:22px;padding:9px 16px;font-weight:700;font-size:13px;font-family:'Noto Sans KR',sans-serif;
-  cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
-.home-fab:hover{background:#e8c766;}
-.menu-btn{z-index:201 !important;}
-
-
-    .layout{display:flex;min-height:100vh}
-    .sys-head2{display:flex;align-items:center;gap:14px;margin-bottom:16px}
-    .sys-ic{font-size:28px}
-    .sys-t{font-size:20px;font-weight:800}
-    .sys-e{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3)}
-    .sys-ch2{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan)}
-    .sys-pr{background:var(--bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:16px}
-    .pr-lab{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);display:block;margin-bottom:6px}
-    .sys-pr p{font-size:14.5px;color:var(--t2);line-height:1.7}
-    .tt-lab{font-family:'JetBrains Mono',monospace;font-size:11px;color:#E0635A;display:block;margin-bottom:10px}
-    .tstable{width:100%;border-collapse:collapse;font-size:13.5px}
-    .tstable th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1px;color:var(--t3);padding:8px 10px;border-bottom:1px solid var(--line)}
-    .tstable td{padding:10px;border-bottom:1px solid var(--line);color:var(--t2);vertical-align:top}
-    .tstable td:first-child{color:#E0635A;font-weight:600}
-    .sys-links{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
-    .sys-links a{font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);color:var(--t2)}
-    .sys-links a:hover{border-color:var(--cyan);color:var(--t1)}
-    
-.tstable td .en-text{border-left:none;padding-left:0;font-size:12px;margin-top:2px;}
-</style><style id="acs-rel-css">.acs-mini{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.04em;color:#34D399;border:1px solid rgba(52,211,153,.4);border-radius:5px;padding:0 5px;margin-right:6px;vertical-align:1px;font-style:normal}.acs-rel{margin:16px 0 4px;padding:12px 14px;border:1px dashed rgba(52,211,153,.35);border-radius:10px;background:rgba(52,211,153,.05)}.acs-rel-h{font-size:12.5px;font-weight:700;color:#34D399;margin-bottom:8px}.acs-rel-h span{font-weight:400;color:var(--t3);margin-left:6px;font-size:11.5px}.acs-rel-list{display:flex;flex-wrap:wrap;gap:6px 8px}.acs-rel-list a{font-size:12.5px;line-height:1.4;color:var(--t2);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;background:rgba(15,23,42,.35);max-width:100%;overflow-wrap:anywhere}.acs-rel-list a i{font-style:normal;color:var(--t3)}.acs-rel-list a:hover{border-color:#34D399;color:#F1F5F9}.acs-rel-list a b{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#34D399;margin-right:6px}</style></head>
+a{color:inherit;}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:11px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.topbar a.home{color:var(--cyan);font-weight:700;font-size:13.5px;text-decoration:none;}
+.topbar .tb-tag{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:12px;}
+.layout{display:flex;max-width:1240px;margin:0 auto;gap:24px;padding:22px 20px 60px;position:relative;z-index:1;}
+.sidebar{width:255px;flex-shrink:0;position:sticky;top:70px;align-self:flex-start;max-height:calc(100vh - 90px);overflow-y:auto;}
+.side-title{font-family:'Space Grotesk';font-size:12px;color:var(--t3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px;padding-left:4px;}
+.snav{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;text-decoration:none;color:var(--t2);transition:.15s;margin-bottom:3px;border:1px solid transparent;}
+.snav:hover{background:var(--panel);color:var(--t1);}
+.snav.active{background:var(--panel2);border-color:var(--line);color:var(--t1);}
+.snav-ic{font-size:18px;}
+.snav b{display:block;font-size:13.5px;font-weight:700;}
+.snav i{display:block;font-style:normal;font-size:10.5px;color:var(--t3);font-family:'JetBrains Mono',monospace;}
+.content{flex:1;min-width:0;}
+.page-hero{background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-bottom:26px;}
+.page-hero .tag{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:12px;}
+.page-hero h1{font-size:27px;font-weight:900;margin:8px 0 6px;}
+.page-hero p{color:var(--t2);font-size:14px;}
+.sys-sec{margin-bottom:38px;scroll-margin-top:74px;}
+.sys-head{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:2px solid var(--line);margin-bottom:18px;}
+.sys-ic{font-size:30px;}
+.sys-head h2{font-size:21px;font-weight:900;}
+.sys-en{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:12.5px;}
+.sys-pdf{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--red);border:1px solid rgba(224,99,90,.4);background:rgba(224,99,90,.08);padding:5px 12px;border-radius:7px;text-decoration:none;transition:.15s;white-space:nowrap;}
+.sys-pdf:hover{background:var(--red);color:#fff;}
+.block-label{font-size:14.5px;font-weight:700;color:var(--gold);margin:18px 0 11px;}
+.block-label span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);font-weight:400;margin-left:6px;}
+.principle{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+.principle .p-ko{font-size:14.5px;color:var(--t1);margin-bottom:10px;}
+.principle .p-en{font-size:13px;color:var(--t2);font-style:italic;background:rgba(96,165,250,.05);border-left:2px solid var(--cyan);padding:9px 13px;border-radius:0 7px 7px 0;}
+.ts-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;}
+.ts-table{width:100%;border-collapse:collapse;min-width:640px;}
+.ts-table th{background:var(--panel2);color:var(--cyan);font-size:12.5px;font-weight:700;text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);}
+.ts-table td{padding:12px 14px;font-size:13.5px;vertical-align:top;border-bottom:1px solid rgba(96,165,250,.08);}
+.ts-table tr:last-child td{border-bottom:none;}
+.ts-table tbody tr:hover{background:rgba(96,165,250,.04);}
+.ts-sym{width:26%;}
+.ts-sym b{color:var(--red);}
+.ts-en{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3);margin-top:3px;}
+.ts-cause{width:36%;color:var(--t2);}
+.ts-act{width:38%;color:var(--green);}
+.kw-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.kw-chip{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.25);padding:4px 11px;border-radius:20px;}
+.goto-ch{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;border:1px solid rgba(251,191,36,.3);padding:6px 14px;border-radius:8px;transition:.15s;}
+.goto-ch:hover{background:var(--gold);color:var(--bg);}
+.scrolltop{position:fixed;bottom:26px;right:26px;width:44px;height:44px;border-radius:50%;background:var(--panel2);border:1px solid var(--line);color:var(--cyan);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:60;}
+@media(max-width:860px){.sidebar{display:none;}.layout{padding:16px 14px 50px;}.goto-ch{margin-left:0;}}
+</style>
+<style id="acs-rel-css">.acs-mini{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.04em;color:#34D399;border:1px solid rgba(52,211,153,.4);border-radius:5px;padding:0 5px;margin-right:6px;vertical-align:1px;font-style:normal}.acs-rel{margin:16px 0 4px;padding:12px 14px;border:1px dashed rgba(52,211,153,.35);border-radius:10px;background:rgba(52,211,153,.05)}.acs-rel-h{font-size:12.5px;font-weight:700;color:#34D399;margin-bottom:8px}.acs-rel-h span{font-weight:400;color:var(--t3);margin-left:6px;font-size:11.5px}.acs-rel-list{display:flex;flex-wrap:wrap;gap:6px 8px}.acs-rel-list a{font-size:12.5px;line-height:1.4;color:var(--t2);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;background:rgba(15,23,42,.35);max-width:100%;overflow-wrap:anywhere}.acs-rel-list a i{font-style:normal;color:var(--t3)}.acs-rel-list a:hover{border-color:#34D399;color:#F1F5F9}.acs-rel-list a b{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#34D399;margin-right:6px}</style></head>
 <body>
-<a class="home-fab" href="index.html">🏠 전체목차</a>
-<button class="menu-btn" onclick="document.querySelector('.side').classList.toggle('open')">☰ 목차</button>
-<div class="layout">
-  <aside class="side">
-    <div class="side-head">
-      <a href="index.html" style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);margin-bottom:10px;">← 전체 목차 (Master Index)</a>
-      <div class="kicker">FAA-H-8083-31B · SYSTEMS</div><h1>계통 (SYSTEMS)</h1>
-      <div class="sub">작동원리 & 고장탐구</div>
-    </div>
-    <ul class="toc" id="toc"><li><a href="#sys9" data-target="sys9">⚡ 전기 계통 <span class="en">Electrical System</span></a></li>
-<li><a href="#sys12" data-target="sys12">💧 유압 계통 <span class="en">Hydraulic System</span></a></li>
-<li><a href="#sys13" data-target="sys13">🛬 착륙장치 <span class="en">Landing Gear</span></a></li>
-<li><a href="#sys14" data-target="sys14">⛽ 연료 계통 <span class="en">Fuel System</span></a></li>
-<li><a href="#sys15" data-target="sys15">❄ 방빙·제우 계통 <span class="en">Ice &amp; Rain Protection</span></a></li>
-<li><a href="#sys16" data-target="sys16">🌡 객실 환경 제어 <span class="en">Cabin Environment</span></a></li>
-<li><a href="#sys17" data-target="sys17">🧯 화재 방지 계통 <span class="en">Fire Protection</span></a></li>
-<li><a href="#sys10" data-target="sys10">🧭 계기 계통 <span class="en">Instrument System</span></a></li>
-</ul>
-  </aside>
-  <main>
-    <div class="hero"><div class="ch">SYSTEMS GUIDE</div>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:28px;margin:8px 0 4px">🔧 계통별 작동원리 &amp; 고장탐구</h2>
-      <p style="color:var(--t2);margin-top:12px">각 계통이 어떻게 작동하는지(작동원리)와, 문제가 생겼을 때 증상→점검→조치를 한눈에 정리했습니다. FAA-H-8083-31B 핸드북 기반이며, 각 계통의 연계 기출문제로 바로 이동할 수 있습니다.</p>
-    </div>
-    <section id="sys9" class="comp"><div class="sys-head2"><span class="sys-ic">⚡</span><div><div class="sys-t">전기 계통</div><div class="sys-e">Electrical System</div></div><span class="sys-ch2">CH 09</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>배터리·발전기·교류발전기가 전원을 공급하고, 버스(Bus)를 통해 각 부하에 분배됩니다. 옴의 법칙(E=I×R)이 기본 원리입니다.<span class="en-text">The battery, generator, and alternator supply power, distributed to loads through buses. Ohm's law (E=I×R) is the basic principle.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>계통 전체 무전원<span class="en-text">No power to entire system</span></td><td>마스터 스위치·배터리 접점·주 퓨즈 확인<span class="en-text">Check master switch, battery contacts, main fuse</span></td><td>배터리 솔레노이드/컨택터 점검<span class="en-text">Inspect battery solenoid/contactor</span></td></tr><tr><td>충전 안 됨<span class="en-text">Not charging</span></td><td>발전기 벨트·전압조정기·과전압센서 확인<span class="en-text">Check generator belt, voltage regulator, overvoltage sensor</span></td><td>알터네이터 출력 점검<span class="en-text">Test alternator output</span></td></tr><tr><td>특정 계통만 작동 안 함<span class="en-text">Only one system inoperative</span></td><td>해당 회로 차단기(CB)·배선 확인<span class="en-text">Check that circuit breaker (CB) and wiring</span></td><td>단선/단락 점검<span class="en-text">Test for open/short</span></td></tr><tr><td><span class="acs-mini">ACS</span>외부 전원 연결 후 장비 손상<span class="en-text">Equipment damaged after connecting external power</span></td><td>지상 전원(GPU) 전압·극성 미확인<span class="en-text">GPU voltage and polarity not checked</span></td><td>연결 전 전압·극성 확인, 매뉴얼 순서대로 연결<span class="en-text">Verify voltage and polarity before connecting; follow the manual sequence</span></td></tr><tr><td><span class="acs-mini">ACS</span>AC 계기 전체 무동작<span class="en-text">All AC instruments inoperative</span></td><td>인버터 차단기, 입력 DC 전압, 인버터 고장<span class="en-text">Inverter breaker, DC input voltage or failed inverter</span></td><td>입력 전압·차단기 확인 후 인버터 출력 전압·주파수 측정<span class="en-text">Check input voltage and breaker, then measure inverter output voltage and frequency</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch09_electrical.html#s-acs-elec-safety-tests"><b>CH09</b>외부 전원 연결·통전 회로 작업 안전과 단락 시험</a><a href="ch09_electrical.html#s-acs-gen-inverter"><b>CH09</b>스타터-제너레이터·인버터·TRU와 DC 발전기 점검</a><a href="ch09_electrical.html#s-acs-wiring-parts"><b>CH09</b>스위치 감정격(derating)·배선 차폐·전기 커넥터 조립</a><a href="ch09_electrical.html#s-asa-troubleshoot"><b>CH09</b>회로도 판독과 고장탐구<i> · 전기 계통의 측정·시험, 부품 저항 측정, 도통 시험, 부품 검사</i></a><a href="ch09_electrical.html#s-gen-alt-circuit"><b>CH09</b>발전기·교류발전기 회로<i> · 전압 조절기·과전압·과전류 보호와 전기 부하 계산</i></a><a href="ch09_electrical.html#s-lighting"><b>CH09</b>항공기 조명 계통<i> · 충돌 방지등·항법등·착륙등 점검</i></a></div></div><div class="sys-links"><a href="ch09_electrical.html">📘 본문</a><a href="ch09_electrical.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=417" target="_blank" rel="noopener">📄 FAA PDF p.417</a></div></section><section id="sys12" class="comp"><div class="sys-head2"><span class="sys-ic">💧</span><div><div class="sys-t">유압 계통</div><div class="sys-e">Hydraulic System</div></div><span class="sys-ch2">CH 12</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>펌프가 유압유를 가압하고, 밸브가 방향·압력·유량을 제어해 액추에이터를 구동합니다. 어큐뮬레이터가 맥동을 흡수합니다.<span class="en-text">A pump pressurizes hydraulic fluid; valves control direction, pressure, and flow to drive actuators. An accumulator absorbs pulsations.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>압력 상승 안 함<span class="en-text">No pressure rise</span></td><td>유량·펌프·릴리프밸브 확인<span class="en-text">Check flow, pump, relief valve</span></td><td>유압유 레벨·오염 점검<span class="en-text">Check fluid level/contamination</span></td></tr><tr><td>작동 느림<span class="en-text">Slow operation</span></td><td>필터 막힘·내부 누설 확인<span class="en-text">Check clogged filter, internal leakage</span></td><td>실(Seal) 마모 점검<span class="en-text">Inspect seal wear</span></td></tr><tr><td>유압유 누설<span class="en-text">Hydraulic fluid leak</span></td><td>피팅·실·호스 확인<span class="en-text">Check fittings, seals, hoses</span></td><td>유압유 종류 혼합 여부 확인<span class="en-text">Verify no fluid-type mixing</span></td></tr><tr><td><span class="acs-mini">ACS</span>작동기가 스펀지처럼 느리게 움직임<span class="en-text">Actuator moves spongy or slowly</span></td><td>계통 안에 공기가 들어감<span class="en-text">Air in the system</span></td><td>매뉴얼대로 공기 빼기(블리딩) 후 리저버 보급량 확인<span class="en-text">Bleed the system per the manual and recheck reservoir level</span></td></tr><tr><td><span class="acs-mini">ACS</span>엔진 정지 후에도 계통 압력이 남음<span class="en-text">System pressure remains after shutdown</span></td><td>축압기에 저장된 압력<span class="en-text">Pressure stored in the accumulator</span></td><td>정비 전 압력 제거 절차 수행, 게이지 0 확인 후 라인 분리<span class="en-text">Relieve pressure per procedure and confirm zero on the gauge before opening lines</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch12_hydraulic_pneumatic.html#s-acs-hyd-service"><b>CH12</b>유압·공압 계통 압력 제거·공기 빼기·누설 점검과 블리드 공기 과열 경고</a><a href="ch12_hydraulic_pneumatic.html#s-filters"><b>CH12</b>필터<i> · 유압 필터의 탈착·세척·검사·장착</i></a><a href="ch12_hydraulic_pneumatic.html#s-asa-pumps"><b>CH12</b>유압 펌프의 종류<i> · 유압 펌프의 탈착·장착과 작동 점검</i></a><a href="ch12_hydraulic_pneumatic.html#s-valves"><b>CH12</b>밸브<i> · 선택 밸브 탈착·장착, 압력 조절기 점검·조정, 릴리프 밸브 탈착·장착</i></a><a href="ch12_hydraulic_pneumatic.html#s-accumulator"><b>CH12</b>어큐뮬레이터와 공기 밸브<i> · 축압기 보급</i></a><a href="ch12_hydraulic_pneumatic.html#s-seals"><b>CH12</b>실·패킹·O링<i> · 실·백업 링·개스킷 장착 절차 찾기와 마스터 브레이크 실린더 실 교환</i></a></div></div><div class="sys-links"><a href="ch12_hydraulic_pneumatic.html">📘 본문</a><a href="ch12_hydraulic_pneumatic.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=680" target="_blank" rel="noopener">📄 FAA PDF p.680</a></div></section><section id="sys13" class="comp"><div class="sys-head2"><span class="sys-ic">🛬</span><div><div class="sys-t">착륙장치</div><div class="sys-e">Landing Gear</div></div><span class="sys-ch2">CH 13</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>공기유압식(Oleo) 스트럿이 착륙 충격을 흡수하고, 유압/전기로 접이·전개됩니다. 안티스키드가 제동을 최적화합니다.<span class="en-text">Oleo (air-oil) struts absorb landing shock; the gear retracts/extends hydraulically or electrically. Antiskid optimizes braking.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>스트럿 주저앉음<span class="en-text">Strut collapsed</span></td><td>오일량·질소 압력 확인<span class="en-text">Check oil level, nitrogen pressure</span></td><td>실 누설 점검<span class="en-text">Inspect seal leakage</span></td></tr><tr><td>기어 안 내려옴<span class="en-text">Gear will not extend</span></td><td>유압압력·비상전개 확인<span class="en-text">Check hydraulic pressure, emergency extension</span></td><td>다운락 스위치 점검<span class="en-text">Test downlock switch</span></td></tr><tr><td>제동 불량<span class="en-text">Poor braking</span></td><td>브레이크 마모·유압 누설 확인<span class="en-text">Check brake wear, hydraulic leak</span></td><td>안티스키드 계통 점검<span class="en-text">Inspect antiskid system</span></td></tr><tr><td><span class="acs-mini">ACS</span>스로틀을 줄여도 기어 경고혼이 안 울림<span class="en-text">Gear warning horn silent with throttle retarded</span></td><td>스로틀 위치 스위치 조정 불량, 스위치·배선 고장<span class="en-text">Misrigged throttle switch or faulty switch/wiring</span></td><td>스위치 리깅을 매뉴얼 값으로 조정하고 작동 점검<span class="en-text">Rig the switch to manual values and operationally check</span></td></tr><tr><td><span class="acs-mini">ACS</span>잭업 중 기체가 흔들림<span class="en-text">Aircraft unstable on jacks</span></td><td>지정되지 않은 잭 포인트, 바람, 한쪽만 올림<span class="en-text">Wrong jack points, wind, or raising unevenly</span></td><td>지정 잭 포인트 사용, 동시에 수평으로 올리고 안전 칼라 잠금<span class="en-text">Use specified jack points, raise evenly and lock safety collars</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch13_landing_gear.html#s-acs-gear-warning"><b>CH13</b>착륙장치 위치 지시·경고 계통과 이착륙 형상 경고</a><a href="ch13_landing_gear.html#s-acs-jacking"><b>CH13</b>항공기 잭업과 완충 스트럿 에어밸브 교환</a><a href="ch13_landing_gear.html#s-oleo-strut"><b>CH13</b>오레오 스트럿<i> · 공기·오일식 완충 스트럿 고장탐구</i></a><a href="ch13_landing_gear.html#s-antiskid-detail"><b>CH13</b>안티스키드 계통 상세<i> · 안티스키드 계통의 점검·보급, 경고 계통 점검, 고장탐구 절차</i></a><a href="ch13_landing_gear.html#s-brake-inspection"><b>CH13</b>브레이크 점검·블리딩·오버홀<i> · 브레이크 라이닝 교환, 휠 브레이크 탈착·검사·장착, 유압 브레이크 고장탐구</i></a><a href="ch13_landing_gear.html#s-tire-service"><b>CH13</b>타이어 탈착·보관·밸런싱<i> · 고압 유체·가스의 위험</i></a></div></div><div class="sys-links"><a href="ch13_landing_gear.html">📘 본문</a><a href="ch13_landing_gear.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=732" target="_blank" rel="noopener">📄 FAA PDF p.732</a></div></section><section id="sys14" class="comp"><div class="sys-head2"><span class="sys-ic">⛽</span><div><div class="sys-t">연료 계통</div><div class="sys-e">Fuel System</div></div><span class="sys-ch2">CH 14</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>탱크→부스터펌프→선택밸브→필터→엔진 순으로 연료를 공급합니다. 정전용량식/부유식 지시계로 잔량을 표시합니다.<span class="en-text">Fuel flows tank → boost pump → selector valve → filter → engine. Capacitance or float gauges indicate quantity.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>연료 공급 끊김<span class="en-text">Fuel supply interrupted</span></td><td>부스터펌프·선택밸브·필터 확인<span class="en-text">Check boost pump, selector valve, filter</span></td><td>연료 오염(물·이물질) 점검<span class="en-text">Check fuel contamination (water/debris)</span></td></tr><tr><td>연료량 오지시<span class="en-text">Wrong fuel quantity</span></td><td>지시계·센더·배선 확인<span class="en-text">Check gauge, sender, wiring</span></td><td>정전용량 프로브 점검<span class="en-text">Test capacitance probe</span></td></tr><tr><td>연료 누설<span class="en-text">Fuel leak</span></td><td>탱크 실런트·피팅·배관 확인<span class="en-text">Check tank sealant, fittings, lines</span></td><td>인티그럴 탱크 실 점검<span class="en-text">Inspect integral tank seals</span></td></tr><tr><td><span class="acs-mini">ACS</span>연료량 지시가 실제와 다름<span class="en-text">Fuel quantity indication disagrees with actual</span></td><td>송신기 고장, 배선·커넥터, 교정 불량<span class="en-text">Faulty transmitter, wiring/connector or calibration</span></td><td>송신기 저항·배선 점검, 매뉴얼대로 교정<span class="en-text">Check transmitter resistance and wiring; calibrate per the manual</span></td></tr><tr><td><span class="acs-mini">ACS</span>선택 밸브 위치와 실제 연료 흐름 불일치<span class="en-text">Selector position does not match fuel flow</span></td><td>링키지 리깅·디텐트 불량<span class="en-text">Linkage rigging or detent problem</span></td><td>디텐트 위치와 링키지 리깅 조정, 플래카드 확인<span class="en-text">Adjust rigging to the detents and verify placards</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch14_fuel_systems.html#s-acs-fuel-indication"><b>CH14</b>연료 압력·온도·양 지시 계통 고장탐구와 필수 플래카드</a><a href="ch14_fuel_systems.html#s-acs-fuel-valves"><b>CH14</b>연료 밸브 점검과 연료 계통 고장탐구·정비 자료 찾기</a><a href="ch14_fuel_systems.html#s-acs-fuel-safety"><b>CH14</b>연료 유출 대응·연료탱크 진입·배유(defueling)</a><a href="ch14_fuel_systems.html#s-tanks"><b>CH14</b>연료 탱크<i> · 금속·블래더·일체형 연료 탱크 검사</i></a><a href="ch14_fuel_systems.html#s-fuel-instruments"><b>CH14</b>연료 계통 계기 상세<i> · 연료량 송신기 탈착·장착</i></a><a href="ch14_fuel_systems.html#s-indication-servicing"><b>CH14</b>연료량 지시와 급유·정비<i> · 연료 이송·급유·배유</i></a></div></div><div class="sys-links"><a href="ch14_fuel_systems.html">📘 본문</a><a href="ch14_fuel_systems.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=824" target="_blank" rel="noopener">📄 FAA PDF p.824</a></div></section><section id="sys15" class="comp"><div class="sys-head2"><span class="sys-ic">❄</span><div><div class="sys-t">방빙·제우 계통</div><div class="sys-e">Ice &amp; Rain Protection</div></div><span class="sys-ch2">CH 15</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>방빙(Anti-Ice)은 결빙을 예방하고, 제빙(De-Ice)은 공압 부츠로 이미 생긴 얼음을 깨뜨립니다. 열·전기·화학 방식이 있습니다.<span class="en-text">Anti-ice prevents ice formation; de-ice breaks off formed ice with pneumatic boots. Methods are thermal, electric, and chemical.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>부츠 팽창 안 함<span class="en-text">Boots will not inflate</span></td><td>공압 압력·분배밸브 확인<span class="en-text">Check pneumatic pressure, distributor valve</span></td><td>부츠 손상/누설 점검<span class="en-text">Inspect boot damage/leak</span></td></tr><tr><td>전열 방빙 불량<span class="en-text">Electrothermal anti-ice fault</span></td><td>전원·히터엘리먼트·써모스탯 확인<span class="en-text">Check power, heater element, thermostat</span></td><td>전류 소모 점검<span class="en-text">Measure current draw</span></td></tr><tr><td>피토 히터 불량<span class="en-text">Pitot heater fault</span></td><td>히터 전원·회로 확인<span class="en-text">Check heater power, circuit</span></td><td>피토관 결선 점검<span class="en-text">Inspect pitot wiring</span></td></tr><tr><td><span class="acs-mini">ACS</span>피토 히트 ON인데 전류 변화 없음<span class="en-text">No current draw with pitot heat ON</span></td><td>히터 소자 단선, 차단기, 배선<span class="en-text">Open heater element, breaker or wiring</span></td><td>전류계·소자 저항 확인, 지상 시험은 과열 방지를 위해 짧게<span class="en-text">Check ammeter and element resistance; keep ground tests short to avoid overheating</span></td></tr><tr><td><span class="acs-mini">ACS</span>가열식 앞유리의 아크·변색<span class="en-text">Arcing or discoloration in a heated windshield</span></td><td>가열 소자·단자 손상, 부적합 세척재<span class="en-text">Damaged heating element or terminal, wrong cleaner</span></td><td>즉시 OFF, 매뉴얼 점검, 지정 세척재만 사용<span class="en-text">Turn it off, inspect per the manual, use only approved cleaners</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch15_ice_rain.html#s-pitot-windshield"><b>CH15</b>피토·윈드실드 방빙 상세<i> · 가열식 윈드실드 세척재 선택과 사용</i></a><a href="ch15_ice_rain.html#s-thermal-antiice"><b>CH15</b>열 방빙 (블리드 에어)<i> · 열 방빙 계통 검사</i></a><a href="ch15_ice_rain.html#s-boot-maintenance"><b>CH15</b>제빙 부츠 정비<i> · 제빙 부츠 검사와 작동 점검</i></a><a href="ch15_ice_rain.html#s-ground-deice"><b>CH15</b>지상 제빙 (FPD)<i> · 제빙액의 보관과 취급</i></a><a href="ch15_ice_rain.html#s-jep-rain-wipers"><b>CH15</b>윈드실드 와이퍼 계통<i> · 전동 와이퍼 계통 검사 절차와 블레이드 교환 절차 찾기</i></a><a href="ch15_ice_rain.html#s-jep-rain-repellent"><b>CH15</b>화학 발수제와 공압 제거<i> · 공압식 빗물 제거 계통 검사 절차 찾기</i></a></div></div><div class="sys-links"><a href="ch15_ice_rain.html">📘 본문</a><a href="ch15_ice_rain.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=881" target="_blank" rel="noopener">📄 FAA PDF p.881</a></div></section><section id="sys16" class="comp"><div class="sys-head2"><span class="sys-ic">🌡</span><div><div class="sys-t">객실 환경 제어</div><div class="sys-e">Cabin Environment</div></div><span class="sys-ch2">CH 16</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>블리드 에어/압축기로 여압하고, 아웃플로 밸브가 객실 고도를 조절합니다. 산소·공조 계통이 승객 환경을 유지합니다.<span class="en-text">Bleed air or compressors pressurize the cabin; the outflow valve controls cabin altitude. Oxygen and air-conditioning maintain the environment.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>여압 안 됨<span class="en-text">No pressurization</span></td><td>아웃플로밸브·블리드에어·실 확인<span class="en-text">Check outflow valve, bleed air, seals</span></td><td>안전밸브 점검<span class="en-text">Inspect safety valve</span></td></tr><tr><td>산소 공급 불량<span class="en-text">Poor oxygen supply</span></td><td>실린더 압력·조절기·마스크 확인<span class="en-text">Check cylinder pressure, regulator, mask</span></td><td>유분 오염 절대 금지<span class="en-text">Never allow oil contamination</span></td></tr><tr><td>객실 온도 이상<span class="en-text">Abnormal cabin temperature</span></td><td>공조밸브·열교환기·센서 확인<span class="en-text">Check A/C valve, heat exchanger, sensor</span></td><td>에어사이클머신 점검<span class="en-text">Inspect air-cycle machine</span></td></tr><tr><td><span class="acs-mini">ACS</span>객실 CO 감지·탑승자 두통<span class="en-text">CO detected in cabin / occupant headaches</span></td><td>배기 열교환기(히터 머프) 균열<span class="en-text">Cracked exhaust heat exchanger (heater muff)</span></td><td>히터 OFF, 열교환기 검사와 압력 누설 시험<span class="en-text">Turn heat off; inspect and pressure-test the heat exchanger</span></td></tr><tr><td><span class="acs-mini">ACS</span>연소식 히터가 반복해서 꺼짐<span class="en-text">Combustion heater repeatedly shuts down</span></td><td>과열 스위치 작동, 환기 공기 부족, 연소 공기 흡입구 막힘<span class="en-text">Overheat switch trips, low ventilating airflow, blocked combustion air inlet</span></td><td>흡입구·덕트 막힘 확인, 과열 스위치 시험, 매뉴얼 고장탐구<span class="en-text">Check inlets and ducts, test the overheat switch, follow manual troubleshooting</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch16_cabin_environment.html#s-acs-combustion-heater"><b>CH16</b>연소식 히터의 작동·점검·정비</a><a href="ch16_cabin_environment.html#s-acs-ecs-troubleshoot"><b>CH16</b>공기 사이클 냉방·여압 계통 고장탐구</a><a href="ch16_cabin_environment.html#s-air-conditioning"><b>CH16</b>냉난방 계통 (ACM·증기사이클)<i> · 블리드 공기 난방과 배기 열교환기 난방</i></a><a href="ch16_cabin_environment.html#s-jep-co-poisoning"><b>CH16</b>일산화탄소(CO) 중독<i> · 배기 열교환기식 객실 히터의 균열 검사</i></a><a href="ch16_cabin_environment.html#s-oxygen-servicing"><b>CH16</b>산소 계통 정비<i> · 보급 전 산소 계통 퍼지</i></a><a href="ch16_cabin_environment.html#s-oxygen-detail"><b>CH16</b>산소 계통 상세 (공급·실린더)<i> · 화학식 산소 발생기 취급, 산소 실린더 검사, 고압 용기 취급</i></a></div></div><div class="sys-links"><a href="ch16_cabin_environment.html">📘 본문</a><a href="ch16_cabin_environment.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=912" target="_blank" rel="noopener">📄 FAA PDF p.912</a></div></section><section id="sys17" class="comp"><div class="sys-head2"><span class="sys-ic">🧯</span><div><div class="sys-t">화재 방지 계통</div><div class="sys-e">Fire Protection</div></div><span class="sys-ch2">CH 17</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>열스위치·열전대·연속루프로 화재를 감지하고, 소화병에서 소화제를 방출합니다. 방출지시기로 상태를 확인합니다.<span class="en-text">Thermal switches, thermocouples, and continuous loops detect fire; bottles discharge agent. Discharge indicators show status.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>감지 경고 오작동<span class="en-text">False detection warning</span></td><td>루프·커넥터·컨트롤유닛 확인<span class="en-text">Check loop, connectors, control unit</span></td><td>단선/단락 점검<span class="en-text">Test for open/short</span></td></tr><tr><td>소화제 방출 안 됨<span class="en-text">Agent will not discharge</span></td><td>소화병 압력·스퀴브·배선 확인<span class="en-text">Check bottle pressure, squib, wiring</span></td><td>방출밸브 점검<span class="en-text">Inspect discharge valve</span></td></tr><tr><td>열방출 지시기 사라짐<span class="en-text">Thermal discharge indicator gone</span></td><td>과열로 자동 방출됨→원인조사<span class="en-text">Auto-discharged from overheat → investigate</span></td><td>소화병 교체<span class="en-text">Replace bottle</span></td></tr><tr><td><span class="acs-mini">ACS</span>소화 용기 압력이 낮게 지시<span class="en-text">Extinguisher bottle pressure reads low</span></td><td>주변 온도 영향, 누설, 지시계 오차<span class="en-text">Ambient temperature, leakage or gauge error</span></td><td>온도-압력 표와 비교, 무게 측정, 비눗물 누설 점검<span class="en-text">Compare with the temperature-pressure chart, weigh the bottle, soap-test for leaks</span></td></tr><tr><td><span class="acs-mini">ACS</span>카트리지(squib) 점검등이 안 켜짐<span class="en-text">Squib test light does not illuminate</span></td><td>전구, 회로, 카트리지 불량<span class="en-text">Bulb, circuit or cartridge fault</span></td><td>전구→회로→카트리지 순 점검, 승인된 시험기만 사용<span class="en-text">Check bulb, circuit, then cartridge; use only approved testers</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch17_fire_protection.html#s-exting-maint"><b>CH17</b>소화 계통 정비 (압력·카트리지)<i> · 소화 계통 작업과 시험 때의 개인 보호구(PPE)</i></a><a href="ch17_fire_protection.html#s-detector-maint"><b>CH17</b>탐지기 정비·서비싱<i> · 화재 감지·소화 계통 고장탐구와 과열 감지 계통 검사 절차 찾기</i></a><a href="ch17_fire_protection.html#s-smoke-detectors"><b>CH17</b>연기·CO 탐지기<i> · 연기·유독가스 감지기와 일산화탄소 감지기 검사, 연기 감지 계통 점검 절차 찾기</i></a><a href="ch17_fire_protection.html#s-complete-system"><b>CH17</b>완전한 화재 방지 계통 (실기체계)<i> · 화재 감지·보호 계통 작동 점검</i></a><a href="ch17_fire_protection.html#s-jep-fire-fixed"><b>CH17</b>고정 소화계통: 재래식·HRD<i> · 고정식 용기 표시 확인</i></a><a href="ch17_fire_protection.html#s-jep-fire-agents"><b>CH17</b>소화제: CO2와 할론<i> · 소화제의 종류와 위험</i></a></div></div><div class="sys-links"><a href="ch17_fire_protection.html">📘 본문</a><a href="ch17_fire_protection.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=973" target="_blank" rel="noopener">📄 FAA PDF p.973</a></div></section><section id="sys10" class="comp"><div class="sys-head2"><span class="sys-ic">🧭</span><div><div class="sys-t">계기 계통</div><div class="sys-e">Instrument System</div></div><span class="sys-ch2">CH 10</span></div><div class="sys-pr"><span class="pr-lab">⚙ 작동 원리 · Operating Principle</span><p>피토정압 계통이 고도계·속도계·승강계를, 자이로가 자세계·방향계를 구동합니다. 전자계기(EFIS)로 통합 표시합니다.<span class="en-text">The pitot-static system drives the altimeter, airspeed, and VSI; gyros drive attitude and heading. EFIS integrates the displays.</span></p></div><div class="sys-tt"><span class="tt-lab">🔧 고장탐구 · Troubleshooting</span><table class="tstable"><thead><tr><th>증상 SYMPTOM</th><th>점검 CAUSE</th><th>조치 ACTION</th></tr></thead><tbody><tr><td>고도/속도 오지시<span class="en-text">Wrong altitude/airspeed</span></td><td>정압구·피토관 막힘 확인<span class="en-text">Check static port, pitot blockage</span></td><td>계통 누설 점검<span class="en-text">Test system for leaks</span></td></tr><tr><td>자이로 계기 불량<span class="en-text">Gyro instrument fault</span></td><td>진공펌프·필터·전원 확인<span class="en-text">Check vacuum pump, filter, power</span></td><td>자이로 세차 점검<span class="en-text">Inspect gyro precession</span></td></tr><tr><td>계기 전체 이상<span class="en-text">All instruments abnormal</span></td><td>전원·계기 조명·퓨즈 확인<span class="en-text">Check power, panel lighting, fuse</span></td><td>EFIS 계통 점검<span class="en-text">Inspect EFIS system</span></td></tr><tr><td><span class="acs-mini">ACS</span>간헐적인 경고 메시지<span class="en-text">Intermittent warning message</span></td><td>커넥터 접촉 불량, 센서 고장<span class="en-text">Loose connector or failing sensor</span></td><td>BITE 고장 기록 조회 후 해당 커넥터·센서 점검<span class="en-text">Read the BITE fault history, then check the connector and sensor</span></td></tr><tr><td><span class="acs-mini">ACS</span>자기 컴퍼스 오차가 큼<span class="en-text">Large magnetic compass error</span></td><td>새로 단 전기·자성 장비의 영향<span class="en-text">Influence of newly installed electrical or magnetic equipment</span></td><td>컴퍼스 스윙으로 보정하고 편차 카드 갱신<span class="en-text">Swing the compass, compensate and update the deviation card</span></td></tr></tbody></table></div><div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch10_instruments.html#s-acs-bite-hud"><b>CH10</b>자체 시험 장비(BITE)와 헤드업 디스플레이(HUD)</a><a href="ch10_instruments.html#s-acs-inst-maint"><b>CH10</b>계기 정비 실무: 냉각·세척 주의·간헐 경고·고도계 선정·외기온도계</a><a href="ch10_instruments.html#s-pitot-static"><b>CH10</b>피토정압 계통<i> · 대체 정압원(alternate static source) 검사</i></a><a href="ch10_instruments.html#s-gyro-power"><b>CH10</b>자이로 동력원<i> · 진공 계기 계통의 고장탐구 절차, 필터 검사, 흡입 압력 조정</i></a><a href="ch10_instruments.html#s-direction-instruments"><b>CH10</b>방향 지시 계기·컴퍼스<i> · 자기 컴퍼스 검사</i></a><a href="ch10_instruments.html#s-jep-inst-markings"><b>CH10</b>계기 범위 표시(색코드)<i> · 계기 유리에 범위 표시 넣기</i></a></div></div><div class="sys-links"><a href="ch10_instruments.html">📘 본문</a><a href="ch10_instruments.html#s-quiz">📝 연계 기출</a><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=520" target="_blank" rel="noopener">📄 FAA PDF p.520</a></div></section>
-  </main>
+<div class="topbar">
+  <a class="home" href="index.html">← 전체 목차 (Master Index)</a>
+  <a class="home" href="textbook.html">📖 교재 색인</a>
+  <span class="tb-tag">FAA-H-8083-31B · SYSTEMS</span>
 </div>
-<button class="backtop" id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-title">계통 (Systems)</div>
+    <a class="snav" href="#sys9"><span class="snav-ic">⚡</span><span><b>전기 계통</b><i>Electrical System</i></span></a>
+<a class="snav" href="#sys12"><span class="snav-ic">💧</span><span><b>유압 계통</b><i>Hydraulic System</i></span></a>
+<a class="snav" href="#sys13"><span class="snav-ic">🛬</span><span><b>착륙장치</b><i>Landing Gear</i></span></a>
+<a class="snav" href="#sys14"><span class="snav-ic">⛽</span><span><b>연료 계통</b><i>Fuel System</i></span></a>
+<a class="snav" href="#sys15"><span class="snav-ic">❄</span><span><b>방빙·제우 계통</b><i>Ice &amp; Rain Protection</i></span></a>
+<a class="snav" href="#sys16"><span class="snav-ic">🌡</span><span><b>객실 환경 제어</b><i>Cabin Environment</i></span></a>
+<a class="snav" href="#sys17"><span class="snav-ic">🧯</span><span><b>화재 방지 계통</b><i>Fire Protection</i></span></a>
+<a class="snav" href="#sys10"><span class="snav-ic">🧭</span><span><b>계기 계통</b><i>Instrument System</i></span></a>
+
+  </aside>
+
+  <main class="content">
+    <div class="page-hero">
+      <div class="tag">FAA AIRFRAME · SYSTEMS GUIDE</div>
+      <h1>계통별 작동원리 &amp; 고장탐구</h1>
+      <p>각 계통이 어떻게 작동하는지(작동원리)와, 문제가 생겼을 때 증상→점검→조치를 한눈에 정리했습니다. FAA-H-8083-31B 핸드북 기반이며, 각 계통의 연계 기출문제로 바로 이동할 수 있습니다.</p>
+    </div>
+    
+    <section id="sys9" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">⚡</span>
+        <div>
+          <h2>전기 계통</h2>
+          <span class="sys-en">Electrical System · <span style="white-space:nowrap">CH 09</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=417" target="_blank" rel="noopener">📄 PDF p.417</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">배터리·발전기·교류발전기가 전원을 공급하고, 버스(Bus)를 통해 각 부하에 분배됩니다. 옴의 법칙(E=I×R)이 기본 원리입니다.</p>
+        <p class="p-en">The battery, generator, and alternator supply power, distributed to loads through buses. Ohm's law (E=I×R) is the basic principle.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>계통 전체 무전원</b><span class="ts-en">No power to entire system</span></td>
+          <td class="ts-cause">마스터 스위치·배터리 접점·주 퓨즈 확인<span class="ts-en">Check master switch, battery contacts, main fuse</span></td>
+          <td class="ts-act">배터리 솔레노이드/컨택터 점검<span class="ts-en">Inspect battery solenoid/contactor</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>충전 안 됨</b><span class="ts-en">Not charging</span></td>
+          <td class="ts-cause">발전기 벨트·전압조정기·과전압센서 확인<span class="ts-en">Check generator belt, voltage regulator, overvoltage sensor</span></td>
+          <td class="ts-act">알터네이터 출력 점검<span class="ts-en">Test alternator output</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>특정 계통만 작동 안 함</b><span class="ts-en">Only one system inoperative</span></td>
+          <td class="ts-cause">해당 회로 차단기(CB)·배선 확인<span class="ts-en">Check that circuit breaker (CB) and wiring</span></td>
+          <td class="ts-act">단선/단락 점검<span class="ts-en">Test for open/short</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>외부 전원 연결 후 장비 손상</b><span class="ts-en">Equipment damaged after connecting external power</span></td>
+          <td class="ts-cause">지상 전원(GPU) 전압·극성 미확인<span class="ts-en">GPU voltage and polarity not checked</span></td>
+          <td class="ts-act">연결 전 전압·극성 확인, 매뉴얼 순서대로 연결<span class="ts-en">Verify voltage and polarity before connecting; follow the manual sequence</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>AC 계기 전체 무동작</b><span class="ts-en">All AC instruments inoperative</span></td>
+          <td class="ts-cause">인버터 차단기, 입력 DC 전압, 인버터 고장<span class="ts-en">Inverter breaker, DC input voltage or failed inverter</span></td>
+          <td class="ts-act">입력 전압·차단기 확인 후 인버터 출력 전압·주파수 측정<span class="ts-en">Check input voltage and breaker, then measure inverter output voltage and frequency</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch09_electrical.html#s-acs-elec-safety-tests"><b>CH09</b>외부 전원 연결·통전 회로 작업 안전과 단락 시험</a><a href="ch09_electrical.html#s-acs-gen-inverter"><b>CH09</b>스타터-제너레이터·인버터·TRU와 DC 발전기 점검</a><a href="ch09_electrical.html#s-acs-wiring-parts"><b>CH09</b>스위치 감정격(derating)·배선 차폐·전기 커넥터 조립</a><a href="ch09_electrical.html#s-asa-troubleshoot"><b>CH09</b>회로도 판독과 고장탐구<i> · 전기 계통의 측정·시험, 부품 저항 측정, 도통 시험, 부품 검사</i></a><a href="ch09_electrical.html#s-gen-alt-circuit"><b>CH09</b>발전기·교류발전기 회로<i> · 전압 조절기·과전압·과전류 보호와 전기 부하 계산</i></a><a href="ch09_electrical.html#s-lighting"><b>CH09</b>항공기 조명 계통<i> · 충돌 방지등·항법등·착륙등 점검</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch09_electrical.html">📘 CH09 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch09_electrical.html#s-quiz">📝 전기 계통 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+    <section id="sys12" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">💧</span>
+        <div>
+          <h2>유압 계통</h2>
+          <span class="sys-en">Hydraulic System · <span style="white-space:nowrap">CH 12</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=680" target="_blank" rel="noopener">📄 PDF p.680</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">펌프가 유압유를 가압하고, 밸브가 방향·압력·유량을 제어해 액추에이터를 구동합니다. 어큐뮬레이터가 맥동을 흡수합니다.</p>
+        <p class="p-en">A pump pressurizes hydraulic fluid; valves control direction, pressure, and flow to drive actuators. An accumulator absorbs pulsations.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>압력 상승 안 함</b><span class="ts-en">No pressure rise</span></td>
+          <td class="ts-cause">유량·펌프·릴리프밸브 확인<span class="ts-en">Check flow, pump, relief valve</span></td>
+          <td class="ts-act">유압유 레벨·오염 점검<span class="ts-en">Check fluid level/contamination</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>작동 느림</b><span class="ts-en">Slow operation</span></td>
+          <td class="ts-cause">필터 막힘·내부 누설 확인<span class="ts-en">Check clogged filter, internal leakage</span></td>
+          <td class="ts-act">실(Seal) 마모 점검<span class="ts-en">Inspect seal wear</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>유압유 누설</b><span class="ts-en">Hydraulic fluid leak</span></td>
+          <td class="ts-cause">피팅·실·호스 확인<span class="ts-en">Check fittings, seals, hoses</span></td>
+          <td class="ts-act">유압유 종류 혼합 여부 확인<span class="ts-en">Verify no fluid-type mixing</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>작동기가 스펀지처럼 느리게 움직임</b><span class="ts-en">Actuator moves spongy or slowly</span></td>
+          <td class="ts-cause">계통 안에 공기가 들어감<span class="ts-en">Air in the system</span></td>
+          <td class="ts-act">매뉴얼대로 공기 빼기(블리딩) 후 리저버 보급량 확인<span class="ts-en">Bleed the system per the manual and recheck reservoir level</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>엔진 정지 후에도 계통 압력이 남음</b><span class="ts-en">System pressure remains after shutdown</span></td>
+          <td class="ts-cause">축압기에 저장된 압력<span class="ts-en">Pressure stored in the accumulator</span></td>
+          <td class="ts-act">정비 전 압력 제거 절차 수행, 게이지 0 확인 후 라인 분리<span class="ts-en">Relieve pressure per procedure and confirm zero on the gauge before opening lines</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch12_hydraulic_pneumatic.html#s-acs-hyd-service"><b>CH12</b>유압·공압 계통 압력 제거·공기 빼기·누설 점검과 블리드 공기 과열 경고</a><a href="ch12_hydraulic_pneumatic.html#s-filters"><b>CH12</b>필터<i> · 유압 필터의 탈착·세척·검사·장착</i></a><a href="ch12_hydraulic_pneumatic.html#s-asa-pumps"><b>CH12</b>유압 펌프의 종류<i> · 유압 펌프의 탈착·장착과 작동 점검</i></a><a href="ch12_hydraulic_pneumatic.html#s-valves"><b>CH12</b>밸브<i> · 선택 밸브 탈착·장착, 압력 조절기 점검·조정, 릴리프 밸브 탈착·장착</i></a><a href="ch12_hydraulic_pneumatic.html#s-accumulator"><b>CH12</b>어큐뮬레이터와 공기 밸브<i> · 축압기 보급</i></a><a href="ch12_hydraulic_pneumatic.html#s-seals"><b>CH12</b>실·패킹·O링<i> · 실·백업 링·개스킷 장착 절차 찾기와 마스터 브레이크 실린더 실 교환</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch12_hydraulic_pneumatic.html">📘 CH12 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch12_hydraulic_pneumatic.html#s-quiz">📝 유압 계통 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+    <section id="sys13" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">🛬</span>
+        <div>
+          <h2>착륙장치</h2>
+          <span class="sys-en">Landing Gear · <span style="white-space:nowrap">CH 13</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=732" target="_blank" rel="noopener">📄 PDF p.732</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">공기유압식(Oleo) 스트럿이 착륙 충격을 흡수하고, 유압/전기로 접이·전개됩니다. 안티스키드가 제동을 최적화합니다.</p>
+        <p class="p-en">Oleo (air-oil) struts absorb landing shock; the gear retracts/extends hydraulically or electrically. Antiskid optimizes braking.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>스트럿 주저앉음</b><span class="ts-en">Strut collapsed</span></td>
+          <td class="ts-cause">오일량·질소 압력 확인<span class="ts-en">Check oil level, nitrogen pressure</span></td>
+          <td class="ts-act">실 누설 점검<span class="ts-en">Inspect seal leakage</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>기어 안 내려옴</b><span class="ts-en">Gear will not extend</span></td>
+          <td class="ts-cause">유압압력·비상전개 확인<span class="ts-en">Check hydraulic pressure, emergency extension</span></td>
+          <td class="ts-act">다운락 스위치 점검<span class="ts-en">Test downlock switch</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>제동 불량</b><span class="ts-en">Poor braking</span></td>
+          <td class="ts-cause">브레이크 마모·유압 누설 확인<span class="ts-en">Check brake wear, hydraulic leak</span></td>
+          <td class="ts-act">안티스키드 계통 점검<span class="ts-en">Inspect antiskid system</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>스로틀을 줄여도 기어 경고혼이 안 울림</b><span class="ts-en">Gear warning horn silent with throttle retarded</span></td>
+          <td class="ts-cause">스로틀 위치 스위치 조정 불량, 스위치·배선 고장<span class="ts-en">Misrigged throttle switch or faulty switch/wiring</span></td>
+          <td class="ts-act">스위치 리깅을 매뉴얼 값으로 조정하고 작동 점검<span class="ts-en">Rig the switch to manual values and operationally check</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>잭업 중 기체가 흔들림</b><span class="ts-en">Aircraft unstable on jacks</span></td>
+          <td class="ts-cause">지정되지 않은 잭 포인트, 바람, 한쪽만 올림<span class="ts-en">Wrong jack points, wind, or raising unevenly</span></td>
+          <td class="ts-act">지정 잭 포인트 사용, 동시에 수평으로 올리고 안전 칼라 잠금<span class="ts-en">Use specified jack points, raise evenly and lock safety collars</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch13_landing_gear.html#s-acs-gear-warning"><b>CH13</b>착륙장치 위치 지시·경고 계통과 이착륙 형상 경고</a><a href="ch13_landing_gear.html#s-acs-jacking"><b>CH13</b>항공기 잭업과 완충 스트럿 에어밸브 교환</a><a href="ch13_landing_gear.html#s-oleo-strut"><b>CH13</b>오레오 스트럿<i> · 공기·오일식 완충 스트럿 고장탐구</i></a><a href="ch13_landing_gear.html#s-antiskid-detail"><b>CH13</b>안티스키드 계통 상세<i> · 안티스키드 계통의 점검·보급, 경고 계통 점검, 고장탐구 절차</i></a><a href="ch13_landing_gear.html#s-brake-inspection"><b>CH13</b>브레이크 점검·블리딩·오버홀<i> · 브레이크 라이닝 교환, 휠 브레이크 탈착·검사·장착, 유압 브레이크 고장탐구</i></a><a href="ch13_landing_gear.html#s-tire-service"><b>CH13</b>타이어 탈착·보관·밸런싱<i> · 고압 유체·가스의 위험</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch13_landing_gear.html">📘 CH13 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch13_landing_gear.html#s-quiz">📝 착륙장치 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+    <section id="sys14" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">⛽</span>
+        <div>
+          <h2>연료 계통</h2>
+          <span class="sys-en">Fuel System · <span style="white-space:nowrap">CH 14</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=824" target="_blank" rel="noopener">📄 PDF p.824</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">탱크→부스터펌프→선택밸브→필터→엔진 순으로 연료를 공급합니다. 정전용량식/부유식 지시계로 잔량을 표시합니다.</p>
+        <p class="p-en">Fuel flows tank → boost pump → selector valve → filter → engine. Capacitance or float gauges indicate quantity.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>연료 공급 끊김</b><span class="ts-en">Fuel supply interrupted</span></td>
+          <td class="ts-cause">부스터펌프·선택밸브·필터 확인<span class="ts-en">Check boost pump, selector valve, filter</span></td>
+          <td class="ts-act">연료 오염(물·이물질) 점검<span class="ts-en">Check fuel contamination (water/debris)</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>연료량 오지시</b><span class="ts-en">Wrong fuel quantity</span></td>
+          <td class="ts-cause">지시계·센더·배선 확인<span class="ts-en">Check gauge, sender, wiring</span></td>
+          <td class="ts-act">정전용량 프로브 점검<span class="ts-en">Test capacitance probe</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>연료 누설</b><span class="ts-en">Fuel leak</span></td>
+          <td class="ts-cause">탱크 실런트·피팅·배관 확인<span class="ts-en">Check tank sealant, fittings, lines</span></td>
+          <td class="ts-act">인티그럴 탱크 실 점검<span class="ts-en">Inspect integral tank seals</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>연료량 지시가 실제와 다름</b><span class="ts-en">Fuel quantity indication disagrees with actual</span></td>
+          <td class="ts-cause">송신기 고장, 배선·커넥터, 교정 불량<span class="ts-en">Faulty transmitter, wiring/connector or calibration</span></td>
+          <td class="ts-act">송신기 저항·배선 점검, 매뉴얼대로 교정<span class="ts-en">Check transmitter resistance and wiring; calibrate per the manual</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>선택 밸브 위치와 실제 연료 흐름 불일치</b><span class="ts-en">Selector position does not match fuel flow</span></td>
+          <td class="ts-cause">링키지 리깅·디텐트 불량<span class="ts-en">Linkage rigging or detent problem</span></td>
+          <td class="ts-act">디텐트 위치와 링키지 리깅 조정, 플래카드 확인<span class="ts-en">Adjust rigging to the detents and verify placards</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch14_fuel_systems.html#s-acs-fuel-indication"><b>CH14</b>연료 압력·온도·양 지시 계통 고장탐구와 필수 플래카드</a><a href="ch14_fuel_systems.html#s-acs-fuel-valves"><b>CH14</b>연료 밸브 점검과 연료 계통 고장탐구·정비 자료 찾기</a><a href="ch14_fuel_systems.html#s-acs-fuel-safety"><b>CH14</b>연료 유출 대응·연료탱크 진입·배유(defueling)</a><a href="ch14_fuel_systems.html#s-tanks"><b>CH14</b>연료 탱크<i> · 금속·블래더·일체형 연료 탱크 검사</i></a><a href="ch14_fuel_systems.html#s-fuel-instruments"><b>CH14</b>연료 계통 계기 상세<i> · 연료량 송신기 탈착·장착</i></a><a href="ch14_fuel_systems.html#s-indication-servicing"><b>CH14</b>연료량 지시와 급유·정비<i> · 연료 이송·급유·배유</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch14_fuel_systems.html">📘 CH14 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch14_fuel_systems.html#s-quiz">📝 연료 계통 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+    <section id="sys15" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">❄</span>
+        <div>
+          <h2>방빙·제우 계통</h2>
+          <span class="sys-en">Ice &amp; Rain Protection · <span style="white-space:nowrap">CH 15</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=881" target="_blank" rel="noopener">📄 PDF p.881</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">방빙(Anti-Ice)은 결빙을 예방하고, 제빙(De-Ice)은 공압 부츠로 이미 생긴 얼음을 깨뜨립니다. 열·전기·화학 방식이 있습니다.</p>
+        <p class="p-en">Anti-ice prevents ice formation; de-ice breaks off formed ice with pneumatic boots. Methods are thermal, electric, and chemical.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>부츠 팽창 안 함</b><span class="ts-en">Boots will not inflate</span></td>
+          <td class="ts-cause">공압 압력·분배밸브 확인<span class="ts-en">Check pneumatic pressure, distributor valve</span></td>
+          <td class="ts-act">부츠 손상/누설 점검<span class="ts-en">Inspect boot damage/leak</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>전열 방빙 불량</b><span class="ts-en">Electrothermal anti-ice fault</span></td>
+          <td class="ts-cause">전원·히터엘리먼트·써모스탯 확인<span class="ts-en">Check power, heater element, thermostat</span></td>
+          <td class="ts-act">전류 소모 점검<span class="ts-en">Measure current draw</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>피토 히터 불량</b><span class="ts-en">Pitot heater fault</span></td>
+          <td class="ts-cause">히터 전원·회로 확인<span class="ts-en">Check heater power, circuit</span></td>
+          <td class="ts-act">피토관 결선 점검<span class="ts-en">Inspect pitot wiring</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>피토 히트 ON인데 전류 변화 없음</b><span class="ts-en">No current draw with pitot heat ON</span></td>
+          <td class="ts-cause">히터 소자 단선, 차단기, 배선<span class="ts-en">Open heater element, breaker or wiring</span></td>
+          <td class="ts-act">전류계·소자 저항 확인, 지상 시험은 과열 방지를 위해 짧게<span class="ts-en">Check ammeter and element resistance; keep ground tests short to avoid overheating</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>가열식 앞유리의 아크·변색</b><span class="ts-en">Arcing or discoloration in a heated windshield</span></td>
+          <td class="ts-cause">가열 소자·단자 손상, 부적합 세척재<span class="ts-en">Damaged heating element or terminal, wrong cleaner</span></td>
+          <td class="ts-act">즉시 OFF, 매뉴얼 점검, 지정 세척재만 사용<span class="ts-en">Turn it off, inspect per the manual, use only approved cleaners</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch15_ice_rain.html#s-pitot-windshield"><b>CH15</b>피토·윈드실드 방빙 상세<i> · 가열식 윈드실드 세척재 선택과 사용</i></a><a href="ch15_ice_rain.html#s-thermal-antiice"><b>CH15</b>열 방빙 (블리드 에어)<i> · 열 방빙 계통 검사</i></a><a href="ch15_ice_rain.html#s-boot-maintenance"><b>CH15</b>제빙 부츠 정비<i> · 제빙 부츠 검사와 작동 점검</i></a><a href="ch15_ice_rain.html#s-ground-deice"><b>CH15</b>지상 제빙 (FPD)<i> · 제빙액의 보관과 취급</i></a><a href="ch15_ice_rain.html#s-jep-rain-wipers"><b>CH15</b>윈드실드 와이퍼 계통<i> · 전동 와이퍼 계통 검사 절차와 블레이드 교환 절차 찾기</i></a><a href="ch15_ice_rain.html#s-jep-rain-repellent"><b>CH15</b>화학 발수제와 공압 제거<i> · 공압식 빗물 제거 계통 검사 절차 찾기</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch15_ice_rain.html">📘 CH15 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch15_ice_rain.html#s-quiz">📝 방빙·제우 계통 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+    <section id="sys16" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">🌡</span>
+        <div>
+          <h2>객실 환경 제어</h2>
+          <span class="sys-en">Cabin Environment · <span style="white-space:nowrap">CH 16</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=912" target="_blank" rel="noopener">📄 PDF p.912</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">블리드 에어/압축기로 여압하고, 아웃플로 밸브가 객실 고도를 조절합니다. 산소·공조 계통이 승객 환경을 유지합니다.</p>
+        <p class="p-en">Bleed air or compressors pressurize the cabin; the outflow valve controls cabin altitude. Oxygen and air-conditioning maintain the environment.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>여압 안 됨</b><span class="ts-en">No pressurization</span></td>
+          <td class="ts-cause">아웃플로밸브·블리드에어·실 확인<span class="ts-en">Check outflow valve, bleed air, seals</span></td>
+          <td class="ts-act">안전밸브 점검<span class="ts-en">Inspect safety valve</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>산소 공급 불량</b><span class="ts-en">Poor oxygen supply</span></td>
+          <td class="ts-cause">실린더 압력·조절기·마스크 확인<span class="ts-en">Check cylinder pressure, regulator, mask</span></td>
+          <td class="ts-act">유분 오염 절대 금지<span class="ts-en">Never allow oil contamination</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>객실 온도 이상</b><span class="ts-en">Abnormal cabin temperature</span></td>
+          <td class="ts-cause">공조밸브·열교환기·센서 확인<span class="ts-en">Check A/C valve, heat exchanger, sensor</span></td>
+          <td class="ts-act">에어사이클머신 점검<span class="ts-en">Inspect air-cycle machine</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>객실 CO 감지·탑승자 두통</b><span class="ts-en">CO detected in cabin / occupant headaches</span></td>
+          <td class="ts-cause">배기 열교환기(히터 머프) 균열<span class="ts-en">Cracked exhaust heat exchanger (heater muff)</span></td>
+          <td class="ts-act">히터 OFF, 열교환기 검사와 압력 누설 시험<span class="ts-en">Turn heat off; inspect and pressure-test the heat exchanger</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>연소식 히터가 반복해서 꺼짐</b><span class="ts-en">Combustion heater repeatedly shuts down</span></td>
+          <td class="ts-cause">과열 스위치 작동, 환기 공기 부족, 연소 공기 흡입구 막힘<span class="ts-en">Overheat switch trips, low ventilating airflow, blocked combustion air inlet</span></td>
+          <td class="ts-act">흡입구·덕트 막힘 확인, 과열 스위치 시험, 매뉴얼 고장탐구<span class="ts-en">Check inlets and ducts, test the overheat switch, follow manual troubleshooting</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch16_cabin_environment.html#s-acs-combustion-heater"><b>CH16</b>연소식 히터의 작동·점검·정비</a><a href="ch16_cabin_environment.html#s-acs-ecs-troubleshoot"><b>CH16</b>공기 사이클 냉방·여압 계통 고장탐구</a><a href="ch16_cabin_environment.html#s-air-conditioning"><b>CH16</b>냉난방 계통 (ACM·증기사이클)<i> · 블리드 공기 난방과 배기 열교환기 난방</i></a><a href="ch16_cabin_environment.html#s-jep-co-poisoning"><b>CH16</b>일산화탄소(CO) 중독<i> · 배기 열교환기식 객실 히터의 균열 검사</i></a><a href="ch16_cabin_environment.html#s-oxygen-servicing"><b>CH16</b>산소 계통 정비<i> · 보급 전 산소 계통 퍼지</i></a><a href="ch16_cabin_environment.html#s-oxygen-detail"><b>CH16</b>산소 계통 상세 (공급·실린더)<i> · 화학식 산소 발생기 취급, 산소 실린더 검사, 고압 용기 취급</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch16_cabin_environment.html">📘 CH16 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch16_cabin_environment.html#s-quiz">📝 객실 환경 제어 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+    <section id="sys17" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">🧯</span>
+        <div>
+          <h2>화재 방지 계통</h2>
+          <span class="sys-en">Fire Protection · <span style="white-space:nowrap">CH 17</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=973" target="_blank" rel="noopener">📄 PDF p.973</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">열스위치·열전대·연속루프로 화재를 감지하고, 소화병에서 소화제를 방출합니다. 방출지시기로 상태를 확인합니다.</p>
+        <p class="p-en">Thermal switches, thermocouples, and continuous loops detect fire; bottles discharge agent. Discharge indicators show status.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>감지 경고 오작동</b><span class="ts-en">False detection warning</span></td>
+          <td class="ts-cause">루프·커넥터·컨트롤유닛 확인<span class="ts-en">Check loop, connectors, control unit</span></td>
+          <td class="ts-act">단선/단락 점검<span class="ts-en">Test for open/short</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>소화제 방출 안 됨</b><span class="ts-en">Agent will not discharge</span></td>
+          <td class="ts-cause">소화병 압력·스퀴브·배선 확인<span class="ts-en">Check bottle pressure, squib, wiring</span></td>
+          <td class="ts-act">방출밸브 점검<span class="ts-en">Inspect discharge valve</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>열방출 지시기 사라짐</b><span class="ts-en">Thermal discharge indicator gone</span></td>
+          <td class="ts-cause">과열로 자동 방출됨→원인조사<span class="ts-en">Auto-discharged from overheat → investigate</span></td>
+          <td class="ts-act">소화병 교체<span class="ts-en">Replace bottle</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>소화 용기 압력이 낮게 지시</b><span class="ts-en">Extinguisher bottle pressure reads low</span></td>
+          <td class="ts-cause">주변 온도 영향, 누설, 지시계 오차<span class="ts-en">Ambient temperature, leakage or gauge error</span></td>
+          <td class="ts-act">온도-압력 표와 비교, 무게 측정, 비눗물 누설 점검<span class="ts-en">Compare with the temperature-pressure chart, weigh the bottle, soap-test for leaks</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>카트리지(squib) 점검등이 안 켜짐</b><span class="ts-en">Squib test light does not illuminate</span></td>
+          <td class="ts-cause">전구, 회로, 카트리지 불량<span class="ts-en">Bulb, circuit or cartridge fault</span></td>
+          <td class="ts-act">전구→회로→카트리지 순 점검, 승인된 시험기만 사용<span class="ts-en">Check bulb, circuit, then cartridge; use only approved testers</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch17_fire_protection.html#s-exting-maint"><b>CH17</b>소화 계통 정비 (압력·카트리지)<i> · 소화 계통 작업과 시험 때의 개인 보호구(PPE)</i></a><a href="ch17_fire_protection.html#s-detector-maint"><b>CH17</b>탐지기 정비·서비싱<i> · 화재 감지·소화 계통 고장탐구와 과열 감지 계통 검사 절차 찾기</i></a><a href="ch17_fire_protection.html#s-smoke-detectors"><b>CH17</b>연기·CO 탐지기<i> · 연기·유독가스 감지기와 일산화탄소 감지기 검사, 연기 감지 계통 점검 절차 찾기</i></a><a href="ch17_fire_protection.html#s-complete-system"><b>CH17</b>완전한 화재 방지 계통 (실기체계)<i> · 화재 감지·보호 계통 작동 점검</i></a><a href="ch17_fire_protection.html#s-jep-fire-fixed"><b>CH17</b>고정 소화계통: 재래식·HRD<i> · 고정식 용기 표시 확인</i></a><a href="ch17_fire_protection.html#s-jep-fire-agents"><b>CH17</b>소화제: CO2와 할론<i> · 소화제의 종류와 위험</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch17_fire_protection.html">📘 CH17 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch17_fire_protection.html#s-quiz">📝 화재 방지 계통 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+    <section id="sys10" class="sys-sec">
+      <div class="sys-head">
+        <span class="sys-ic">🧭</span>
+        <div>
+          <h2>계기 계통</h2>
+          <span class="sys-en">Instrument System · <span style="white-space:nowrap">CH 10</span></span>
+        </div>
+        <a class="sys-pdf" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-31B_Aviation_Maintenance_Technician_Handbook.pdf#page=520" target="_blank" rel="noopener">📄 PDF p.520</a>
+      </div>
+
+      <div class="block-label">⚙️ 작동 원리 <span>Operating Principle</span></div>
+      <div class="principle">
+        <p class="p-ko">피토정압 계통이 고도계·속도계·승강계를, 자이로가 자세계·방향계를 구동합니다. 전자계기(EFIS)로 통합 표시합니다.</p>
+        <p class="p-en">The pitot-static system drives the altimeter, airspeed, and VSI; gyros drive attitude and heading. EFIS integrates the displays.</p>
+      </div>
+
+      <div class="block-label">🔧 고장탐구 <span>Troubleshooting</span></div>
+      <div class="ts-wrap">
+        <table class="ts-table">
+          <thead><tr><th>증상 Symptom</th><th>점검 Check</th><th>조치 Action</th></tr></thead>
+          <tbody><tr>
+          <td class="ts-sym"><b>고도/속도 오지시</b><span class="ts-en">Wrong altitude/airspeed</span></td>
+          <td class="ts-cause">정압구·피토관 막힘 확인<span class="ts-en">Check static port, pitot blockage</span></td>
+          <td class="ts-act">계통 누설 점검<span class="ts-en">Test system for leaks</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>자이로 계기 불량</b><span class="ts-en">Gyro instrument fault</span></td>
+          <td class="ts-cause">진공펌프·필터·전원 확인<span class="ts-en">Check vacuum pump, filter, power</span></td>
+          <td class="ts-act">자이로 세차 점검<span class="ts-en">Inspect gyro precession</span></td>
+        </tr><tr>
+          <td class="ts-sym"><b>계기 전체 이상</b><span class="ts-en">All instruments abnormal</span></td>
+          <td class="ts-cause">전원·계기 조명·퓨즈 확인<span class="ts-en">Check power, panel lighting, fuse</span></td>
+          <td class="ts-act">EFIS 계통 점검<span class="ts-en">Inspect EFIS system</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>간헐적인 경고 메시지</b><span class="ts-en">Intermittent warning message</span></td>
+          <td class="ts-cause">커넥터 접촉 불량, 센서 고장<span class="ts-en">Loose connector or failing sensor</span></td>
+          <td class="ts-act">BITE 고장 기록 조회 후 해당 커넥터·센서 점검<span class="ts-en">Read the BITE fault history, then check the connector and sensor</span></td>
+        </tr><tr>
+          <td class="ts-sym"><span class="acs-mini">ACS</span><b>자기 컴퍼스 오차가 큼</b><span class="ts-en">Large magnetic compass error</span></td>
+          <td class="ts-cause">새로 단 전기·자성 장비의 영향<span class="ts-en">Influence of newly installed electrical or magnetic equipment</span></td>
+          <td class="ts-act">컴퍼스 스윙으로 보정하고 편차 카드 갱신<span class="ts-en">Swing the compass, compensate and update the deviation card</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+
+      <div class="acs-rel"><div class="acs-rel-h">🔗 관련 ACS 보강 주제<span>Related ACS topics</span></div><div class="acs-rel-list"><a href="ch10_instruments.html#s-acs-bite-hud"><b>CH10</b>자체 시험 장비(BITE)와 헤드업 디스플레이(HUD)</a><a href="ch10_instruments.html#s-acs-inst-maint"><b>CH10</b>계기 정비 실무: 냉각·세척 주의·간헐 경고·고도계 선정·외기온도계</a><a href="ch10_instruments.html#s-pitot-static"><b>CH10</b>피토정압 계통<i> · 대체 정압원(alternate static source) 검사</i></a><a href="ch10_instruments.html#s-gyro-power"><b>CH10</b>자이로 동력원<i> · 진공 계기 계통의 고장탐구 절차, 필터 검사, 흡입 압력 조정</i></a><a href="ch10_instruments.html#s-direction-instruments"><b>CH10</b>방향 지시 계기·컴퍼스<i> · 자기 컴퍼스 검사</i></a><a href="ch10_instruments.html#s-jep-inst-markings"><b>CH10</b>계기 범위 표시(색코드)<i> · 계기 유리에 범위 표시 넣기</i></a></div></div>
+
+      <div class="block-label">📝 연계 학습 <span>Related Study</span></div>
+      <div class="kw-row">
+        <a class="goto-ch" style="margin-left:0" href="ch10_instruments.html">📘 CH10 본문 보기 →</a>
+        <a class="goto-ch" style="margin-left:0" href="ch10_instruments.html#s-quiz">📝 계기 계통 기출문제 풀기 →</a>
+      </div>
+    </section>
+    
+</main>
+</div>
+
+<button class="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script>
-/* ===== 통합 인터랙션 핸들러 (견고 버전) ===== */
-// 정답 선택
-function iqPick(el, ans){
-  try{
-    var ul = el.parentNode;
-    [].forEach.call(ul.children, function(li){ li.classList.remove('correct','wrong'); });
-    [].forEach.call(ul.children, function(li){
-      if(li.getAttribute('data-letter')===ans) li.classList.add('correct');
-    });
-    if(el.getAttribute('data-letter')!==ans) el.classList.add('wrong');
-  }catch(e){}
-}
-// 정답·해설 토글 (구조 비의존: 가장 가까운 .iqreveal 안에서 .iqexp 검색)
-function iqToggle(btn){
-  try{
-    var wrap = btn.closest ? btn.closest('.iqreveal') : btn.parentNode;
-    var exp = wrap ? wrap.querySelector('.iqexp') : btn.nextElementSibling;
-    if(!exp) return;
-    exp.classList.toggle('show');
-    btn.textContent = exp.classList.contains('show') ? '해설 접기' : '정답·해설 보기';
-  }catch(e){}
-}
-
-
-
-/* ===== 교재 보기 모달 (문제 맞춤형) ===== */
-function tbmOpen(btn){
-  try{
-    var card = btn.closest ? btn.closest('.iqcard') : null;
-    if(!card){ var p=btn; while(p&&!(p.className&&p.className.indexOf('iqcard')>=0)){p=p.parentNode;} card=p; }
-    if(!card) return;
-    var qno = card.getAttribute('data-q') || '';
-    var qq = card.querySelector('.iqq');
-    var qtext = qq ? qq.textContent.replace(qno,'').trim() : '';
-    // 정답·해설(iqexp) 내용 = 이 문제의 핵심 교재
-    var exp = card.querySelector('.iqexp');
-    var expClone = exp ? exp.cloneNode(true) : null;
-    if(expClone){ expClone.classList.remove('show'); }
-    // 매칭된 관련 섹션
-    var msid = card.getAttribute('data-tbsec') || '';
-    var mtitle = card.getAttribute('data-tbtitle') || '';
-    var mpage = card.getAttribute('data-tbpage') || '';
-    var mpdf = card.getAttribute('data-pdfpage') || '';
-
-    document.getElementById('tbmTitle').textContent = 'Q'+qno+' 관련 교재';
-    document.getElementById('tbmEn').textContent = qtext.length>60?qtext.slice(0,60)+'…':qtext;
-
-    var body = document.getElementById('tbmBody');
-    body.innerHTML = '';
-    // 1) 핵심: 정답·해설
-    var coreLabel = document.createElement('div');
-    coreLabel.className='tbm-sec-label';
-    coreLabel.textContent='📌 이 문제의 핵심 (정답·해설)';
-    body.appendChild(coreLabel);
-    if(expClone){
-      var core=document.createElement('div');
-      core.className='tbm-core';
-      core.innerHTML = expClone.innerHTML;
-      body.appendChild(core);
-    }
-    // 2) 관련 교재 섹션 (강한 매칭일 때만)
-    var gotoBtn = document.getElementById('tbmGoto');
-    if(msid){
-      var sec = document.getElementById(msid);
-      if(sec){
-        var relLabel=document.createElement('div');
-        relLabel.className='tbm-sec-label';
-        relLabel.style.marginTop='18px';
-        relLabel.innerHTML='📖 관련 교재: '+mtitle+(mpage?' <span class="tbm-page">📄 FAA-H-8083-32B p.'+mpage+'</span>':'');
-        body.appendChild(relLabel);
-        var texts=sec.querySelectorAll('.comp-text');
-        var figs=sec.querySelectorAll('.fig');
-        [].forEach.call(texts,function(tx){var c=tx.cloneNode(true);c.className='tbm-rel';body.appendChild(c);});
-        [].forEach.call(figs,function(fg){body.appendChild(fg.cloneNode(true));});
-        gotoBtn.style.display='';
-        gotoBtn.textContent=mtitle+(mpage?' (p.'+mpage+')':'')+' 교재 전체 보기 →';
-        gotoBtn.onclick=function(e){e.preventDefault();tbmClose();sec.scrollIntoView({behavior:'smooth',block:'start'});};
-        var pdfBtn=document.getElementById('tbmPdf');
-        if(pdfBtn&&mpdf){
-          pdfBtn.style.display='';
-          pdfBtn.textContent='📄 FAA 핸드북 PDF p.'+mpdf+' 열기';
-          pdfBtn.href='https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/amt_powerplant_handbook.pdf#page='+mpdf;
-        }
-      } else { gotoBtn.style.display='none'; }
-    } else {
-      gotoBtn.style.display='none';
-      var pb=document.getElementById('tbmPdf');if(pb)pb.style.display='none';
-    }
-    document.getElementById('tbmOverlay').classList.add('show');
-    document.body.style.overflow='hidden';
-  }catch(e){}
-}
-function tbmClose(){
-  var o=document.getElementById('tbmOverlay');
-  if(o)o.classList.remove('show');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')tbmClose();});
-
-
-function figRefToggle(el){
-  el.classList.toggle('open');
-  var body = el.nextElementSibling;
-  if(body) body.classList.toggle('open');
-}
-
-
-// 이미지 있는 섹션에 클래스 부여
-document.querySelectorAll('.comp-body').forEach(function(b){
-  if(b.querySelector('.fig')) b.classList.add('has-img');
-});
 // 스크롤 스파이
-var links=[...document.querySelectorAll('.toc a')];
-var secs=links.map(function(a){return document.getElementById(a.dataset.target);});
-function onScroll(){
-  var y=window.scrollY+120, cur=-1;
-  secs.forEach(function(s,i){ if(s&&s.offsetTop<=y) cur=i; });
-  links.forEach(function(a,i){ a.classList.toggle('active',i===cur); });
-  document.getElementById('backtop').classList.toggle('show',window.scrollY>400);
-}
-window.addEventListener('scroll',onScroll); onScroll();
-// 부드러운 스크롤 + 모바일 메뉴 닫기
-links.forEach(function(a){
-  a.addEventListener('click',function(e){
-    e.preventDefault();
-    var t=document.getElementById(a.dataset.target);
-    t.scrollIntoView({behavior:'smooth'});
-    document.querySelector('.side').classList.remove('open');
-  });
-});
-// 검색
-function doSearch(q){
-  q=q.trim().toLowerCase();
-  var any=false;
-  // 1) 제목(한글 h3 + 영문 .en) 우선 매칭
-  var titleHits=[];
-  document.querySelectorAll('.comp').forEach(function(sec){
-    var h3=sec.querySelector('.comp-head h3, h3');
-    var en=sec.querySelector('.comp-en, .en');
-    var title=((h3?h3.textContent:'')+' '+(en?en.textContent:'')).toLowerCase();
-    titleHits.push(!q||title.includes(q));
-  });
-  var anyTitle=titleHits.some(function(h){return h;});
-  // 2) 제목에 하나도 없으면 본문 전체로 폴백
-  document.querySelectorAll('.comp').forEach(function(sec,i){
-    var hit;
-    if(!q){hit=true;}
-    else if(anyTitle){hit=titleHits[i];}
-    else{hit=sec.textContent.toLowerCase().includes(q);}
-    sec.style.display=hit?'':'none';
-    if(hit)any=true;
-  });
-  links.forEach(function(a){
-    var t=document.getElementById(a.dataset.target);
-    a.parentElement.style.display=(!q||(t&&t.style.display!=='none'))?'':'none';
-  });
-  var nr=document.getElementById('noresult');
-  if(nr)nr.style.display=any?'none':'block';
-}
-
-
-
-
-/* === 이미지 라이트박스: 클릭 확대, 휠/버튼 줌, 드래그 이동 === */
 (function(){
-  if(document.getElementById('imgLightbox')) return;
-
-  var lb = document.createElement('div');
-  lb.id = 'imgLightbox';
-  lb.innerHTML =
-    '<div class="ilb-hint">🖱️ 휠/+− 버튼: 확대·축소<br>드래그: 이동 · ESC/배경: 닫기</div>' +
-    '<div class="ilb-bar">' +
-      '<button class="ilb-btn" data-act="out" title="축소">−</button>' +
-      '<button class="ilb-btn" data-act="in" title="확대">＋</button>' +
-      '<button class="ilb-btn" data-act="reset" title="원래대로">⤢</button>' +
-      '<button class="ilb-btn" data-act="close" title="닫기">✕</button>' +
-    '</div>' +
-    '<img id="ilbImg" alt="">' +
-    '<div class="ilb-cap" id="ilbCap"></div>';
-  document.body.appendChild(lb);
-
-  var img = document.getElementById('ilbImg');
-  var cap = document.getElementById('ilbCap');
-  var scale = 1, tx = 0, ty = 0;
-  var MIN = 0.3, MAX = 8;
-
-  function apply(){
-    img.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+scale+')';
-  }
-  function reset(){
-    scale = 1; tx = 0; ty = 0; apply();
-  }
-  function open(src, caption){
-    img.src = src;
-    cap.textContent = caption || '';
-    cap.style.display = caption ? 'block' : 'none';
-    reset();
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function close(){
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    img.src = '';
-  }
-  function zoomAt(factor){
-    var ns = Math.min(MAX, Math.max(MIN, scale * factor));
-    scale = ns; apply();
-  }
-
-  // 썸네일 클릭 → 열기
-  document.addEventListener('click', function(e){
-    var im = e.target.closest && e.target.closest('.fig img');
-    if(im){
-      e.preventDefault();
-      var fc = im.parentNode.querySelector('figcaption');
-      open(im.src, fc ? fc.textContent : '');
+  try{
+    var secs=document.querySelectorAll('.sys-sec');
+    var navs=document.querySelectorAll('.snav');
+    function spy(){
+      var y=window.scrollY+120,cur='';
+      secs.forEach(function(s){ if(s.offsetTop<=y) cur=s.id; });
+      navs.forEach(function(n){ n.classList.toggle('active', n.getAttribute('href')==='#'+cur); });
     }
-  });
-
-  // 버튼
-  lb.querySelector('.ilb-bar').addEventListener('click', function(e){
-    var b = e.target.closest('.ilb-btn'); if(!b) return;
-    var a = b.getAttribute('data-act');
-    if(a==='in') zoomAt(1.3);
-    else if(a==='out') zoomAt(1/1.3);
-    else if(a==='reset') reset();
-    else if(a==='close') close();
-  });
-
-  // 배경 클릭 닫기 (이미지/버튼 제외)
-  lb.addEventListener('click', function(e){
-    if(e.target === lb) close();
-  });
-
-  // 휠 줌 (커서 기준)
-  lb.addEventListener('wheel', function(e){
-    if(!lb.classList.contains('open')) return;
-    e.preventDefault();
-    var factor = e.deltaY < 0 ? 1.12 : 1/1.12;
-    var ns = Math.min(MAX, Math.max(MIN, scale * factor));
-    // 커서 위치 기준 확대
-    var rect = img.getBoundingClientRect();
-    var cx = e.clientX - (rect.left + rect.width/2);
-    var cy = e.clientY - (rect.top + rect.height/2);
-    var ratio = ns/scale;
-    tx -= cx*(ratio-1);
-    ty -= cy*(ratio-1);
-    scale = ns; apply();
-  }, {passive:false});
-
-  // 더블클릭: 확대/원복 토글
-  img.addEventListener('dblclick', function(e){
-    e.preventDefault();
-    if(scale > 1.2){ reset(); } else { zoomAt(2); }
-  });
-
-  // 드래그 이동 (마우스)
-  var dragging=false, sx=0, sy=0, stx=0, sty=0;
-  img.addEventListener('mousedown', function(e){
-    e.preventDefault(); dragging=true;
-    sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
-    img.classList.add('grabbing');
-  });
-  window.addEventListener('mousemove', function(e){
-    if(!dragging) return;
-    tx = stx + (e.clientX - sx);
-    ty = sty + (e.clientY - sy);
-    apply();
-  });
-  window.addEventListener('mouseup', function(){
-    dragging=false; img.classList.remove('grabbing');
-  });
-
-  // 터치: 1손가락 이동, 2손가락 핀치 줌
-  var touchMode=null, startDist=0, startScale=1, ttx=0, tty=0, tsx=0, tsy=0;
-  function dist(t){var dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.hypot(dx,dy);}
-  img.addEventListener('touchstart', function(e){
-    if(e.touches.length===1){
-      touchMode='pan'; tsx=e.touches[0].clientX; tsy=e.touches[0].clientY; ttx=tx; tty=ty;
-    } else if(e.touches.length===2){
-      touchMode='pinch'; startDist=dist(e.touches); startScale=scale;
-    }
-  }, {passive:true});
-  img.addEventListener('touchmove', function(e){
-    if(touchMode==='pan' && e.touches.length===1){
-      tx = ttx + (e.touches[0].clientX - tsx);
-      ty = tty + (e.touches[0].clientY - tsy);
-      apply();
-    } else if(touchMode==='pinch' && e.touches.length===2){
-      var d = dist(e.touches);
-      scale = Math.min(MAX, Math.max(MIN, startScale * (d/startDist)));
-      apply();
-    }
-    if(e.cancelable) e.preventDefault();
-  }, {passive:false});
-  img.addEventListener('touchend', function(e){
-    if(e.touches.length===0) touchMode=null;
-  });
-
-  // 키보드
-  document.addEventListener('keydown', function(e){
-    if(!lb.classList.contains('open')) return;
-    if(e.key==='Escape') close();
-    else if(e.key==='+'||e.key==='=') zoomAt(1.3);
-    else if(e.key==='-'||e.key==='_') zoomAt(1/1.3);
-    else if(e.key==='0') reset();
-  });
+    window.addEventListener('scroll',spy);spy();
+    navs.forEach(function(n){
+      n.addEventListener('click',function(e){
+        e.preventDefault();
+        var el=document.getElementById(this.getAttribute('href').slice(1));
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+  }catch(e){}
 })();
 </script>
-<div class="site-disclaimer" style="max-width:1180px;margin:46px auto 26px;padding:16px 20px;border-top:1px solid rgba(96,165,250,.18);font-size:12px;line-height:1.75;color:#7b8ba3;font-family:'Noto Sans KR',sans-serif;"><div style="font-weight:700;color:#FBBF24;font-size:11.5px;letter-spacing:.4px;margin-bottom:6px;">⚠ 이용 고지 · DISCLAIMER</div><div>본 사이트는 FAA 공인 교육기관이 아니며, FAA가 승인하거나 보증한 자료가 아닙니다. FAA 핸드북(미국 정부 저작물)과 Jeppesen·ASA 교재를 바탕으로 개인 학습용으로 정리한 <b>보조 자료</b>이며, 시험 합격이나 내용의 정확성·최신성을 보증하지 않습니다. 실제 정비 시에는 반드시 해당 항공기의 기술교범(AMM·T.O.)과 최신 규정을 확인하십시오.</div><div style="margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6b80;">This site is an independent self-study aid. It is not affiliated with, endorsed by, or approved by the FAA, and it does not guarantee exam results or the accuracy and currency of its content. Always refer to the applicable aircraft maintenance manual and current regulations for actual maintenance.</div></div></body></html>
+<div class="site-disclaimer" style="max-width:1180px;margin:46px auto 26px;padding:16px 20px;border-top:1px solid rgba(96,165,250,.18);font-size:12px;line-height:1.75;color:#7b8ba3;font-family:'Noto Sans KR',sans-serif;"><div style="font-weight:700;color:#FBBF24;font-size:11.5px;letter-spacing:.4px;margin-bottom:6px;">⚠ 이용 고지 · DISCLAIMER</div><div>본 사이트는 FAA 공인 교육기관이 아니며, FAA가 승인하거나 보증한 자료가 아닙니다. FAA 핸드북(미국 정부 저작물)과 Jeppesen·ASA 교재를 바탕으로 개인 학습용으로 정리한 <b>보조 자료</b>이며, 시험 합격이나 내용의 정확성·최신성을 보증하지 않습니다. 실제 정비 시에는 반드시 해당 항공기의 기술교범(AMM·T.O.)과 최신 규정을 확인하십시오.</div><div style="margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6b80;">This site is an independent self-study aid. It is not affiliated with, endorsed by, or approved by the FAA, and it does not guarantee exam results or the accuracy and currency of its content. Always refer to the applicable aircraft maintenance manual and current regulations for actual maintenance.</div></div></body>
+</html>
