@@ -84,6 +84,11 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .series a.cur{border-color:var(--gold);color:var(--gold);background:rgba(251,191,36,.08);}
 .series a:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px);}
 </style>
+
+
+
+
+<!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A&amp;P Airframe"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="icon" href="icons/favicon-32.png"><script src="app.js" defer></script><!--/pwa-->
 </head>
 <body>
 <div class="wrap">
@@ -150,6 +155,16 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
     <div class="quizbadge" style="color:#34D399;background:rgba(52,211,153,.10);border-color:rgba(52,211,153,.28);">🔧 실기 과제 198 + 🗣 구술 274 + 🎯 MTG식 모의시험</div>
     <span class="arrow">→</span>
   </a>
+<a href="progress.html" class="card done" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(251,191,36,.10),rgba(96,165,250,.06));border-color:rgba(251,191,36,.35);margin-top:14px;">
+    <div class="topline"><span class="chno" style="color:var(--green);">MY PROGRESS</span>
+      <span class="status s-done" style="background:rgba(251,191,36,.15);color:var(--gold);border-color:rgba(251,191,36,.3);">● 신규</span></div>
+    <h3>📊 내 진도·약점 분석</h3>
+    <div class="cen">My progress · weak areas · today's plan</div>
+    <div class="desc">장 끝 퀴즈·본문 기출·필기 모의고사·플래시카드·구술·트레이너 기록을 모아 장별 진도와 약점 순위를 보여 주고, 오늘 할 공부를 골라 줍니다. 학습한 날 달력·모의고사 점수 추이·기록 백업도 있습니다.</div>
+    <div class="quizbadge" style="color:#34D399;background:rgba(52,211,153,.10);border-color:rgba(52,211,153,.28);">🎯 오늘의 추천 + 📚 장별 약점 + 💾 백업·복원</div>
+    <span class="arrow">→</span>
+  </a>
+<div data-install style="grid-column:1/-1"></div>
   <a href="textbook.html" class="card done" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(96,165,250,.10),rgba(251,191,36,.05));border-color:rgba(96,165,250,.35);margin-top:14px;">
     <div class="topline"><span class="chno" style="color:var(--cyan);">TEXTBOOK</span>
       <span class="status s-done" style="background:rgba(96,165,250,.15);color:var(--cyan);border-color:rgba(96,165,250,.3);">● 색인</span></div>
