@@ -1,5 +1,5 @@
 /* FAA Airframe — service worker (offline support) */
-var VER='30b6ad67';
+var VER='2f467a10';
 var CORE='faa-airframe-core-'+VER, PAGES='faa-airframe-pages', IMGS='faa-airframe-img';
 var PRECACHE=['./','index.html','progress.html','acs_practice.html','mock_exam.html','flashcards.html','offline.html','app.js','manifest.webmanifest','icons/icon-192.png','icons/icon-512.png','icons/favicon-32.png'];
 var IMG_MAX=800;
